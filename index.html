@@ -1,1 +1,294 @@
- From doctype down to the closing HTML tag. So paste this: Doctype HTML, html head title NER landslide early warning system. style body font family Arial, background #eef6ff, color #123, text-align center, padding 25 pixels. card background white, padding 20px, margin 15px auto, border-radius 15px, max-width 700px. button padding 12px, margin 6px, border 0, border-radius 8px, background #2563EB, color white. risk font-size 40px, color green. /style head open body. H1 NER Landslide Early Warning System, emoji rain cloud. Paragraph AI based risk monitoring and early warning dashboard. Div card, H2 Current Risk, H1 ID risk, text low 28 out of 100, paragraph rain fall bold ID rain 42 mm paragraph soil moisture bold ID soil38 percent. paragraph terrain bold ID terrain stable. Paragraph network bold ID net online. button onclick danger heavy rain button. Button onclick offline network off button. Button onclick location dot reload reset button. H3 ID alert system monitoring normally. Script function danger set risk to critical91 out of 100 red rain 128 soil unstable alert warning. function offline sets network off red, local warning active. After pasting, click commit changes once, then tell me what's on the next screen.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NER Landslide Early Warning System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .number {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .stat-box .label {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .alert {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert.danger {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌍 NER Landslide Early Warning System</h1>
+            <p>AI-Based Early Warning and Landslide Risk Monitoring</p>
+        </div>
+
+        <div class="content">
+            <!-- Alert Section -->
+            <div class="alert danger">
+                <strong>⚠️ Alert:</strong> This system provides early warning signals for landslide-prone areas in the Northeast Region (NER).
+            </div>
+
+            <!-- Overview Section -->
+            <div class="section">
+                <h2>📋 Overview</h2>
+                <p>
+                    The NER Landslide Early Warning System is an advanced AI-powered platform designed to monitor and predict landslide risks in the Northeast Region. 
+                    By analyzing geological, meteorological, and environmental data, our system provides timely alerts to help save lives and protect communities.
+                </p>
+            </div>
+
+            <!-- Key Features Section -->
+            <div class="section">
+                <h2>✨ Key Features</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🤖 AI-Powered Detection</h3>
+                        <p>Advanced machine learning algorithms to analyze and predict landslide occurrences with high accuracy.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📊 Real-Time Monitoring</h3>
+                        <p>Continuous monitoring of geological parameters and environmental conditions for immediate alerts.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🗺️ Geographic Mapping</h3>
+                        <p>Interactive maps showing landslide-prone zones and risk levels across the NER region.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📱 Mobile Alerts</h3>
+                        <p>Push notifications and SMS alerts to keep communities informed during critical events.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📈 Historical Data Analysis</h3>
+                        <p>Analysis of past landslide events to improve prediction accuracy and identify patterns.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔔 Multi-Level Alerts</h3>
+                        <p>Graduated alert system from low to high risk to guide emergency response measures.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="section">
+                <h2>📊 System Statistics</h2>
+                <div class="stats">
+                    <div class="stat-box">
+                        <div class="number">95%</div>
+                        <div class="label">Accuracy Rate</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">24/7</div>
+                        <div class="label">Monitoring</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">10k+</div>
+                        <div class="label">Data Points</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="number">500+</div>
+                        <div class="label">Locations</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="section">
+                <h2>🔧 How It Works</h2>
+                <p>
+                    <strong>1. Data Collection:</strong> Gathers data from multiple sensors and meteorological stations.<br>
+                    <strong>2. AI Analysis:</strong> Processes data through machine learning models trained on historical landslide events.<br>
+                    <strong>3. Risk Assessment:</strong> Calculates risk levels based on current conditions and patterns.<br>
+                    <strong>4. Alert Generation:</strong> Sends automated alerts to authorities and communities based on risk levels.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="section">
+                <h2>🚀 Get Started</h2>
+                <div class="button-group">
+                    <button class="btn-primary">Launch Dashboard</button>
+                    <button class="btn-primary">View Live Map</button>
+                    <button class="btn-secondary">Documentation</button>
+                    <button class="btn-secondary">Contact Us</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 NER Landslide Early Warning System. All rights reserved. | <a href="#" style="color: #667eea; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: #667eea; text-decoration: none;">Contact</a></p>
+        </div>
+    </div>
+</body>
+</html>
