@@ -107,6 +107,8 @@
     }
 
     .alert.danger { background:#f8d7da; border-left-color:#dc3545; }
+    .alert.warning { background:#fff3cd; border-left-color:#ffc107; }
+    .alert.info { background:#cce5ff; border-left-color:#0066cc; }
 
     /* Dashboard styles */
     #dashboard {
@@ -134,6 +136,17 @@
       box-shadow: inset 0 -1px 0 rgba(0,0,0,0.02);
     }
 
+    /* Active state for map during simulation */
+    #map.active-simulation {
+      background: linear-gradient(180deg,#ffe0e0 0%, #fff5f5 100%);
+      animation: pulse-map 2s infinite;
+    }
+
+    @keyframes pulse-map {
+      0%, 100% { background: linear-gradient(180deg,#ffe0e0 0%, #fff5f5 100%); }
+      50% { background: linear-gradient(180deg,#ffcccc 0%, #ffeeee 100%); }
+    }
+
     /* simple placeholder markers on the map (purely visual) */
     .map-marker {
       width: 14px;
@@ -143,6 +156,19 @@
       border-radius: 50%;
       position: absolute;
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+      transition: all 0.3s ease;
+    }
+
+    /* Animated marker when simulation is active */
+    .map-marker.active {
+      width: 20px;
+      height: 20px;
+      animation: blink-marker 0.6s infinite;
+    }
+
+    @keyframes blink-marker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
 
     /* place a few sample markers by percent */
@@ -154,6 +180,93 @@
     .panel { background:#f8f9fa; padding:12px; border-radius:8px; margin-bottom:12px; }
     .small-stat { display:flex; justify-content:space-between; margin-bottom:8px; }
     .panel h3 { color:#667eea; margin-bottom:8px; }
+
+    /* Simulation Controls */
+    .simulation-controls {
+      background: #f0f7ff;
+      border: 2px solid #667eea;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .simulation-controls h4 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+
+    .control-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+    }
+
+    .btn-control {
+      padding: 8px 12px;
+      font-size: 0.9rem;
+      border: 2px solid #667eea;
+      background: white;
+      color: #667eea;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .btn-control:hover { background: #667eea; color: white; }
+    .btn-control.active { background: #dc3545; color: white; border-color: #dc3545; }
+    .btn-control.reset { background: #28a745; color: white; border-color: #28a745; }
+    .btn-control.reset:hover { background: #20c997; }
+
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+
+    .status-indicator.active { background: #dc3545; animation: blink 0.8s infinite; }
+    .status-indicator.normal { background: #28a745; }
+    .status-indicator.warning { background: #ffc107; animation: pulse 1s infinite; }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .alert-list {
+      max-height: 150px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+    }
+
+    .alert-item {
+      background: #fff;
+      padding: 8px;
+      border-left: 4px solid #dc3545;
+      margin-bottom: 6px;
+      border-radius: 4px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
     /* focus outline for accessibility */
     :focus { outline: 3px solid rgba(102,126,234,0.35); outline-offset: 2px; }
@@ -223,6 +336,18 @@
       <section id="dashboard" class="section" aria-hidden="true" tabindex="-1" role="region" aria-label="Landslide Monitoring Dashboard">
         <h2 id="dashboard-heading">🛰️ Landslide Monitoring Dashboard</h2>
 
+        <!-- Simulation Controls -->
+        <div class="simulation-controls">
+          <h4>🎮 Simulation Controls</h4>
+          <div class="control-buttons">
+            <button id="btn-heavy-rain" class="btn-control" title="Simulate heavy rain conditions">☔ Heavy Rain</button>
+            <button id="btn-high-risk" class="btn-control" title="Simulate high-risk alert">⚠️ High Risk</button>
+            <button id="btn-network-off" class="btn-control" title="Simulate network outage">📡 Network Off</button>
+            <button id="btn-warning" class="btn-control" title="Trigger warning alert">🚨 Warning</button>
+            <button id="btn-reset" class="btn-control reset" title="Reset all simulations">🔄 Reset</button>
+          </div>
+        </div>
+
         <div class="dashboard-grid">
           <!-- Left: Map + Recent Alerts / Sensor Health -->
           <div>
@@ -235,14 +360,29 @@
               <div class="map-caption">Placeholder map — integrate real map later</div>
             </div>
 
-            <div style="display:flex; gap:12px; margin-top:12px;">
-              <div class="panel" style="flex:1;">
-                <h3>Recent Alerts</h3>
-                <p>No recent alerts. When enabled, this will list alerts with timestamps and severity.</p>
+            <div style="display:flex; gap:12px; margin-top:12px; flex-direction:column;">
+              <div class="panel">
+                <h3>📢 Recent Alerts</h3>
+                <div id="alerts-container" class="alert-list">
+                  <p style="color:#999;">No recent alerts. Trigger simulations to test alerts.</p>
+                </div>
               </div>
-              <div class="panel" style="flex:1;">
-                <h3>Sensor Health</h3>
-                <p>All sensors operational in this demo. Health metrics appear here.</p>
+              <div class="panel">
+                <h3>📊 Sensor Health</h3>
+                <div>
+                  <div class="small-stat">
+                    <span><span class="status-indicator normal"></span>Network Status</span>
+                    <strong id="network-status">Online</strong>
+                  </div>
+                  <div class="small-stat">
+                    <span><span class="status-indicator normal"></span>Sensor Array 1</span>
+                    <strong id="sensor-status-1">Operational</strong>
+                  </div>
+                  <div class="small-stat">
+                    <span><span class="status-indicator normal"></span>Sensor Array 2</span>
+                    <strong id="sensor-status-2">Operational</strong>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -250,15 +390,31 @@
           <!-- Right: Key Metrics + Actions -->
           <aside>
             <div class="panel" aria-labelledby="key-metrics-heading">
-              <h3 id="key-metrics-heading">Key Metrics</h3>
-              <div class="small-stat"><span>Active Sites</span><strong>512</strong></div>
-              <div class="small-stat"><span>High-Risk Zones</span><strong>12</strong></div>
-              <div class="small-stat"><span>Avg Lead Time</span><strong>2.4 hrs</strong></div>
-              <div class="small-stat"><span>Model Confidence</span><strong>92%</strong></div>
+              <h3 id="key-metrics-heading">📈 Key Metrics</h3>
+              <div class="small-stat">
+                <span>Active Sites</span>
+                <strong id="active-sites">512</strong>
+              </div>
+              <div class="small-stat">
+                <span>High-Risk Zones</span>
+                <strong id="high-risk-zones">12</strong>
+              </div>
+              <div class="small-stat">
+                <span>Rainfall (mm)</span>
+                <strong id="rainfall">0</strong>
+              </div>
+              <div class="small-stat">
+                <span>Model Confidence</span>
+                <strong id="confidence">92%</strong>
+              </div>
+              <div class="small-stat">
+                <span>System Status</span>
+                <strong id="system-status"><span class="status-indicator normal"></span>Normal</strong>
+              </div>
             </div>
 
             <div class="panel">
-              <h3>Actions</h3>
+              <h3>⚙️ Actions</h3>
               <button id="hide-dashboard-btn" class="btn-secondary" style="width:100%;">Hide Dashboard</button>
             </div>
           </aside>
@@ -282,6 +438,174 @@
       const dashboard = document.getElementById('dashboard');
       const dashboardHeading = document.getElementById('dashboard-heading');
       const map = document.getElementById('map');
+
+      // Simulation control buttons
+      const btnHeavyRain = document.getElementById('btn-heavy-rain');
+      const btnHighRisk = document.getElementById('btn-high-risk');
+      const btnNetworkOff = document.getElementById('btn-network-off');
+      const btnWarning = document.getElementById('btn-warning');
+      const btnReset = document.getElementById('btn-reset');
+
+      // Simulation state
+      let simulationState = {
+        heavyRain: false,
+        highRisk: false,
+        networkOff: false,
+        warning: false,
+        alerts: []
+      };
+
+      // Metrics elements
+      const activeSites = document.getElementById('active-sites');
+      const highRiskZones = document.getElementById('high-risk-zones');
+      const rainfall = document.getElementById('rainfall');
+      const confidence = document.getElementById('confidence');
+      const systemStatus = document.getElementById('system-status');
+      const networkStatus = document.getElementById('network-status');
+      const sensorStatus1 = document.getElementById('sensor-status-1');
+      const sensorStatus2 = document.getElementById('sensor-status-2');
+      const alertsContainer = document.getElementById('alerts-container');
+
+      function addAlert(message, type = 'warning') {
+        const timestamp = new Date().toLocaleTimeString();
+        const alert = { message, type, timestamp };
+        simulationState.alerts.unshift(alert);
+
+        // Keep only last 10 alerts
+        if (simulationState.alerts.length > 10) {
+          simulationState.alerts.pop();
+        }
+
+        renderAlerts();
+      }
+
+      function renderAlerts() {
+        if (simulationState.alerts.length === 0) {
+          alertsContainer.innerHTML = '<p style="color:#999;">No recent alerts. Trigger simulations to test alerts.</p>';
+          return;
+        }
+
+        alertsContainer.innerHTML = simulationState.alerts
+          .map(alert => `<div class="alert-item">
+            <strong>${alert.timestamp}</strong><br>
+            ${alert.message}
+          </div>`)
+          .join('');
+      }
+
+      function updateMetrics() {
+        let baseHighRisk = 12;
+        let baseConfidence = 92;
+        let baseActiveSites = 512;
+        let rainfallValue = 0;
+
+        // Apply heavy rain simulation
+        if (simulationState.heavyRain) {
+          rainfallValue = 45 + Math.random() * 20;
+          baseHighRisk = 28;
+          baseConfidence = 78;
+          addAlert('⚠️ Heavy rainfall detected - Increased landslide risk', 'warning');
+        }
+
+        // Apply high risk simulation
+        if (simulationState.highRisk) {
+          baseHighRisk = Math.max(baseHighRisk, 45);
+          baseConfidence = 88;
+          baseActiveSites = 420;
+          addAlert('🔴 High-risk condition activated - 45+ zones at elevated risk', 'danger');
+        }
+
+        // Apply network off simulation
+        if (simulationState.networkOff) {
+          networkStatus.textContent = 'Offline';
+          networkStatus.parentElement.querySelector('.status-indicator').style.background = '#dc3545';
+          sensorStatus1.textContent = 'No Connection';
+          sensorStatus2.textContent = 'No Connection';
+          addAlert('📡 Network connection lost - System operating in offline mode', 'danger');
+        } else {
+          networkStatus.textContent = 'Online';
+          networkStatus.parentElement.querySelector('.status-indicator').style.background = '#28a745';
+          sensorStatus1.textContent = 'Operational';
+          sensorStatus2.textContent = 'Operational';
+        }
+
+        // Apply warning simulation
+        if (simulationState.warning) {
+          baseHighRisk = Math.max(baseHighRisk, 52);
+          baseConfidence = 95;
+          addAlert('🚨 CRITICAL WARNING - Imminent landslide risk in multiple zones!', 'danger');
+        }
+
+        // Update DOM
+        rainfall.textContent = rainfallValue > 0 ? rainfallValue.toFixed(1) : '0';
+        highRiskZones.textContent = baseHighRisk;
+        confidence.textContent = baseConfidence + '%';
+        activeSites.textContent = baseActiveSites;
+
+        // Update system status indicator
+        if (simulationState.networkOff) {
+          systemStatus.innerHTML = '<span class="status-indicator active"></span>Network Error';
+          map.classList.add('active-simulation');
+        } else if (simulationState.warning || simulationState.highRisk) {
+          systemStatus.innerHTML = '<span class="status-indicator warning"></span>Alert Active';
+          map.classList.add('active-simulation');
+        } else if (simulationState.heavyRain) {
+          systemStatus.innerHTML = '<span class="status-indicator warning"></span>Monitoring';
+          map.classList.add('active-simulation');
+        } else {
+          systemStatus.innerHTML = '<span class="status-indicator normal"></span>Normal';
+          map.classList.remove('active-simulation');
+        }
+
+        // Update marker animation
+        const markers = map.querySelectorAll('.map-marker');
+        if (simulationState.highRisk || simulationState.warning) {
+          markers.forEach(m => m.classList.add('active'));
+        } else {
+          markers.forEach(m => m.classList.remove('active'));
+        }
+      }
+
+      // Event listeners for simulation buttons
+      btnHeavyRain.addEventListener('click', function () {
+        simulationState.heavyRain = !simulationState.heavyRain;
+        btnHeavyRain.classList.toggle('active');
+        updateMetrics();
+      });
+
+      btnHighRisk.addEventListener('click', function () {
+        simulationState.highRisk = !simulationState.highRisk;
+        btnHighRisk.classList.toggle('active');
+        updateMetrics();
+      });
+
+      btnNetworkOff.addEventListener('click', function () {
+        simulationState.networkOff = !simulationState.networkOff;
+        btnNetworkOff.classList.toggle('active');
+        updateMetrics();
+      });
+
+      btnWarning.addEventListener('click', function () {
+        simulationState.warning = !simulationState.warning;
+        btnWarning.classList.toggle('active');
+        updateMetrics();
+      });
+
+      btnReset.addEventListener('click', function () {
+        simulationState.heavyRain = false;
+        simulationState.highRisk = false;
+        simulationState.networkOff = false;
+        simulationState.warning = false;
+        simulationState.alerts = [];
+
+        btnHeavyRain.classList.remove('active');
+        btnHighRisk.classList.remove('active');
+        btnNetworkOff.classList.remove('active');
+        btnWarning.classList.remove('active');
+
+        alertsContainer.innerHTML = '<p style="color:#999;">No recent alerts. Trigger simulations to test alerts.</p>';
+        updateMetrics();
+      });
 
       function showDashboard(scrollTarget) {
         // show
