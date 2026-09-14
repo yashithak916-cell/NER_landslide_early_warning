@@ -138,7 +138,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160[...]
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160 Q80,170 60,160 L40,180 Q30,175 20,180 Z"/></svg>');
       background-size: cover;
       background-position: center;
     }
@@ -492,6 +492,7 @@
       display: none;
       z-index: 200;
       animation: slideIn 0.3s ease;
+      min-width: 300px;
     }
 
     .alarm-notification.show {
@@ -570,11 +571,6 @@
   </style>
 </head>
 <body>
-  <!-- Audio element for alarm sound -->
-  <audio id="alarm-sound" preload="auto">
-    <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
-  </audio>
-
   <!-- Alarm Notification -->
   <div class="alarm-notification" id="alarm-notification">
     <div class="alarm-title">🔔 OFFLINE ALARM ACTIVATED</div>
@@ -786,53 +782,83 @@
       setInterval(updateTime, 1000);
 
       // Alarm sound setup
-      const alarmSound = document.getElementById('alarm-sound');
       const alarmNotification = document.getElementById('alarm-notification');
       const btnMuteAlarm = document.getElementById('btn-mute-alarm');
       const btnDismissAlarm = document.getElementById('btn-dismiss-alarm');
       let alarmPlaying = false;
+      let alarmMuted = false;
+      let audioContext = null;
 
-      // Create a simple sine wave alarm sound (can be replaced with external audio file)
-      function generateAlarmSound() {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
+      // Initialize Web Audio API
+      function initAudioContext() {
+        if (!audioContext) {
+          try {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          } catch (e) {
+            console.log('Web Audio API not supported:', e);
+          }
+        }
+        return audioContext;
+      }
 
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+      // Generate a proper alarm sound using Web Audio API
+      function playAlarmTone() {
+        const ctx = initAudioContext();
+        if (!ctx) return;
 
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
-
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0.2);
-
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.2);
+        try {
+          // Create oscillators for a multi-frequency alarm
+          const now = ctx.currentTime;
+          
+          // First frequency (800Hz)
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          
+          osc1.type = 'sine';
+          osc1.frequency.setValueAtTime(800, now);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          
+          gain1.gain.setValueAtTime(0.2, now);
+          gain1.gain.setValueAtTime(0, now + 0.15);
+          
+          osc1.start(now);
+          osc1.stop(now + 0.15);
+          
+          // Second frequency (1000Hz) - offset by 50ms for variety
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(1000, now + 0.05);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          
+          gain2.gain.setValueAtTime(0.2, now + 0.05);
+          gain2.gain.setValueAtTime(0, now + 0.2);
+          
+          osc2.start(now + 0.05);
+          osc2.stop(now + 0.2);
+        } catch (e) {
+          console.log('Could not generate alarm tone:', e);
+        }
       }
 
       function playAlarmSound() {
-        if (!alarmPlaying) {
-          alarmPlaying = true;
-          // Use Web Audio API to generate alarm tone
-          try {
-            generateAlarmSound();
-            // Repeat alarm every 500ms
-            setTimeout(() => {
-              alarmPlaying = false;
-              if (state.networkOff && !alarmMuted) {
-                playAlarmSound();
-              }
-            }, 500);
-          } catch (e) {
-            console.log('Alarm sound could not be played:', e);
-          }
+        if (!alarmMuted && state.networkOff) {
+          playAlarmTone();
+          // Repeat alarm every 400ms when network is off
+          setTimeout(() => {
+            if (state.networkOff && !alarmMuted) {
+              playAlarmSound();
+            }
+          }, 400);
         }
       }
 
       function showAlarmNotification() {
         alarmNotification.classList.add('show');
+        alarmNotification.classList.remove('hide');
       }
 
       function hideAlarmNotification() {
@@ -842,7 +868,6 @@
         }, 300);
       }
 
-      let alarmMuted = false;
       btnMuteAlarm.addEventListener('click', function () {
         alarmMuted = true;
         addLog('Offline alarm sound muted by user.', 'system');
@@ -998,10 +1023,18 @@
         const markers = mapContainer.querySelectorAll('.risk-marker');
         if (isAlert) {
           markers.forEach(m => m.classList.add('active'));
-          mapContainer.style.background = 'linear-gradient(135deg, #ffcccc 0%, #ffeeee 100%)';
         } else {
           markers.forEach(m => m.classList.remove('active'));
-          mapContainer.style.background = 'linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%)';
+        }
+
+        // Update risk card styling
+        const riskCard = document.querySelector('.card.risk-low, .card.risk-high');
+        if (warningLevel === 'high') {
+          riskCard.classList.remove('risk-low');
+          riskCard.classList.add('risk-high');
+        } else {
+          riskCard.classList.remove('risk-high');
+          riskCard.classList.add('risk-low');
         }
 
         // Update network status
@@ -1016,13 +1049,6 @@
           hideAlarmNotification();
           alarmMuted = false;
         }
-
-        // Update button states
-        btnNormal.classList.toggle('active', state.normalCondition);
-        btnRain.classList.toggle('active', state.heavyRain);
-        btnSoil.classList.toggle('active', state.soilSaturation);
-        btnLandslide.classList.toggle('active', state.landslideRisk);
-        btnNetwork.classList.toggle('active', state.networkOff);
       }
 
       // Button event listeners
@@ -1031,52 +1057,45 @@
         state.heavyRain = false;
         state.soilSaturation = false;
         state.landslideRisk = false;
-        addLog('System reset to normal condition.', 'system');
+        addLog('Simulation reset to normal condition.', 'system');
         updateMetrics();
       });
 
       btnRain.addEventListener('click', function () {
-        state.heavyRain = !state.heavyRain;
-        if (!state.heavyRain) {
-          state.normalCondition = true;
-          state.soilSaturation = false;
-          state.landslideRisk = false;
-        } else {
-          state.normalCondition = false;
-        }
+        state.normalCondition = false;
+        state.heavyRain = true;
+        state.soilSaturation = false;
+        state.landslideRisk = false;
         updateMetrics();
       });
 
       btnSoil.addEventListener('click', function () {
-        state.soilSaturation = !state.soilSaturation;
-        if (!state.soilSaturation) {
-          state.normalCondition = true;
-          state.heavyRain = false;
-          state.landslideRisk = false;
-        } else {
-          state.normalCondition = false;
-        }
+        state.normalCondition = false;
+        state.heavyRain = false;
+        state.soilSaturation = true;
+        state.landslideRisk = false;
         updateMetrics();
       });
 
       btnLandslide.addEventListener('click', function () {
-        state.landslideRisk = !state.landslideRisk;
-        if (!state.landslideRisk) {
-          state.normalCondition = true;
-          state.heavyRain = false;
-          state.soilSaturation = false;
-        } else {
-          state.normalCondition = false;
-        }
+        state.normalCondition = false;
+        state.heavyRain = false;
+        state.soilSaturation = false;
+        state.landslideRisk = true;
         updateMetrics();
       });
 
       btnNetwork.addEventListener('click', function () {
         state.networkOff = !state.networkOff;
+        if (state.networkOff) {
+          addLog('Network connection lost.', 'warning');
+        } else {
+          addLog('Network connection restored.', 'system');
+        }
         updateMetrics();
       });
 
-      // Initial metrics update
+      // Initialize
       updateMetrics();
     })();
   </script>
