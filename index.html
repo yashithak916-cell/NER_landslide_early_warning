@@ -138,7 +138,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160 Q80,150 60,160 Z"/><path fill="%23267d35" d="M180,80 Q200,70 230,80 T280,100 L270,160 Q250,150 230,155 Z"/><path fill="%233d7a2c" d="M50,160 Q80,150 120,160 L130,200 Q100,210 70,200 Z"/><circle fill="%23dc3545" cx="80" cy="120" r="8"/><circle fill="%23ffc107" cx="200" cy="130" r="7"/><circle fill="%2328a745" cx="280" cy="160" r="6"/><text x="30" y="280" font-size="12" fill="%23ccc" font-family="Arial">NER Region Map</text></svg>');
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160[...]
       background-size: cover;
       background-position: center;
     }
@@ -478,9 +478,113 @@
     }
 
     :focus { outline: 3px solid rgba(102,126,234,0.35); outline-offset: 2px; }
+
+    /* Alarm Notification Styles */
+    .alarm-notification {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #dc3545;
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+      display: none;
+      z-index: 200;
+      animation: slideIn 0.3s ease;
+    }
+
+    .alarm-notification.show {
+      display: block;
+    }
+
+    .alarm-notification.hide {
+      animation: slideOut 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+    }
+
+    .alarm-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .alarm-message {
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .alarm-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .alarm-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .alarm-btn.mute {
+      background: #fff;
+      color: #dc3545;
+    }
+
+    .alarm-btn.mute:hover {
+      background: #f0f0f0;
+    }
+
+    .alarm-btn.dismiss {
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+    }
+
+    .alarm-btn.dismiss:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
   </style>
 </head>
 <body>
+  <!-- Audio element for alarm sound -->
+  <audio id="alarm-sound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==" type="audio/wav">
+  </audio>
+
+  <!-- Alarm Notification -->
+  <div class="alarm-notification" id="alarm-notification">
+    <div class="alarm-title">🔔 OFFLINE ALARM ACTIVATED</div>
+    <div class="alarm-message">Network disconnected! Local alert system engaged. Using audio alarm in no-network areas.</div>
+    <div class="alarm-controls">
+      <button class="alarm-btn mute" id="btn-mute-alarm">🔇 Mute Alarm</button>
+      <button class="alarm-btn dismiss" id="btn-dismiss-alarm">✕ Dismiss</button>
+    </div>
+  </div>
+
   <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-left">
@@ -640,7 +744,7 @@
         </div>
         <div id="network-warning" style="display:none;" class="warning-box high">
           <div class="warning-title">🔴 Network Error</div>
-          <div class="warning-message">Network connection lost - System operating in offline mode.</div>
+          <div class="warning-message">Network connection lost - System operating in offline mode with LOCAL AUDIO ALARM ACTIVE.</div>
         </div>
       </div>
 
@@ -680,6 +784,73 @@
       }
       updateTime();
       setInterval(updateTime, 1000);
+
+      // Alarm sound setup
+      const alarmSound = document.getElementById('alarm-sound');
+      const alarmNotification = document.getElementById('alarm-notification');
+      const btnMuteAlarm = document.getElementById('btn-mute-alarm');
+      const btnDismissAlarm = document.getElementById('btn-dismiss-alarm');
+      let alarmPlaying = false;
+
+      // Create a simple sine wave alarm sound (can be replaced with external audio file)
+      function generateAlarmSound() {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0, audioContext.currentTime + 0.2);
+
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.2);
+      }
+
+      function playAlarmSound() {
+        if (!alarmPlaying) {
+          alarmPlaying = true;
+          // Use Web Audio API to generate alarm tone
+          try {
+            generateAlarmSound();
+            // Repeat alarm every 500ms
+            setTimeout(() => {
+              alarmPlaying = false;
+              if (state.networkOff && !alarmMuted) {
+                playAlarmSound();
+              }
+            }, 500);
+          } catch (e) {
+            console.log('Alarm sound could not be played:', e);
+          }
+        }
+      }
+
+      function showAlarmNotification() {
+        alarmNotification.classList.add('show');
+      }
+
+      function hideAlarmNotification() {
+        alarmNotification.classList.add('hide');
+        setTimeout(() => {
+          alarmNotification.classList.remove('show', 'hide');
+        }, 300);
+      }
+
+      let alarmMuted = false;
+      btnMuteAlarm.addEventListener('click', function () {
+        alarmMuted = true;
+        addLog('Offline alarm sound muted by user.', 'system');
+      });
+
+      btnDismissAlarm.addEventListener('click', function () {
+        hideAlarmNotification();
+      });
 
       // Simulation state
       let state = {
@@ -790,7 +961,10 @@
         }
 
         if (state.networkOff) {
-          addLog('Network unavailable - Local warning mode active.', 'system');
+          addLog('Network unavailable - Local warning mode active with AUDIO ALARM enabled.', 'system');
+          // Play alarm sound when network is off
+          playAlarmSound();
+          showAlarmNotification();
         }
 
         // Update rainfall
@@ -839,6 +1013,8 @@
           networkBadge.classList.remove('offline');
           networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
           networkWarning.style.display = 'none';
+          hideAlarmNotification();
+          alarmMuted = false;
         }
 
         // Update button states
