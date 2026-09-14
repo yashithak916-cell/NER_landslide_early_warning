@@ -58,6 +58,12 @@
     .login-logo {
       font-size: 3rem;
       margin-bottom: 12px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .login-title {
@@ -139,10 +145,35 @@
       animation: shake 0.3s ease;
     }
 
+    .login-success {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      display: none;
+      border: 1px solid #c3e6cb;
+    }
+
+    .login-success.show {
+      display: block;
+      animation: slideUp 0.3s ease;
+    }
+
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       25% { transform: translateX(-5px); }
       75% { transform: translateX(5px); }
+    }
+
+    .login-footer {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      font-size: 0.8rem;
+      color: #999;
+      text-align: center;
     }
 
     .dashboard-container {
@@ -678,6 +709,101 @@
       color: #28a745;
     }
 
+    /* Message Panel Styles */
+    .message-panel {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .messages-container {
+      background: #f8f9fa;
+      border-radius: 6px;
+      padding: 12px;
+      max-height: 250px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .message {
+      padding: 10px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .message.system {
+      background: #e7f3ff;
+      border-left: 3px solid #0066cc;
+      color: #0066cc;
+    }
+
+    .message.warning {
+      background: #fff3cd;
+      border-left: 3px solid #ffc107;
+      color: #856404;
+    }
+
+    .message.alert {
+      background: #f8d7da;
+      border-left: 3px solid #dc3545;
+      color: #721c24;
+    }
+
+    .message.success {
+      background: #d4edda;
+      border-left: 3px solid #28a745;
+      color: #155724;
+    }
+
+    .message-input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .message-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .message-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .message-btn {
+      padding: 10px 16px;
+      background: #667eea;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+
+    .message-btn:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+    }
+
+    .message-btn:active {
+      transform: translateY(0);
+    }
+
     .scrollbar-hidden::-webkit-scrollbar {
       width: 6px;
     }
@@ -798,6 +924,7 @@
         <div class="login-subtitle">Secure Access Portal</div>
       </div>
       <div class="login-error" id="login-error"></div>
+      <div class="login-success" id="login-success"></div>
       <form id="login-form" onsubmit="handleLogin(event)">
         <div class="form-group">
           <label class="form-label">Username</label>
@@ -807,8 +934,12 @@
           <label class="form-label">Password</label>
           <input type="password" class="form-input" id="password-input" placeholder="Enter password" required />
         </div>
-        <button type="submit" class="login-button">Login</button>
+        <button type="submit" class="login-button" id="login-submit-btn">Login</button>
       </form>
+      <div class="login-footer">
+        <p>Demo Credentials:</p>
+        <p>Username: <strong>admin</strong> | Password: <strong>1234</strong></p>
+      </div>
     </div>
   </div>
 
@@ -988,6 +1119,18 @@
           </div>
         </div>
 
+        <!-- Message Panel -->
+        <div class="message-panel">
+          <div class="section-title">💬 System Messages</div>
+          <div class="messages-container scrollbar-hidden" id="messages-container">
+            <div class="message system">✓ System initialized and ready for monitoring.</div>
+          </div>
+          <div class="message-input-group">
+            <input type="text" class="message-input" id="message-input" placeholder="Type a message or command..." />
+            <button class="message-btn" id="send-message-btn">Send</button>
+          </div>
+        </div>
+
         <!-- Notification Recipients -->
         <div class="notification-recipients">
           <div class="section-title">📢 Alert Notification Status</div>
@@ -1000,41 +1143,18 @@
               </div>
             </div>
             <div class="recipient-item">
-              <div class="recipient-icon">👨‍💼</div>
+              <div class="recipient-icon">🚓</div>
               <div class="recipient-info">
-                <div class="recipient-name">Emergency Coordinator</div>
-                <div class="recipient-status">Standby</div>
+                <div class="recipient-name">District Administration</div>
+                <div class="recipient-status">Monitoring</div>
               </div>
             </div>
             <div class="recipient-item">
-              <div class="recipient-icon">📱</div>
+              <div class="recipient-icon">📞</div>
               <div class="recipient-info">
-                <div class="recipient-name">Nearby Residents (1km radius)</div>
-                <div class="recipient-status">Ready to receive alerts</div>
+                <div class="recipient-name">Village Alert System</div>
+                <div class="recipient-status">Connected</div>
               </div>
-            </div>
-            <div class="recipient-item">
-              <div class="recipient-icon">🏥</div>
-              <div class="recipient-info">
-                <div class="recipient-name">Medical Teams</div>
-                <div class="recipient-status">Standby</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Event Log -->
-        <div class="warning-section">
-          <div class="section-title">📋 System Event Log</div>
-          <div class="event-log scrollbar-hidden" id="event-log">
-            <div class="log-entry">
-              <span class="log-time">[10:24:00]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Monitoring system installed.</span>
-            </div>
-            <div class="log-entry">
-              <span class="log-time">[10:24:01]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Sensor simulation initialized.</span>
-            </div>
-            <div class="log-entry">
-              <span class="log-time">[10:24:02]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Waiting for environmental changes...</span>
             </div>
           </div>
         </div>
@@ -1043,440 +1163,230 @@
   </div>
 
   <script>
-    // ============ LOGIN AUTHENTICATION ============
+    // Login System
     function handleLogin(event) {
       event.preventDefault();
-      
       const username = document.getElementById('username-input').value;
       const password = document.getElementById('password-input').value;
       const errorDiv = document.getElementById('login-error');
-      
-      // Check credentials
-      if (username === 'admin' && password === 'admin123') {
-        // Hide login, show dashboard
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('dashboard-container').classList.add('show');
-        sessionStorage.setItem('authenticated', 'true');
-        initializeDashboard();
+      const successDiv = document.getElementById('login-success');
+      const submitBtn = document.getElementById('login-submit-btn');
+
+      errorDiv.classList.remove('show');
+      successDiv.classList.remove('show');
+
+      // Validate credentials
+      if (username === 'admin' && password === '1234') {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Logging in...';
+        
+        // Simulate login delay
+        setTimeout(() => {
+          successDiv.textContent = '✓ Login successful! Redirecting...';
+          successDiv.classList.add('show');
+          
+          setTimeout(() => {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('dashboard-container').classList.add('show');
+            initializeDashboard();
+          }, 800);
+        }, 500);
       } else {
-        // Show error
-        errorDiv.textContent = '❌ Invalid username or password. Please try again.';
+        errorDiv.textContent = '❌ Invalid username or password. Try admin/1234';
         errorDiv.classList.add('show');
-        setTimeout(() => {
-          errorDiv.classList.remove('show');
-        }, 3000);
+        submitBtn.disabled = false;
       }
     }
 
-    function handleLogout() {
-      sessionStorage.removeItem('authenticated');
-      document.getElementById('login-container').style.display = 'flex';
-      document.getElementById('dashboard-container').classList.remove('show');
-      document.getElementById('login-form').reset();
-      document.getElementById('username-input').focus();
+    // Message System
+    function sendMessage() {
+      const input = document.getElementById('message-input');
+      const message = input.value.trim();
+      
+      if (message === '') return;
+
+      const container = document.getElementById('messages-container');
+      const msgElement = document.createElement('div');
+      msgElement.className = 'message system';
+      
+      const timestamp = new Date().toLocaleTimeString();
+      msgElement.innerHTML = `<strong>[${timestamp}]</strong> ${escapeHtml(message)}`;
+      
+      container.appendChild(msgElement);
+      container.scrollTop = container.scrollHeight;
+      input.value = '';
+      
+      // Process command
+      processCommand(message);
     }
 
-    // Check if already logged in
-    window.addEventListener('load', () => {
-      if (sessionStorage.getItem('authenticated') === 'true') {
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('dashboard-container').classList.add('show');
-        initializeDashboard();
+    function processCommand(message) {
+      const container = document.getElementById('messages-container');
+      const lowerMsg = message.toLowerCase();
+      let response = '';
+      let msgClass = 'system';
+
+      if (lowerMsg.includes('rainfall') || lowerMsg.includes('rain')) {
+        response = '🌧️ Rainfall data updated. Current level: 15 mm/h';
+      } else if (lowerMsg.includes('moisture') || lowerMsg.includes('soil')) {
+        response = '💧 Soil moisture level: 25%. Within normal range.';
+      } else if (lowerMsg.includes('slope') || lowerMsg.includes('movement')) {
+        response = '📈 Slope movement detected: 2 mm. Monitoring closely.';
+      } else if (lowerMsg.includes('alert') || lowerMsg.includes('alarm')) {
+        response = '🔔 Alert system status: Online and operational.';
+        msgClass = 'warning';
+      } else if (lowerMsg.includes('risk') || lowerMsg.includes('level')) {
+        response = '📊 Current risk level: LOW (Score: 12/100). System operating normally.';
+      } else if (lowerMsg.includes('network') || lowerMsg.includes('status')) {
+        response = '📡 Network status: ONLINE. All systems connected.';
+      } else if (lowerMsg.includes('help')) {
+        response = 'Available commands: rainfall, moisture, slope, alert, risk, network, status, help';
       } else {
-        document.getElementById('username-input').focus();
+        response = '❓ Command not recognized. Type "help" for available commands.';
+        msgClass = 'system';
       }
-    });
 
-    document.getElementById('logout-btn').addEventListener('click', handleLogout);
-
-    // ============ DASHBOARD INITIALIZATION ============
-    function initializeDashboard() {
-      updateTime();
-      setInterval(updateTime, 1000);
-      setupEventListeners();
-      setupAlarmSystem();
-    }
-
-    // Update time
-    function updateTime() {
-      const now = new Date();
-      const time = now.toLocaleString('en-US', {
-        month: 'short',
-        day: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true
-      });
-      document.getElementById('current-time').textContent = time;
-    }
-
-    // ============ ALARM AND NOTIFICATION SYSTEM ============
-    const alarmNotification = document.getElementById('alarm-notification');
-    const btnMuteAlarm = document.getElementById('btn-mute-alarm');
-    const btnDismissAlarm = document.getElementById('btn-dismiss-alarm');
-    let alarmPlaying = false;
-    let alarmMuted = false;
-    let audioContext = null;
-
-    // Initialize Web Audio API
-    function initAudioContext() {
-      if (!audioContext) {
-        try {
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch (e) {
-          console.log('Web Audio API not supported:', e);
-        }
-      }
-      return audioContext;
-    }
-
-    // Generate alarm sound using Web Audio API
-    function playAlarmTone() {
-      const ctx = initAudioContext();
-      if (!ctx) return;
-
-      try {
-        const now = ctx.currentTime;
-        
-        // First frequency (800Hz)
-        const osc1 = ctx.createOscillator();
-        const gain1 = ctx.createGain();
-        
-        osc1.type = 'sine';
-        osc1.frequency.setValueAtTime(800, now);
-        osc1.connect(gain1);
-        gain1.connect(ctx.destination);
-        
-        gain1.gain.setValueAtTime(0.2, now);
-        gain1.gain.setValueAtTime(0, now + 0.15);
-        
-        osc1.start(now);
-        osc1.stop(now + 0.15);
-        
-        // Second frequency (1000Hz)
-        const osc2 = ctx.createOscillator();
-        const gain2 = ctx.createGain();
-        
-        osc2.type = 'sine';
-        osc2.frequency.setValueAtTime(1000, now + 0.05);
-        osc2.connect(gain2);
-        gain2.connect(ctx.destination);
-        
-        gain2.gain.setValueAtTime(0.2, now + 0.05);
-        gain2.gain.setValueAtValue(0, now + 0.2);
-        
-        osc2.start(now + 0.05);
-        osc2.stop(now + 0.2);
-      } catch (e) {
-        console.log('Could not generate alarm tone:', e);
-      }
-    }
-
-    function playAlarmSound() {
-      if (!alarmMuted && state.networkOff) {
-        playAlarmTone();
-        setTimeout(() => {
-          if (state.networkOff && !alarmMuted) {
-            playAlarmSound();
-          }
-        }, 400);
-      }
-    }
-
-    function showAlarmNotification() {
-      alarmNotification.classList.add('show');
-      alarmNotification.classList.remove('hide');
-    }
-
-    function hideAlarmNotification() {
-      alarmNotification.classList.add('hide');
       setTimeout(() => {
-        alarmNotification.classList.remove('show', 'hide');
+        const respElement = document.createElement('div');
+        respElement.className = `message ${msgClass}`;
+        respElement.innerHTML = `<strong>[System]</strong> ${response}`;
+        container.appendChild(respElement);
+        container.scrollTop = container.scrollHeight;
       }, 300);
     }
 
-    function setupAlarmSystem() {
-      btnMuteAlarm.addEventListener('click', function () {
-        alarmMuted = true;
-        addLog('Offline alarm sound muted by user.', 'system');
-      });
-
-      btnDismissAlarm.addEventListener('click', function () {
-        hideAlarmNotification();
-      });
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
     }
 
-    // ============ NOTIFICATION RECIPIENTS SYSTEM ============
-    const recipientsDatabase = [
-      { id: 1, name: 'Rescue Team (North Sector)', icon: '🚑', type: 'rescue' },
-      { id: 2, name: 'Emergency Coordinator', icon: '👨‍💼', type: 'coordinator' },
-      { id: 3, name: 'Nearby Residents (1km radius)', icon: '📱', type: 'residents' },
-      { id: 4, name: 'Medical Teams', icon: '🏥', type: 'medical' }
-    ];
+    // Dashboard Initialization
+    function initializeDashboard() {
+      updateTime();
+      setInterval(updateTime, 1000);
 
-    function sendAlertNotifications(riskLevel, message) {
-      const recipientList = document.getElementById('recipient-list');
-      const items = recipientList.querySelectorAll('.recipient-item');
-
-      items.forEach((item, index) => {
-        const recipient = recipientsDatabase[index];
-        const statusDiv = item.querySelector('.recipient-status');
-
-        // Simulate sending notification
-        setTimeout(() => {
-          statusDiv.textContent = `✓ Alert sent - ${new Date().toLocaleTimeString()}`;
-          statusDiv.classList.add('notified');
-          item.classList.add('notified');
-
-          // Log the notification
-          addLog(`📢 ALERT SENT to ${recipient.name}: ${message}`, 'alert');
-        }, 300 * (index + 1));
+      // Message system
+      document.getElementById('send-message-btn').addEventListener('click', sendMessage);
+      document.getElementById('message-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
       });
-    }
 
-    function resetNotificationStatus() {
-      const recipientList = document.getElementById('recipient-list');
-      const items = recipientList.querySelectorAll('.recipient-item');
+      // Simulation buttons
+      document.getElementById('btn-normal').addEventListener('click', () => simulateNormalCondition());
+      document.getElementById('btn-rain').addEventListener('click', () => simulateHeavyRain());
+      document.getElementById('btn-soil').addEventListener('click', () => simulateSoilSaturation());
+      document.getElementById('btn-landslide').addEventListener('click', () => simulateLandslideRisk());
+      document.getElementById('btn-network').addEventListener('click', () => toggleNetwork());
 
-      items.forEach((item, index) => {
-        const statusDiv = item.querySelector('.recipient-status');
-        statusDiv.textContent = index === 2 ? 'Ready to receive alerts' : 'Standby';
-        statusDiv.classList.remove('notified');
-        item.classList.remove('notified');
+      // Logout
+      document.getElementById('logout-btn').addEventListener('click', () => {
+        document.getElementById('login-container').style.display = 'flex';
+        document.getElementById('dashboard-container').classList.remove('show');
+        document.getElementById('login-form').reset();
+        document.getElementById('login-error').classList.remove('show');
+        document.getElementById('login-success').classList.remove('show');
       });
+
+      // Alarm controls
+      document.getElementById('btn-mute-alarm').addEventListener('click', () => {
+        document.getElementById('alarm-notification').classList.remove('show');
+      });
+      document.getElementById('btn-dismiss-alarm').addEventListener('click', () => {
+        document.getElementById('alarm-notification').classList.remove('show');
+      });
+
+      addSystemMessage('Dashboard loaded successfully. Ready for monitoring.');
     }
 
-    // ============ SIMULATION STATE AND METRICS ============
-    let state = {
-      normalCondition: true,
-      heavyRain: false,
-      soilSaturation: false,
-      landslideRisk: false,
-      networkOff: false,
-      logs: []
-    };
-
-    // DOM elements
-    const btnNormal = document.getElementById('btn-normal');
-    const btnRain = document.getElementById('btn-rain');
-    const btnSoil = document.getElementById('btn-soil');
-    const btnLandslide = document.getElementById('btn-landslide');
-    const btnNetwork = document.getElementById('btn-network');
-
-    const riskLevel = document.getElementById('risk-level');
-    const riskScore = document.getElementById('risk-score');
-    const warningStatus = document.getElementById('warning-status');
-    const warningBox = document.getElementById('warning-box');
-    const networkWarning = document.getElementById('network-warning');
-    const networkBadge = document.getElementById('network-badge');
-
-    const rainfallValue = document.getElementById('rainfall-value');
-    const rainfallBar = document.getElementById('rainfall-bar');
-    const moistureValue = document.getElementById('moisture-value');
-    const moistureBar = document.getElementById('moisture-bar');
-    const slopeValue = document.getElementById('slope-value');
-    const slopeBar = document.getElementById('slope-bar');
-
-    const eventLog = document.getElementById('event-log');
-    const mapContainer = document.getElementById('map-container');
-
-    function addLog(message, type = 'info') {
-      const now = new Date().toLocaleTimeString('en-US', { hour12: false });
-      let logClass = 'log-info';
-      let logType = '[INFO]';
-
-      if (type === 'warning') {
-        logClass = 'log-warning';
-        logType = '[WARNING]';
-      } else if (type === 'system') {
-        logClass = 'log-system';
-        logType = '[SYSTEM]';
-      } else if (type === 'alert') {
-        logClass = 'log-alert';
-        logType = '[ALERT]';
-      }
-
-      const entry = document.createElement('div');
-      entry.className = 'log-entry';
-      entry.innerHTML = `<span class="log-time">[${now}]</span> <span class="${logClass}">${logType}</span> <span class="log-info">${message}</span>`;
-
-      eventLog.insertBefore(entry, eventLog.firstChild);
-
-      // Keep only last 20 entries
-      const entries = eventLog.querySelectorAll('.log-entry');
-      if (entries.length > 20) {
-        entries[entries.length - 1].remove();
-      }
+    function updateTime() {
+      const now = new Date();
+      document.getElementById('current-time').textContent = now.toLocaleTimeString();
     }
 
-    function updateMetrics() {
-      let rainfall = 15;
-      let moisture = 25;
-      let slope = 2;
-      let riskNum = 12;
-      let riskText = 'LOW';
-      let warningText = 'Low Risk';
-      let warningLevel = 'low';
-      let isAlert = false;
-      let alertMessage = '';
+    function addSystemMessage(msg) {
+      const container = document.getElementById('messages-container');
+      const msgElement = document.createElement('div');
+      msgElement.className = 'message system';
+      msgElement.textContent = '✓ ' + msg;
+      container.appendChild(msgElement);
+      container.scrollTop = container.scrollHeight;
+    }
 
-      if (state.normalCondition) {
-        rainfall = 15;
-        moisture = 25;
-        slope = 2;
-        riskNum = 12;
-        riskText = 'LOW';
-        warningText = 'Low Risk';
-        warningLevel = 'low';
-        resetNotificationStatus();
-      }
+    function simulateNormalCondition() {
+      document.getElementById('risk-level').textContent = 'LOW';
+      document.getElementById('risk-score').textContent = '12 / 100';
+      document.getElementById('rainfall-value').textContent = '15 mm/h';
+      document.getElementById('rainfall-bar').style.width = '15%';
+      document.getElementById('moisture-value').textContent = '25%';
+      document.getElementById('moisture-bar').style.width = '25%';
+      document.getElementById('slope-value').textContent = '2 mm';
+      document.getElementById('slope-bar').style.width = '10%';
+      updateWarningBox('low', '✓ Low Risk', 'System monitoring normally.');
+      addSystemMessage('System reset to normal condition.');
+    }
 
-      if (state.heavyRain) {
-        rainfall = 95;
-        moisture = 65;
-        slope = 8;
-        riskNum = 55;
-        riskText = 'HIGH';
-        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-        warningLevel = 'high';
-        isAlert = true;
-        alertMessage = 'Heavy rainfall detected - Landslide risk increased! Notifying nearby residents and rescue teams.';
-        addLog('Heavy rainfall detected - Landslide risk increased!', 'warning');
-      }
+    function simulateHeavyRain() {
+      document.getElementById('rainfall-value').textContent = '95 mm/h';
+      document.getElementById('rainfall-bar').style.width = '95%';
+      updateWarningBox('high', '⚠️ Heavy Rainfall Alert', 'Increased precipitation detected. Soil saturation rising.');
+      addSystemMessage('🌧️ Heavy rain simulation activated.');
+    }
 
-      if (state.soilSaturation) {
-        rainfall = Math.max(rainfall, 75);
-        moisture = 92;
-        slope = 12;
-        riskNum = 65;
-        riskText = 'HIGH';
-        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-        warningLevel = 'high';
-        isAlert = true;
-        alertMessage = 'Soil saturation critical - Slope stability compromised! Emergency alert sent.';
-        addLog('Soil saturation critical - Slope stability compromised.', 'warning');
-      }
+    function simulateSoilSaturation() {
+      document.getElementById('risk-level').textContent = 'MEDIUM';
+      document.getElementById('risk-score').textContent = '55 / 100';
+      document.getElementById('moisture-value').textContent = '92%';
+      document.getElementById('moisture-bar').style.width = '92%';
+      document.getElementById('moisture-bar').classList.add('medium');
+      updateWarningBox('high', '⚠️ High Soil Saturation', 'Soil moisture exceeds threshold. Heightened risk conditions.');
+      addSystemMessage('💧 Soil saturation simulation activated.');
+    }
 
-      if (state.landslideRisk) {
-        rainfall = 95;
-        moisture = 92;
-        slope = 18;
-        riskNum = 100;
-        riskText = 'HIGH';
-        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-        warningLevel = 'high';
-        isAlert = true;
-        alertMessage = 'CRITICAL: Landslide risk detected! Immediate evacuation recommended.';
-        addLog('CRITICAL: Landslide risk detected - score 100. Local alarm activated. Remote alert triggered.', 'warning');
-      }
+    function simulateLandslideRisk() {
+      document.getElementById('risk-level').textContent = 'HIGH';
+      document.getElementById('risk-score').textContent = '100 / 100';
+      document.getElementById('rainfall-value').textContent = '95 mm/h';
+      document.getElementById('rainfall-bar').style.width = '95%';
+      document.getElementById('moisture-value').textContent = '92%';
+      document.getElementById('moisture-bar').style.width = '92%';
+      document.getElementById('slope-value').textContent = '18 mm';
+      document.getElementById('slope-bar').style.width = '90%';
+      document.getElementById('slope-bar').classList.add('high');
+      updateWarningBox('high', '🔴 CRITICAL - Landslide Risk!', 'HIGH RISK conditions detected. LOCAL ALARM ACTIVATED. Immediate evacuation recommended.');
+      document.getElementById('alarm-notification').classList.add('show');
+      addSystemMessage('🔴 CRITICAL: Landslide risk simulation activated. Alert system engaged.');
+    }
 
-      // Send notifications on high risk
-      if (isAlert && (state.heavyRain || state.soilSaturation || state.landslideRisk)) {
-        sendAlertNotifications(riskText, alertMessage);
-      }
-
-      if (state.networkOff) {
-        addLog('Network unavailable - Local warning mode active with AUDIO ALARM enabled.', 'system');
-        playAlarmSound();
-        showAlarmNotification();
-      }
-
-      // Update rainfall
-      rainfallValue.textContent = `${rainfall} mm/h`;
-      rainfallBar.style.width = Math.min(rainfall / 100 * 100, 100) + '%';
-      rainfallBar.className = 'progress-fill' + (rainfall > 70 ? ' high' : rainfall > 40 ? ' medium' : '');
-
-      // Update moisture
-      moistureValue.textContent = `${moisture}%`;
-      moistureBar.style.width = moisture + '%';
-      moistureBar.className = 'progress-fill' + (moisture > 80 ? ' high' : moisture > 50 ? ' medium' : '');
-
-      // Update slope
-      slopeValue.textContent = `${slope} mm`;
-      slopeBar.style.width = Math.min(slope / 20 * 100, 100) + '%';
-      slopeBar.className = 'progress-fill' + (slope > 15 ? ' high' : slope > 8 ? ' medium' : '');
-
-      // Update risk level
-      riskLevel.textContent = riskText;
-      riskScore.textContent = riskNum + ' / 100';
-      warningStatus.textContent = warningText;
-
-      // Update warning box
-      warningBox.className = 'warning-box ' + warningLevel;
-      warningBox.innerHTML = `
-        <div class="warning-title">${warningLevel === 'high' ? '🔴' : '✓'} ${warningText}</div>
-        <div class="warning-message">${warningLevel === 'high' ? alertMessage : 'System monitoring normally.'}</div>
-      `;
-
-      // Update network badge
-      if (state.networkOff) {
-        networkBadge.classList.add('offline');
-        networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
-        networkWarning.style.display = 'block';
+    function toggleNetwork() {
+      const badge = document.getElementById('network-badge');
+      const isOnline = badge.textContent.includes('ONLINE');
+      
+      if (isOnline) {
+        badge.classList.add('offline');
+        badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
+        document.getElementById('network-warning').style.display = 'block';
+        document.getElementById('alarm-notification').classList.add('show');
+        addSystemMessage('📡 Network connection lost. Switching to offline mode with local alert system.');
       } else {
-        networkBadge.classList.remove('offline');
-        networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
-        networkWarning.style.display = 'none';
-      }
-
-      // Update card styling
-      const riskCard = document.querySelector('.card.risk-low') || document.querySelector('.card.risk-high');
-      if (riskCard) {
-        riskCard.className = 'card ' + (warningLevel === 'high' ? 'risk-high' : 'risk-low');
+        badge.classList.remove('offline');
+        badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
+        document.getElementById('network-warning').style.display = 'none';
+        document.getElementById('alarm-notification').classList.remove('show');
+        addSystemMessage('📡 Network connection restored. All systems online.');
       }
     }
 
-    function setupEventListeners() {
-      btnNormal.addEventListener('click', function () {
-        state.normalCondition = true;
-        state.heavyRain = false;
-        state.soilSaturation = false;
-        state.landslideRisk = false;
-        
-        btnNormal.classList.add('active');
-        btnRain.classList.remove('active');
-        btnSoil.classList.remove('active');
-        btnLandslide.classList.remove('active');
-        
-        addLog('System reset to normal conditions.', 'system');
-        updateMetrics();
-      });
-
-      btnRain.addEventListener('click', function () {
-        state.heavyRain = !state.heavyRain;
-        state.normalCondition = false;
-        btnRain.classList.toggle('active');
-        updateMetrics();
-      });
-
-      btnSoil.addEventListener('click', function () {
-        state.soilSaturation = !state.soilSaturation;
-        state.normalCondition = false;
-        btnSoil.classList.toggle('active');
-        updateMetrics();
-      });
-
-      btnLandslide.addEventListener('click', function () {
-        state.landslideRisk = !state.landslideRisk;
-        state.normalCondition = false;
-        btnLandslide.classList.toggle('active');
-        updateMetrics();
-      });
-
-      btnNetwork.addEventListener('click', function () {
-        state.networkOff = !state.networkOff;
-        btnNetwork.classList.toggle('active');
-        if (state.networkOff) {
-          addLog('Network connection lost!', 'warning');
-          alarmMuted = false; // Reset mute when network goes down
-        } else {
-          addLog('Network connection restored.', 'system');
-          hideAlarmNotification();
-        }
-        updateMetrics();
-      });
+    function updateWarningBox(level, title, message) {
+      const box = document.getElementById('warning-box');
+      box.className = `warning-box ${level}`;
+      box.querySelector('.warning-title').textContent = title;
+      box.querySelector('.warning-message').textContent = message;
     }
   </script>
 </body>
