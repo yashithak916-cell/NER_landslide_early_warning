@@ -15,6 +15,144 @@
       padding: 0;
     }
 
+    /* Login Page Styles */
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .login-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      animation: slideUp 0.4s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-logo {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    .login-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a2332;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a2332;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 8px;
+    }
+
+    .login-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    }
+
+    .login-button:active {
+      transform: translateY(0);
+    }
+
+    .login-error {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      font-size: 0.9rem;
+      display: none;
+      border: 1px solid #f5c6cb;
+    }
+
+    .login-error.show {
+      display: block;
+      animation: shake 0.3s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .dashboard-container {
+      display: none;
+    }
+
+    .dashboard-container.show {
+      display: block;
+    }
+
     .top-bar {
       background: #1a2332;
       color: #fff;
@@ -45,6 +183,12 @@
     .title {
       font-size: 1.1rem;
       font-weight: 600;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
     .status-badge {
@@ -79,6 +223,22 @@
     .timestamp {
       font-size: 0.9rem;
       color: #aaa;
+    }
+
+    .logout-btn {
+      padding: 6px 16px;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
     }
 
     .main-container {
@@ -138,7 +298,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160 Q80,170 60,160 L40,180 Q30,175 20,180 Z"/></svg>');
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160[...]
       background-size: cover;
       background-position: center;
     }
@@ -428,6 +588,11 @@
       color: #87ceeb;
     }
 
+    .log-alert {
+      color: #ff6b9d;
+      font-weight: 700;
+    }
+
     .system-architecture {
       background: #fff;
       border-radius: 8px;
@@ -458,6 +623,59 @@
     .arch-arrow {
       color: #667eea;
       font-weight: 700;
+    }
+
+    /* Notification Recipients */
+    .notification-recipients {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .recipient-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .recipient-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border-left: 4px solid #667eea;
+    }
+
+    .recipient-item.notified {
+      border-left-color: #28a745;
+      background: #f0f8f0;
+    }
+
+    .recipient-icon {
+      font-size: 1.5rem;
+      margin-right: 12px;
+    }
+
+    .recipient-info {
+      flex: 1;
+    }
+
+    .recipient-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a2332;
+    }
+
+    .recipient-status {
+      font-size: 0.8rem;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .recipient-status.notified {
+      color: #28a745;
     }
 
     .scrollbar-hidden::-webkit-scrollbar {
@@ -571,191 +789,253 @@
   </style>
 </head>
 <body>
-  <!-- Alarm Notification -->
-  <div class="alarm-notification" id="alarm-notification">
-    <div class="alarm-title">🔔 OFFLINE ALARM ACTIVATED</div>
-    <div class="alarm-message">Network disconnected! Local alert system engaged. Using audio alarm in no-network areas.</div>
-    <div class="alarm-controls">
-      <button class="alarm-btn mute" id="btn-mute-alarm">🔇 Mute Alarm</button>
-      <button class="alarm-btn dismiss" id="btn-dismiss-alarm">✕ Dismiss</button>
+  <!-- Login Page -->
+  <div class="login-container" id="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">⛰️</div>
+        <div class="login-title">NER Landslide Early Warning</div>
+        <div class="login-subtitle">Secure Access Portal</div>
+      </div>
+      <div class="login-error" id="login-error"></div>
+      <form id="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-input" id="username-input" placeholder="Enter username" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="password-input" placeholder="Enter password" required />
+        </div>
+        <button type="submit" class="login-button">Login</button>
+      </form>
     </div>
   </div>
 
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-left">
-      <div class="logo">⛰️ NER Landslide Early Warning System</div>
-      <div class="title">AI-Based Risk Monitoring & Multi-Mode Warning Prototype</div>
+  <!-- Main Dashboard -->
+  <div class="dashboard-container" id="dashboard-container">
+    <!-- Alarm Notification -->
+    <div class="alarm-notification" id="alarm-notification">
+      <div class="alarm-title">🔔 OFFLINE ALARM ACTIVATED</div>
+      <div class="alarm-message">Network disconnected! Local alert system engaged. Using audio alarm in no-network areas.</div>
+      <div class="alarm-controls">
+        <button class="alarm-btn mute" id="btn-mute-alarm">🔇 Mute Alarm</button>
+        <button class="alarm-btn dismiss" id="btn-dismiss-alarm">✕ Dismiss</button>
+      </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 20px;">
-      <div class="status-badge" id="network-badge">
-        <span class="status-dot"></span>
-        <span>NETWORK: ONLINE</span>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <div class="logo">⛰️ NER Landslide Early Warning System</div>
+        <div class="title">AI-Based Risk Monitoring & Multi-Mode Warning Prototype</div>
       </div>
-      <div class="timestamp" id="current-time"></div>
+      <div class="top-bar-right">
+        <div class="status-badge" id="network-badge">
+          <span class="status-dot"></span>
+          <span>NETWORK: ONLINE</span>
+        </div>
+        <div class="timestamp" id="current-time"></div>
+        <button class="logout-btn" id="logout-btn">🚪 Logout</button>
+      </div>
     </div>
-  </div>
 
-  <!-- Main Container -->
-  <div class="main-container">
-    <!-- Left Panel -->
-    <div class="left-panel">
-      <!-- NER Map Section -->
-      <div class="ner-map">
-        <div class="section-title">🗺️ NER Region Map</div>
-        <div class="map-container" id="map-container">
-          <div class="map-placeholder"></div>
-          <span class="risk-marker high" style="left: 25%; top: 40%;"></span>
-          <span class="risk-marker medium" style="left: 50%; top: 30%;"></span>
-          <span class="risk-marker low" style="left: 75%; top: 60%;"></span>
-        </div>
-        <div class="legend">
-          <div class="legend-item">
-            <div class="legend-dot high"></div>
-            <span>High Risk</span>
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Left Panel -->
+      <div class="left-panel">
+        <!-- NER Map Section -->
+        <div class="ner-map">
+          <div class="section-title">🗺️ NER Region Map</div>
+          <div class="map-container" id="map-container">
+            <div class="map-placeholder"></div>
+            <span class="risk-marker high" style="left: 25%; top: 40%;"></span>
+            <span class="risk-marker medium" style="left: 50%; top: 30%;"></span>
+            <span class="risk-marker low" style="left: 75%; top: 60%;"></span>
           </div>
-          <div class="legend-item">
-            <div class="legend-dot medium"></div>
-            <span>Medium Risk</span>
-          </div>
-          <div class="legend-item">
-            <div class="legend-dot low"></div>
-            <span>Low Risk</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Risk Cards Grid -->
-      <div class="cards-grid">
-        <div class="card risk-low">
-          <div class="card-header">Current Landslide Risk</div>
-          <div class="card-value" id="risk-level">LOW</div>
-          <div class="card-label">Risk Score: <strong id="risk-score">12 / 100</strong></div>
-        </div>
-        <div class="card">
-          <div class="card-header">Warning Status</div>
-          <div class="card-label" style="font-size: 1.1rem; color: #28a745; font-weight: 700; margin-top: 12px;">
-            ✓ <span id="warning-status">Low Risk</span>
-          </div>
-          <div class="card-label">System monitoring normally.</div>
-        </div>
-      </div>
-
-      <!-- Sensor Data Section -->
-      <div class="sensor-section">
-        <div class="section-title">📊 Sensor Data</div>
-        
-        <div class="sensor-item">
-          <div>
-            <div class="sensor-icon">🌧️</div>
-          </div>
-          <div class="sensor-info">
-            <div class="sensor-label">Rainfall</div>
-            <div class="sensor-value" id="rainfall-value">15 mm/h</div>
-          </div>
-          <div style="width: 80px;">
-            <div class="progress-bar">
-              <div class="progress-fill" id="rainfall-bar" style="width: 15%;"></div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot high"></div>
+              <span>High Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot medium"></div>
+              <span>Medium Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot low"></div>
+              <span>Low Risk</span>
             </div>
           </div>
         </div>
 
-        <div class="sensor-item">
-          <div>
-            <div class="sensor-icon">💧</div>
+        <!-- Risk Cards Grid -->
+        <div class="cards-grid">
+          <div class="card risk-low">
+            <div class="card-header">Current Landslide Risk</div>
+            <div class="card-value" id="risk-level">LOW</div>
+            <div class="card-label">Risk Score: <strong id="risk-score">12 / 100</strong></div>
           </div>
-          <div class="sensor-info">
-            <div class="sensor-label">Soil Moisture</div>
-            <div class="sensor-value" id="moisture-value">25%</div>
+          <div class="card">
+            <div class="card-header">Warning Status</div>
+            <div class="card-label" style="font-size: 1.1rem; color: #28a745; font-weight: 700; margin-top: 12px;">
+              ✓ <span id="warning-status">Low Risk</span>
+            </div>
+            <div class="card-label">System monitoring normally.</div>
           </div>
-          <div style="width: 80px;">
-            <div class="progress-bar">
-              <div class="progress-fill" id="moisture-bar" style="width: 25%;"></div>
+        </div>
+
+        <!-- Sensor Data Section -->
+        <div class="sensor-section">
+          <div class="section-title">📊 Sensor Data</div>
+          
+          <div class="sensor-item">
+            <div>
+              <div class="sensor-icon">🌧️</div>
+            </div>
+            <div class="sensor-info">
+              <div class="sensor-label">Rainfall</div>
+              <div class="sensor-value" id="rainfall-value">15 mm/h</div>
+            </div>
+            <div style="width: 80px;">
+              <div class="progress-bar">
+                <div class="progress-fill" id="rainfall-bar" style="width: 15%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sensor-item">
+            <div>
+              <div class="sensor-icon">💧</div>
+            </div>
+            <div class="sensor-info">
+              <div class="sensor-label">Soil Moisture</div>
+              <div class="sensor-value" id="moisture-value">25%</div>
+            </div>
+            <div style="width: 80px;">
+              <div class="progress-bar">
+                <div class="progress-fill" id="moisture-bar" style="width: 25%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sensor-item">
+            <div>
+              <div class="sensor-icon">📈</div>
+            </div>
+            <div class="sensor-info">
+              <div class="sensor-label">Slope Movement</div>
+              <div class="sensor-value" id="slope-value">2 mm</div>
+            </div>
+            <div style="width: 80px;">
+              <div class="progress-bar">
+                <div class="progress-fill" id="slope-bar" style="width: 10%;"></div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="sensor-item">
-          <div>
-            <div class="sensor-icon">📈</div>
+        <!-- System Architecture -->
+        <div class="system-architecture">
+          <div class="section-title">🏗️ System Architecture</div>
+          <div class="architecture-flow">
+            <div class="arch-box">🌧️ Rainfall</div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-box">💧 Soil Moisture</div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-box">📈 Slope Movement</div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-box">🧠 AI / Risk Engine</div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-box">📊 Risk Level</div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-box">🚨 Alerts</div>
           </div>
-          <div class="sensor-info">
-            <div class="sensor-label">Slope Movement</div>
-            <div class="sensor-value" id="slope-value">2 mm</div>
+        </div>
+      </div>
+
+      <!-- Right Panel -->
+      <div class="right-panel">
+        <!-- Prototype Simulation Controls -->
+        <div class="controls-section">
+          <div class="controls-title">🎮 Prototype Simulation Controls</div>
+          
+          <div class="button-grid">
+            <button class="btn-simulate success" id="btn-normal" title="Reset to normal condition">✓ Normal Condition</button>
+            <button class="btn-simulate info" id="btn-rain" title="Simulate heavy rain">❄️ Heavy Rain</button>
           </div>
-          <div style="width: 80px;">
-            <div class="progress-bar">
-              <div class="progress-fill" id="slope-bar" style="width: 10%;"></div>
+          
+          <div class="button-grid">
+            <button class="btn-simulate warning" id="btn-soil" title="Simulate soil saturation">🌊 Soil Saturation</button>
+            <button class="btn-simulate danger" id="btn-landslide" title="Simulate landslide risk">🔴 Simulate Landslide Risk</button>
+          </div>
+          
+          <div class="button-grid full">
+            <button class="btn-simulate info" id="btn-network" title="Toggle network status">📡 Toggle Network</button>
+          </div>
+        </div>
+
+        <!-- Warning/Status Section -->
+        <div class="warning-section">
+          <div class="section-title">⚠️ Warning Status</div>
+          <div id="warning-box" class="warning-box low">
+            <div class="warning-title">✓ Low Risk</div>
+            <div class="warning-message">System monitoring normally.</div>
+          </div>
+          <div id="network-warning" style="display:none;" class="warning-box high">
+            <div class="warning-title">🔴 Network Error</div>
+            <div class="warning-message">Network connection lost - System operating in offline mode with LOCAL AUDIO ALARM ACTIVE.</div>
+          </div>
+        </div>
+
+        <!-- Notification Recipients -->
+        <div class="notification-recipients">
+          <div class="section-title">📢 Alert Notification Status</div>
+          <div class="recipient-list" id="recipient-list">
+            <div class="recipient-item">
+              <div class="recipient-icon">🚑</div>
+              <div class="recipient-info">
+                <div class="recipient-name">Rescue Team (North Sector)</div>
+                <div class="recipient-status">Standby</div>
+              </div>
+            </div>
+            <div class="recipient-item">
+              <div class="recipient-icon">👨‍💼</div>
+              <div class="recipient-info">
+                <div class="recipient-name">Emergency Coordinator</div>
+                <div class="recipient-status">Standby</div>
+              </div>
+            </div>
+            <div class="recipient-item">
+              <div class="recipient-icon">📱</div>
+              <div class="recipient-info">
+                <div class="recipient-name">Nearby Residents (1km radius)</div>
+                <div class="recipient-status">Ready to receive alerts</div>
+              </div>
+            </div>
+            <div class="recipient-item">
+              <div class="recipient-icon">🏥</div>
+              <div class="recipient-info">
+                <div class="recipient-name">Medical Teams</div>
+                <div class="recipient-status">Standby</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- System Architecture -->
-      <div class="system-architecture">
-        <div class="section-title">🏗️ System Architecture</div>
-        <div class="architecture-flow">
-          <div class="arch-box">🌧️ Rainfall</div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-box">💧 Soil Moisture</div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-box">📈 Slope Movement</div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-box">🧠 AI / Risk Engine</div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-box">📊 Risk Level</div>
-          <div class="arch-arrow">→</div>
-          <div class="arch-box">🚨 Alerts</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Panel -->
-    <div class="right-panel">
-      <!-- Prototype Simulation Controls -->
-      <div class="controls-section">
-        <div class="controls-title">🎮 Prototype Simulation Controls</div>
-        
-        <div class="button-grid">
-          <button class="btn-simulate success" id="btn-normal" title="Reset to normal condition">✓ Normal Condition</button>
-          <button class="btn-simulate info" id="btn-rain" title="Simulate heavy rain">❄️ Heavy Rain</button>
-        </div>
-        
-        <div class="button-grid">
-          <button class="btn-simulate warning" id="btn-soil" title="Simulate soil saturation">🌊 Soil Saturation</button>
-          <button class="btn-simulate danger" id="btn-landslide" title="Simulate landslide risk">🔴 Simulate Landslide Risk</button>
-        </div>
-        
-        <div class="button-grid full">
-          <button class="btn-simulate info" id="btn-network" title="Toggle network status">📡 Toggle Network</button>
-        </div>
-      </div>
-
-      <!-- Warning/Status Section -->
-      <div class="warning-section">
-        <div class="section-title">⚠️ Warning Status</div>
-        <div id="warning-box" class="warning-box low">
-          <div class="warning-title">✓ Low Risk</div>
-          <div class="warning-message">System monitoring normally.</div>
-        </div>
-        <div id="network-warning" style="display:none;" class="warning-box high">
-          <div class="warning-title">🔴 Network Error</div>
-          <div class="warning-message">Network connection lost - System operating in offline mode with LOCAL AUDIO ALARM ACTIVE.</div>
-        </div>
-      </div>
-
-      <!-- Event Log -->
-      <div class="warning-section">
-        <div class="section-title">📋 System Event Log</div>
-        <div class="event-log scrollbar-hidden" id="event-log">
-          <div class="log-entry">
-            <span class="log-time">[10:24:00]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Monitoring system installed.</span>
-          </div>
-          <div class="log-entry">
-            <span class="log-time">[10:24:01]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Sensor simulation initialized.</span>
-          </div>
-          <div class="log-entry">
-            <span class="log-time">[10:24:02]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Waiting for environmental changes...</span>
+        <!-- Event Log -->
+        <div class="warning-section">
+          <div class="section-title">📋 System Event Log</div>
+          <div class="event-log scrollbar-hidden" id="event-log">
+            <div class="log-entry">
+              <span class="log-time">[10:24:00]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Monitoring system installed.</span>
+            </div>
+            <div class="log-entry">
+              <span class="log-time">[10:24:01]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Sensor simulation initialized.</span>
+            </div>
+            <div class="log-entry">
+              <span class="log-time">[10:24:02]</span> <span class="log-system">[SYSTEM]</span> <span class="log-info">Waiting for environmental changes...</span>
+            </div>
           </div>
         </div>
       </div>
@@ -763,111 +1043,161 @@
   </div>
 
   <script>
-    (function () {
-      // Update time
-      function updateTime() {
-        const now = new Date();
-        const time = now.toLocaleString('en-US', {
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true
-        });
-        document.getElementById('current-time').textContent = time;
+    // ============ LOGIN AUTHENTICATION ============
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const username = document.getElementById('username-input').value;
+      const password = document.getElementById('password-input').value;
+      const errorDiv = document.getElementById('login-error');
+      
+      // Check credentials
+      if (username === 'admin' && password === 'admin123') {
+        // Hide login, show dashboard
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('dashboard-container').classList.add('show');
+        sessionStorage.setItem('authenticated', 'true');
+        initializeDashboard();
+      } else {
+        // Show error
+        errorDiv.textContent = '❌ Invalid username or password. Please try again.';
+        errorDiv.classList.add('show');
+        setTimeout(() => {
+          errorDiv.classList.remove('show');
+        }, 3000);
       }
+    }
+
+    function handleLogout() {
+      sessionStorage.removeItem('authenticated');
+      document.getElementById('login-container').style.display = 'flex';
+      document.getElementById('dashboard-container').classList.remove('show');
+      document.getElementById('login-form').reset();
+      document.getElementById('username-input').focus();
+    }
+
+    // Check if already logged in
+    window.addEventListener('load', () => {
+      if (sessionStorage.getItem('authenticated') === 'true') {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('dashboard-container').classList.add('show');
+        initializeDashboard();
+      } else {
+        document.getElementById('username-input').focus();
+      }
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+
+    // ============ DASHBOARD INITIALIZATION ============
+    function initializeDashboard() {
       updateTime();
       setInterval(updateTime, 1000);
+      setupEventListeners();
+      setupAlarmSystem();
+    }
 
-      // Alarm sound setup
-      const alarmNotification = document.getElementById('alarm-notification');
-      const btnMuteAlarm = document.getElementById('btn-mute-alarm');
-      const btnDismissAlarm = document.getElementById('btn-dismiss-alarm');
-      let alarmPlaying = false;
-      let alarmMuted = false;
-      let audioContext = null;
+    // Update time
+    function updateTime() {
+      const now = new Date();
+      const time = now.toLocaleString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
+      document.getElementById('current-time').textContent = time;
+    }
 
-      // Initialize Web Audio API
-      function initAudioContext() {
-        if (!audioContext) {
-          try {
-            audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          } catch (e) {
-            console.log('Web Audio API not supported:', e);
-          }
-        }
-        return audioContext;
-      }
+    // ============ ALARM AND NOTIFICATION SYSTEM ============
+    const alarmNotification = document.getElementById('alarm-notification');
+    const btnMuteAlarm = document.getElementById('btn-mute-alarm');
+    const btnDismissAlarm = document.getElementById('btn-dismiss-alarm');
+    let alarmPlaying = false;
+    let alarmMuted = false;
+    let audioContext = null;
 
-      // Generate a proper alarm sound using Web Audio API
-      function playAlarmTone() {
-        const ctx = initAudioContext();
-        if (!ctx) return;
-
+    // Initialize Web Audio API
+    function initAudioContext() {
+      if (!audioContext) {
         try {
-          // Create oscillators for a multi-frequency alarm
-          const now = ctx.currentTime;
-          
-          // First frequency (800Hz)
-          const osc1 = ctx.createOscillator();
-          const gain1 = ctx.createGain();
-          
-          osc1.type = 'sine';
-          osc1.frequency.setValueAtTime(800, now);
-          osc1.connect(gain1);
-          gain1.connect(ctx.destination);
-          
-          gain1.gain.setValueAtTime(0.2, now);
-          gain1.gain.setValueAtTime(0, now + 0.15);
-          
-          osc1.start(now);
-          osc1.stop(now + 0.15);
-          
-          // Second frequency (1000Hz) - offset by 50ms for variety
-          const osc2 = ctx.createOscillator();
-          const gain2 = ctx.createGain();
-          
-          osc2.type = 'sine';
-          osc2.frequency.setValueAtTime(1000, now + 0.05);
-          osc2.connect(gain2);
-          gain2.connect(ctx.destination);
-          
-          gain2.gain.setValueAtTime(0.2, now + 0.05);
-          gain2.gain.setValueAtTime(0, now + 0.2);
-          
-          osc2.start(now + 0.05);
-          osc2.stop(now + 0.2);
+          audioContext = new (window.AudioContext || window.webkitAudioContext)();
         } catch (e) {
-          console.log('Could not generate alarm tone:', e);
+          console.log('Web Audio API not supported:', e);
         }
       }
+      return audioContext;
+    }
 
-      function playAlarmSound() {
-        if (!alarmMuted && state.networkOff) {
-          playAlarmTone();
-          // Repeat alarm every 400ms when network is off
-          setTimeout(() => {
-            if (state.networkOff && !alarmMuted) {
-              playAlarmSound();
-            }
-          }, 400);
-        }
+    // Generate alarm sound using Web Audio API
+    function playAlarmTone() {
+      const ctx = initAudioContext();
+      if (!ctx) return;
+
+      try {
+        const now = ctx.currentTime;
+        
+        // First frequency (800Hz)
+        const osc1 = ctx.createOscillator();
+        const gain1 = ctx.createGain();
+        
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(800, now);
+        osc1.connect(gain1);
+        gain1.connect(ctx.destination);
+        
+        gain1.gain.setValueAtTime(0.2, now);
+        gain1.gain.setValueAtTime(0, now + 0.15);
+        
+        osc1.start(now);
+        osc1.stop(now + 0.15);
+        
+        // Second frequency (1000Hz)
+        const osc2 = ctx.createOscillator();
+        const gain2 = ctx.createGain();
+        
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(1000, now + 0.05);
+        osc2.connect(gain2);
+        gain2.connect(ctx.destination);
+        
+        gain2.gain.setValueAtTime(0.2, now + 0.05);
+        gain2.gain.setValueAtValue(0, now + 0.2);
+        
+        osc2.start(now + 0.05);
+        osc2.stop(now + 0.2);
+      } catch (e) {
+        console.log('Could not generate alarm tone:', e);
       }
+    }
 
-      function showAlarmNotification() {
-        alarmNotification.classList.add('show');
-        alarmNotification.classList.remove('hide');
-      }
-
-      function hideAlarmNotification() {
-        alarmNotification.classList.add('hide');
+    function playAlarmSound() {
+      if (!alarmMuted && state.networkOff) {
+        playAlarmTone();
         setTimeout(() => {
-          alarmNotification.classList.remove('show', 'hide');
-        }, 300);
+          if (state.networkOff && !alarmMuted) {
+            playAlarmSound();
+          }
+        }, 400);
       }
+    }
 
+    function showAlarmNotification() {
+      alarmNotification.classList.add('show');
+      alarmNotification.classList.remove('hide');
+    }
+
+    function hideAlarmNotification() {
+      alarmNotification.classList.add('hide');
+      setTimeout(() => {
+        alarmNotification.classList.remove('show', 'hide');
+      }, 300);
+    }
+
+    function setupAlarmSystem() {
       btnMuteAlarm.addEventListener('click', function () {
         alarmMuted = true;
         addLog('Offline alarm sound muted by user.', 'system');
@@ -876,228 +1206,278 @@
       btnDismissAlarm.addEventListener('click', function () {
         hideAlarmNotification();
       });
+    }
 
-      // Simulation state
-      let state = {
-        normalCondition: true,
-        heavyRain: false,
-        soilSaturation: false,
-        landslideRisk: false,
-        networkOff: false,
-        logs: []
-      };
+    // ============ NOTIFICATION RECIPIENTS SYSTEM ============
+    const recipientsDatabase = [
+      { id: 1, name: 'Rescue Team (North Sector)', icon: '🚑', type: 'rescue' },
+      { id: 2, name: 'Emergency Coordinator', icon: '👨‍💼', type: 'coordinator' },
+      { id: 3, name: 'Nearby Residents (1km radius)', icon: '📱', type: 'residents' },
+      { id: 4, name: 'Medical Teams', icon: '🏥', type: 'medical' }
+    ];
 
-      // DOM elements
-      const btnNormal = document.getElementById('btn-normal');
-      const btnRain = document.getElementById('btn-rain');
-      const btnSoil = document.getElementById('btn-soil');
-      const btnLandslide = document.getElementById('btn-landslide');
-      const btnNetwork = document.getElementById('btn-network');
+    function sendAlertNotifications(riskLevel, message) {
+      const recipientList = document.getElementById('recipient-list');
+      const items = recipientList.querySelectorAll('.recipient-item');
 
-      const riskLevel = document.getElementById('risk-level');
-      const riskScore = document.getElementById('risk-score');
-      const warningStatus = document.getElementById('warning-status');
-      const warningBox = document.getElementById('warning-box');
-      const networkWarning = document.getElementById('network-warning');
-      const networkBadge = document.getElementById('network-badge');
+      items.forEach((item, index) => {
+        const recipient = recipientsDatabase[index];
+        const statusDiv = item.querySelector('.recipient-status');
 
-      const rainfallValue = document.getElementById('rainfall-value');
-      const rainfallBar = document.getElementById('rainfall-bar');
-      const moistureValue = document.getElementById('moisture-value');
-      const moistureBar = document.getElementById('moisture-bar');
-      const slopeValue = document.getElementById('slope-value');
-      const slopeBar = document.getElementById('slope-bar');
+        // Simulate sending notification
+        setTimeout(() => {
+          statusDiv.textContent = `✓ Alert sent - ${new Date().toLocaleTimeString()}`;
+          statusDiv.classList.add('notified');
+          item.classList.add('notified');
 
-      const eventLog = document.getElementById('event-log');
-      const mapContainer = document.getElementById('map-container');
+          // Log the notification
+          addLog(`📢 ALERT SENT to ${recipient.name}: ${message}`, 'alert');
+        }, 300 * (index + 1));
+      });
+    }
 
-      function addLog(message, type = 'info') {
-        const now = new Date().toLocaleTimeString('en-US', { hour12: false });
-        const logClass = type === 'warning' ? 'log-warning' : type === 'system' ? 'log-system' : 'log-info';
-        const logType = type === 'system' ? '[SYSTEM]' : type === 'warning' ? '[WARNING]' : '[INFO]';
+    function resetNotificationStatus() {
+      const recipientList = document.getElementById('recipient-list');
+      const items = recipientList.querySelectorAll('.recipient-item');
 
-        const entry = document.createElement('div');
-        entry.className = 'log-entry';
-        entry.innerHTML = `<span class="log-time">[${now}]</span> <span class="${logClass}">${logType}</span> <span class="log-info">${message}</span>`;
+      items.forEach((item, index) => {
+        const statusDiv = item.querySelector('.recipient-status');
+        statusDiv.textContent = index === 2 ? 'Ready to receive alerts' : 'Standby';
+        statusDiv.classList.remove('notified');
+        item.classList.remove('notified');
+      });
+    }
 
-        eventLog.insertBefore(entry, eventLog.firstChild);
+    // ============ SIMULATION STATE AND METRICS ============
+    let state = {
+      normalCondition: true,
+      heavyRain: false,
+      soilSaturation: false,
+      landslideRisk: false,
+      networkOff: false,
+      logs: []
+    };
 
-        // Keep only last 20 entries
-        const entries = eventLog.querySelectorAll('.log-entry');
-        if (entries.length > 20) {
-          entries[entries.length - 1].remove();
-        }
+    // DOM elements
+    const btnNormal = document.getElementById('btn-normal');
+    const btnRain = document.getElementById('btn-rain');
+    const btnSoil = document.getElementById('btn-soil');
+    const btnLandslide = document.getElementById('btn-landslide');
+    const btnNetwork = document.getElementById('btn-network');
+
+    const riskLevel = document.getElementById('risk-level');
+    const riskScore = document.getElementById('risk-score');
+    const warningStatus = document.getElementById('warning-status');
+    const warningBox = document.getElementById('warning-box');
+    const networkWarning = document.getElementById('network-warning');
+    const networkBadge = document.getElementById('network-badge');
+
+    const rainfallValue = document.getElementById('rainfall-value');
+    const rainfallBar = document.getElementById('rainfall-bar');
+    const moistureValue = document.getElementById('moisture-value');
+    const moistureBar = document.getElementById('moisture-bar');
+    const slopeValue = document.getElementById('slope-value');
+    const slopeBar = document.getElementById('slope-bar');
+
+    const eventLog = document.getElementById('event-log');
+    const mapContainer = document.getElementById('map-container');
+
+    function addLog(message, type = 'info') {
+      const now = new Date().toLocaleTimeString('en-US', { hour12: false });
+      let logClass = 'log-info';
+      let logType = '[INFO]';
+
+      if (type === 'warning') {
+        logClass = 'log-warning';
+        logType = '[WARNING]';
+      } else if (type === 'system') {
+        logClass = 'log-system';
+        logType = '[SYSTEM]';
+      } else if (type === 'alert') {
+        logClass = 'log-alert';
+        logType = '[ALERT]';
       }
 
-      function updateMetrics() {
-        let rainfall = 15;
-        let moisture = 25;
-        let slope = 2;
-        let riskNum = 12;
-        let riskText = 'LOW';
-        let warningText = 'Low Risk';
-        let warningLevel = 'low';
-        let isAlert = false;
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `<span class="log-time">[${now}]</span> <span class="${logClass}">${logType}</span> <span class="log-info">${message}</span>`;
 
-        if (state.normalCondition) {
-          rainfall = 15;
-          moisture = 25;
-          slope = 2;
-          riskNum = 12;
-          riskText = 'LOW';
-          warningText = 'Low Risk';
-          warningLevel = 'low';
-        }
+      eventLog.insertBefore(entry, eventLog.firstChild);
 
-        if (state.heavyRain) {
-          rainfall = 95;
-          moisture = 65;
-          slope = 8;
-          riskNum = 55;
-          riskText = 'HIGH';
-          warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-          warningLevel = 'high';
-          isAlert = true;
-          addLog('Heavy rainfall detected - Landslide risk increased!', 'warning');
-        }
+      // Keep only last 20 entries
+      const entries = eventLog.querySelectorAll('.log-entry');
+      if (entries.length > 20) {
+        entries[entries.length - 1].remove();
+      }
+    }
 
-        if (state.soilSaturation) {
-          rainfall = Math.max(rainfall, 75);
-          moisture = 92;
-          slope = 12;
-          riskNum = 65;
-          riskText = 'HIGH';
-          warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-          warningLevel = 'high';
-          isAlert = true;
-          addLog('Soil saturation critical - Slope stability compromised.', 'warning');
-        }
+    function updateMetrics() {
+      let rainfall = 15;
+      let moisture = 25;
+      let slope = 2;
+      let riskNum = 12;
+      let riskText = 'LOW';
+      let warningText = 'Low Risk';
+      let warningLevel = 'low';
+      let isAlert = false;
+      let alertMessage = '';
 
-        if (state.landslideRisk) {
-          rainfall = 95;
-          moisture = 92;
-          slope = 18;
-          riskNum = 100;
-          riskText = 'HIGH';
-          warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
-          warningLevel = 'high';
-          isAlert = true;
-          addLog('CRITICAL: Landslide risk detected - score 100. Local alarm activated. Remote alert triggered.', 'warning');
-        }
-
-        if (state.networkOff) {
-          addLog('Network unavailable - Local warning mode active with AUDIO ALARM enabled.', 'system');
-          // Play alarm sound when network is off
-          playAlarmSound();
-          showAlarmNotification();
-        }
-
-        // Update rainfall
-        rainfallValue.textContent = `${rainfall} mm/h`;
-        rainfallBar.style.width = Math.min(rainfall / 100 * 100, 100) + '%';
-        rainfallBar.className = 'progress-fill' + (rainfall > 70 ? '.high' : rainfall > 40 ? '.medium' : '');
-
-        // Update moisture
-        moistureValue.textContent = `${moisture}%`;
-        moistureBar.style.width = moisture + '%';
-        moistureBar.className = 'progress-fill' + (moisture > 80 ? '.high' : moisture > 50 ? '.medium' : '');
-
-        // Update slope
-        slopeValue.textContent = `${slope} mm`;
-        slopeBar.style.width = Math.min(slope / 20 * 100, 100) + '%';
-        slopeBar.className = 'progress-fill' + (slope > 15 ? '.high' : slope > 8 ? '.medium' : '');
-
-        // Update risk display
-        riskLevel.textContent = riskText;
-        riskScore.textContent = `${riskNum} / 100`;
-
-        // Update warning status
-        warningStatus.textContent = warningText.split(' — ')[0];
-        warningBox.className = 'warning-box ' + warningLevel;
-        warningBox.innerHTML = `
-          <div class="warning-title">${warningLevel === 'high' ? '🔴' : '✓'} ${warningText.split(' — ')[0]}</div>
-          <div class="warning-message">${warningLevel === 'high' ? warningText.split(' — ')[1] : 'System monitoring normally.'}</div>
-        `;
-
-        // Update map animation
-        const markers = mapContainer.querySelectorAll('.risk-marker');
-        if (isAlert) {
-          markers.forEach(m => m.classList.add('active'));
-        } else {
-          markers.forEach(m => m.classList.remove('active'));
-        }
-
-        // Update risk card styling
-        const riskCard = document.querySelector('.card.risk-low, .card.risk-high');
-        if (warningLevel === 'high') {
-          riskCard.classList.remove('risk-low');
-          riskCard.classList.add('risk-high');
-        } else {
-          riskCard.classList.remove('risk-high');
-          riskCard.classList.add('risk-low');
-        }
-
-        // Update network status
-        if (state.networkOff) {
-          networkBadge.classList.add('offline');
-          networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
-          networkWarning.style.display = 'block';
-        } else {
-          networkBadge.classList.remove('offline');
-          networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
-          networkWarning.style.display = 'none';
-          hideAlarmNotification();
-          alarmMuted = false;
-        }
+      if (state.normalCondition) {
+        rainfall = 15;
+        moisture = 25;
+        slope = 2;
+        riskNum = 12;
+        riskText = 'LOW';
+        warningText = 'Low Risk';
+        warningLevel = 'low';
+        resetNotificationStatus();
       }
 
-      // Button event listeners
+      if (state.heavyRain) {
+        rainfall = 95;
+        moisture = 65;
+        slope = 8;
+        riskNum = 55;
+        riskText = 'HIGH';
+        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
+        warningLevel = 'high';
+        isAlert = true;
+        alertMessage = 'Heavy rainfall detected - Landslide risk increased! Notifying nearby residents and rescue teams.';
+        addLog('Heavy rainfall detected - Landslide risk increased!', 'warning');
+      }
+
+      if (state.soilSaturation) {
+        rainfall = Math.max(rainfall, 75);
+        moisture = 92;
+        slope = 12;
+        riskNum = 65;
+        riskText = 'HIGH';
+        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
+        warningLevel = 'high';
+        isAlert = true;
+        alertMessage = 'Soil saturation critical - Slope stability compromised! Emergency alert sent.';
+        addLog('Soil saturation critical - Slope stability compromised.', 'warning');
+      }
+
+      if (state.landslideRisk) {
+        rainfall = 95;
+        moisture = 92;
+        slope = 18;
+        riskNum = 100;
+        riskText = 'HIGH';
+        warningText = 'HIGH RISK — LOCAL ALARM ACTIVATED';
+        warningLevel = 'high';
+        isAlert = true;
+        alertMessage = 'CRITICAL: Landslide risk detected! Immediate evacuation recommended.';
+        addLog('CRITICAL: Landslide risk detected - score 100. Local alarm activated. Remote alert triggered.', 'warning');
+      }
+
+      // Send notifications on high risk
+      if (isAlert && (state.heavyRain || state.soilSaturation || state.landslideRisk)) {
+        sendAlertNotifications(riskText, alertMessage);
+      }
+
+      if (state.networkOff) {
+        addLog('Network unavailable - Local warning mode active with AUDIO ALARM enabled.', 'system');
+        playAlarmSound();
+        showAlarmNotification();
+      }
+
+      // Update rainfall
+      rainfallValue.textContent = `${rainfall} mm/h`;
+      rainfallBar.style.width = Math.min(rainfall / 100 * 100, 100) + '%';
+      rainfallBar.className = 'progress-fill' + (rainfall > 70 ? ' high' : rainfall > 40 ? ' medium' : '');
+
+      // Update moisture
+      moistureValue.textContent = `${moisture}%`;
+      moistureBar.style.width = moisture + '%';
+      moistureBar.className = 'progress-fill' + (moisture > 80 ? ' high' : moisture > 50 ? ' medium' : '');
+
+      // Update slope
+      slopeValue.textContent = `${slope} mm`;
+      slopeBar.style.width = Math.min(slope / 20 * 100, 100) + '%';
+      slopeBar.className = 'progress-fill' + (slope > 15 ? ' high' : slope > 8 ? ' medium' : '');
+
+      // Update risk level
+      riskLevel.textContent = riskText;
+      riskScore.textContent = riskNum + ' / 100';
+      warningStatus.textContent = warningText;
+
+      // Update warning box
+      warningBox.className = 'warning-box ' + warningLevel;
+      warningBox.innerHTML = `
+        <div class="warning-title">${warningLevel === 'high' ? '🔴' : '✓'} ${warningText}</div>
+        <div class="warning-message">${warningLevel === 'high' ? alertMessage : 'System monitoring normally.'}</div>
+      `;
+
+      // Update network badge
+      if (state.networkOff) {
+        networkBadge.classList.add('offline');
+        networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
+        networkWarning.style.display = 'block';
+      } else {
+        networkBadge.classList.remove('offline');
+        networkBadge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
+        networkWarning.style.display = 'none';
+      }
+
+      // Update card styling
+      const riskCard = document.querySelector('.card.risk-low') || document.querySelector('.card.risk-high');
+      if (riskCard) {
+        riskCard.className = 'card ' + (warningLevel === 'high' ? 'risk-high' : 'risk-low');
+      }
+    }
+
+    function setupEventListeners() {
       btnNormal.addEventListener('click', function () {
         state.normalCondition = true;
         state.heavyRain = false;
         state.soilSaturation = false;
         state.landslideRisk = false;
-        addLog('Simulation reset to normal condition.', 'system');
+        
+        btnNormal.classList.add('active');
+        btnRain.classList.remove('active');
+        btnSoil.classList.remove('active');
+        btnLandslide.classList.remove('active');
+        
+        addLog('System reset to normal conditions.', 'system');
         updateMetrics();
       });
 
       btnRain.addEventListener('click', function () {
+        state.heavyRain = !state.heavyRain;
         state.normalCondition = false;
-        state.heavyRain = true;
-        state.soilSaturation = false;
-        state.landslideRisk = false;
+        btnRain.classList.toggle('active');
         updateMetrics();
       });
 
       btnSoil.addEventListener('click', function () {
+        state.soilSaturation = !state.soilSaturation;
         state.normalCondition = false;
-        state.heavyRain = false;
-        state.soilSaturation = true;
-        state.landslideRisk = false;
+        btnSoil.classList.toggle('active');
         updateMetrics();
       });
 
       btnLandslide.addEventListener('click', function () {
+        state.landslideRisk = !state.landslideRisk;
         state.normalCondition = false;
-        state.heavyRain = false;
-        state.soilSaturation = false;
-        state.landslideRisk = true;
+        btnLandslide.classList.toggle('active');
         updateMetrics();
       });
 
       btnNetwork.addEventListener('click', function () {
         state.networkOff = !state.networkOff;
+        btnNetwork.classList.toggle('active');
         if (state.networkOff) {
-          addLog('Network connection lost.', 'warning');
+          addLog('Network connection lost!', 'warning');
+          alarmMuted = false; // Reset mute when network goes down
         } else {
           addLog('Network connection restored.', 'system');
+          hideAlarmNotification();
         }
         updateMetrics();
       });
-
-      // Initialize
-      updateMetrics();
-    })();
+    }
   </script>
 </body>
 </html>
