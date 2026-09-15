@@ -204,7 +204,7 @@
     }
 
     .logo {
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -212,8 +212,9 @@
     }
 
     .title {
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       font-weight: 600;
+      color: #ccc;
     }
 
     .top-bar-right {
@@ -225,9 +226,9 @@
     .status-badge {
       background: #28a745;
       color: #fff;
-      padding: 4px 12px;
+      padding: 6px 14px;
       border-radius: 20px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       display: flex;
       align-items: center;
@@ -252,7 +253,7 @@
     }
 
     .timestamp {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #aaa;
     }
 
@@ -272,16 +273,38 @@
       background: #c82333;
     }
 
-    .main-container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      padding: 24px;
-      max-width: 1800px;
+    .content-wrapper {
+      padding: 20px 24px;
+      max-width: 1600px;
       margin: 0 auto;
     }
 
+    .section-heading {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1a2332;
+      margin-bottom: 20px;
+      margin-top: 30px;
+    }
+
+    .section-heading:first-child {
+      margin-top: 0;
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
     @media (max-width: 1400px) {
+      .main-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
       .main-container {
         grid-template-columns: 1fr;
       }
@@ -297,13 +320,77 @@
       gap: 8px;
     }
 
-    /* Left Panel */
-    .left-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+    /* Card Styles */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
+    .card-header {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .card-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #1a2332;
+      margin-bottom: 8px;
+    }
+
+    .card-label {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .risk-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .risk-icon {
+      font-size: 2rem;
+    }
+
+    .risk-info h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #999;
+      text-transform: uppercase;
+    }
+
+    .risk-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a2332;
+    }
+
+    .risk-score {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .card.risk-high {
+      border-top: 4px solid #dc3545;
+    }
+
+    .card.risk-low {
+      border-top: 4px solid #28a745;
+    }
+
+    .card.risk-medium {
+      border-top: 4px solid #ffc107;
+    }
+
+    /* Map Section */
     .ner-map {
       background: #fff;
       border-radius: 8px;
@@ -313,14 +400,11 @@
 
     .map-container {
       width: 100%;
-      height: 300px;
+      height: 280px;
       background: linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%);
       border-radius: 6px;
       position: relative;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       margin-bottom: 12px;
       box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
     }
@@ -329,15 +413,15 @@
       position: relative;
       width: 100%;
       height: 100%;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><path fill="%23366b1f" d="M20,100 Q50,80 80,90 T150,100 L160,140 Q140,150 120,140 L100,160[...]
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><style>.terrain{fill:%23366b1f;opacity:0.8}</style></defs><path class="terrain" d="M0,150 Q100,100 200,120 T400,140 L400,300 L0,300 Z"/><path class="terrain" d="M0,200 Q80,150 160,170 T320,190 L400,210 L400,300 L0,300 Z" opacity="0.6"/></svg>');
       background-size: cover;
       background-position: center;
     }
 
     .risk-marker {
       position: absolute;
-      width: 12px;
-      height: 12px;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       border: 3px solid #fff;
       box-shadow: 0 2px 6px rgba(0,0,0,0.4);
@@ -349,15 +433,10 @@
     .risk-marker.medium { background: #ffc107; }
     .risk-marker.low { background: #28a745; }
 
-    .risk-marker.active {
-      width: 18px;
-      height: 18px;
-      animation: pulse 0.6s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 2px 6px rgba(0,0,0,0.4), 0 0 0 0 currentColor; }
-      50% { box-shadow: 0 2px 6px rgba(0,0,0,0.4), 0 0 0 6px rgba(255,255,255,0.3); }
+    .risk-marker:hover {
+      width: 20px;
+      height: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
     .legend {
@@ -384,46 +463,49 @@
     .legend-dot.medium { background: #ffc107; }
     .legend-dot.low { background: #28a745; }
 
-    .cards-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .card {
+    /* Sensor Data */
+    .sensor-section {
       background: #fff;
       border-radius: 8px;
       padding: 16px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .card-header {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: 0.5px;
+    .sensor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
     }
 
-    .card-value {
-      font-size: 2.2rem;
+    @media (max-width: 768px) {
+      .sensor-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sensor-item {
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .sensor-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .sensor-label {
+      font-size: 0.8rem;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .sensor-value {
+      font-size: 1.5rem;
       font-weight: 700;
       color: #1a2332;
       margin-bottom: 8px;
-    }
-
-    .card-label {
-      font-size: 0.85rem;
-      color: #999;
-    }
-
-    .card.risk-high {
-      border-top: 4px solid #dc3545;
-    }
-
-    .card.risk-low {
-      border-top: 4px solid #28a745;
     }
 
     .progress-bar {
@@ -432,7 +514,6 @@
       background: #e9ecef;
       border-radius: 3px;
       overflow: hidden;
-      margin-top: 8px;
     }
 
     .progress-fill {
@@ -444,54 +525,7 @@
     .progress-fill.high { background: #dc3545; }
     .progress-fill.medium { background: #ffc107; }
 
-    /* Sensor Data */
-    .sensor-section {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .sensor-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid #e9ecef;
-    }
-
-    .sensor-item:last-child {
-      border-bottom: none;
-    }
-
-    .sensor-icon {
-      font-size: 1.5rem;
-      margin-right: 12px;
-    }
-
-    .sensor-info {
-      flex: 1;
-    }
-
-    .sensor-label {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 4px;
-    }
-
-    .sensor-value {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #1a2332;
-    }
-
-    /* Right Panel */
-    .right-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
+    /* Warning Section */
     .warning-section {
       background: #fff;
       border-radius: 8px;
@@ -502,24 +536,27 @@
     .warning-box {
       padding: 16px;
       border-radius: 6px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      border-left: 4px solid;
     }
 
     .warning-box.low {
       background: #d4edda;
-      border-left: 4px solid #28a745;
+      border-left-color: #28a745;
     }
 
     .warning-box.high {
       background: #f8d7da;
-      border-left: 4px solid #dc3545;
+      border-left-color: #dc3545;
     }
 
     .warning-title {
       font-size: 0.9rem;
       font-weight: 700;
       margin-bottom: 4px;
-      color: #1a2332;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .warning-message {
@@ -527,6 +564,43 @@
       color: #555;
     }
 
+    /* System Architecture */
+    .system-architecture {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .architecture-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.75rem;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .arch-box {
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+      text-align: center;
+      min-width: 70px;
+      white-space: nowrap;
+    }
+
+    .arch-arrow {
+      color: #667eea;
+      font-weight: 700;
+      margin: 0 4px;
+    }
+
+    /* Controls */
     .controls-section {
       background: #fff;
       border-radius: 8px;
@@ -534,18 +608,10 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .controls-title {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #1a2332;
-      margin-bottom: 12px;
-    }
-
     .button-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-bottom: 8px;
     }
 
     .button-grid.full {
@@ -581,6 +647,7 @@
     .btn-simulate.warning { background: #ffc107; color: #1a2332; border-color: #ffc107; }
     .btn-simulate.info { background: #0066cc; color: #fff; border-color: #0066cc; }
 
+    /* Event Log */
     .event-log {
       background: #1a2332;
       color: #fff;
@@ -590,11 +657,11 @@
       font-size: 0.75rem;
       max-height: 200px;
       overflow-y: auto;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .log-entry {
-      padding: 4px 0;
+      padding: 3px 0;
       border-bottom: 1px solid #2d3f52;
     }
 
@@ -619,211 +686,36 @@
       color: #87ceeb;
     }
 
-    .log-alert {
-      color: #ff6b9d;
-      font-weight: 700;
-    }
-
-    .system-architecture {
-      background: #fff;
-      border-radius: 8px;
+    /* Network Status */
+    .network-status {
       padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .architecture-flow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.75rem;
-      margin-top: 12px;
-      flex-wrap: wrap;
-    }
-
-    .arch-box {
-      background: #f8f9fa;
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: 1px solid #e9ecef;
+      border-radius: 6px;
       text-align: center;
-      flex: 1;
-      min-width: 80px;
+      margin-top: 12px;
     }
 
-    .arch-arrow {
-      color: #667eea;
-      font-weight: 700;
-    }
-
-    /* Notification Recipients */
-    .notification-recipients {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .recipient-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .recipient-item {
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      background: #f8f9fa;
-      border-radius: 6px;
-      border-left: 4px solid #667eea;
-    }
-
-    .recipient-item.notified {
-      border-left-color: #28a745;
-      background: #f0f8f0;
-    }
-
-    .recipient-icon {
-      font-size: 1.5rem;
-      margin-right: 12px;
-    }
-
-    .recipient-info {
-      flex: 1;
-    }
-
-    .recipient-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #1a2332;
-    }
-
-    .recipient-status {
-      font-size: 0.8rem;
-      color: #999;
-      margin-top: 2px;
-    }
-
-    .recipient-status.notified {
-      color: #28a745;
-    }
-
-    /* Message Panel Styles */
-    .message-panel {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .messages-container {
-      background: #f8f9fa;
-      border-radius: 6px;
-      padding: 12px;
-      max-height: 250px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .message {
-      padding: 10px 12px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    .message.system {
-      background: #e7f3ff;
-      border-left: 3px solid #0066cc;
-      color: #0066cc;
-    }
-
-    .message.warning {
-      background: #fff3cd;
-      border-left: 3px solid #ffc107;
-      color: #856404;
-    }
-
-    .message.alert {
-      background: #f8d7da;
-      border-left: 3px solid #dc3545;
-      color: #721c24;
-    }
-
-    .message.success {
-      background: #d4edda;
-      border-left: 3px solid #28a745;
+    .network-status.available {
+      background: #e8f5e9;
+      border: 2px solid #28a745;
       color: #155724;
     }
 
-    .message-input-group {
-      display: flex;
-      gap: 8px;
+    .network-status.unavailable {
+      background: #ffebee;
+      border: 2px solid #dc3545;
+      color: #721c24;
     }
 
-    .message-input {
-      flex: 1;
-      padding: 10px 12px;
-      border: 2px solid #e9ecef;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-family: inherit;
-      transition: all 0.3s ease;
+    .network-status-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
     }
 
-    .message-input:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    .message-btn {
-      padding: 10px 16px;
-      background: #667eea;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    .network-status-text {
       font-weight: 600;
-      font-size: 0.85rem;
-      transition: all 0.3s ease;
     }
 
-    .message-btn:hover {
-      background: #5568d3;
-      transform: translateY(-2px);
-    }
-
-    .message-btn:active {
-      transform: translateY(0);
-    }
-
-    .scrollbar-hidden::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .scrollbar-hidden::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .scrollbar-hidden::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 3px;
-    }
-
-    .scrollbar-hidden::-webkit-scrollbar-thumb:hover {
-      background: #999;
-    }
-
-    :focus { outline: 3px solid rgba(102,126,234,0.35); outline-offset: 2px; }
-
-    /* Alarm Notification Styles */
+    /* Alarm Notification */
     .alarm-notification {
       position: fixed;
       top: 80px;
@@ -843,10 +735,6 @@
       display: block;
     }
 
-    .alarm-notification.hide {
-      animation: slideOut 0.3s ease;
-    }
-
     @keyframes slideIn {
       from {
         transform: translateX(400px);
@@ -855,17 +743,6 @@
       to {
         transform: translateX(0);
         opacity: 1;
-      }
-    }
-
-    @keyframes slideOut {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(400px);
-        opacity: 0;
       }
     }
 
@@ -912,6 +789,33 @@
     .alarm-btn.dismiss:hover {
       background: rgba(255, 255, 255, 0.5);
     }
+
+    .footer {
+      background: #1a2332;
+      color: #fff;
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 3px;
+    }
+
+    .scrollbar-hidden::-webkit-scrollbar-thumb:hover {
+      background: #999;
+    }
+
+    :focus { outline: 3px solid rgba(102,126,234,0.35); outline-offset: 2px; }
   </style>
 </head>
 <body>
@@ -971,423 +875,470 @@
       </div>
     </div>
 
-    <!-- Main Container -->
-    <div class="main-container">
-      <!-- Left Panel -->
-      <div class="left-panel">
-        <!-- NER Map Section -->
+    <!-- Content -->
+    <div class="content-wrapper">
+      <!-- Section 1: Normal Condition -->
+      <div class="section-heading">1. Normal Condition (Initial State)</div>
+      
+      <div class="main-container">
+        <!-- Left: NER Map -->
         <div class="ner-map">
           <div class="section-title">🗺️ NER Region Map</div>
           <div class="map-container" id="map-container">
             <div class="map-placeholder"></div>
-            <span class="risk-marker high" style="left: 25%; top: 40%;"></span>
-            <span class="risk-marker medium" style="left: 50%; top: 30%;"></span>
-            <span class="risk-marker low" style="left: 75%; top: 60%;"></span>
+            <span class="risk-marker low" style="left: 20%; top: 35%;"></span>
+            <span class="risk-marker medium" style="left: 50%; top: 25%;"></span>
+            <span class="risk-marker high" style="left: 75%; top: 55%;"></span>
           </div>
           <div class="legend">
             <div class="legend-item">
-              <div class="legend-dot high"></div>
-              <span>High Risk</span>
+              <div class="legend-dot low"></div>
+              <span>Low Risk</span>
             </div>
             <div class="legend-item">
               <div class="legend-dot medium"></div>
               <span>Medium Risk</span>
             </div>
             <div class="legend-item">
-              <div class="legend-dot low"></div>
-              <span>Low Risk</span>
+              <div class="legend-dot high"></div>
+              <span>High Risk</span>
             </div>
           </div>
         </div>
 
-        <!-- Risk Cards Grid -->
-        <div class="cards-grid">
+        <!-- Middle: Risk Status -->
+        <div>
           <div class="card risk-low">
-            <div class="card-header">Current Landslide Risk</div>
-            <div class="card-value" id="risk-level">LOW</div>
-            <div class="card-label">Risk Score: <strong id="risk-score">12 / 100</strong></div>
-          </div>
-          <div class="card">
-            <div class="card-header">Warning Status</div>
-            <div class="card-label" style="font-size: 1.1rem; color: #28a745; font-weight: 700; margin-top: 12px;">
-              ✓ <span id="warning-status">Low Risk</span>
-            </div>
-            <div class="card-label">System monitoring normally.</div>
-          </div>
-        </div>
-
-        <!-- Sensor Data Section -->
-        <div class="sensor-section">
-          <div class="section-title">📊 Sensor Data</div>
-          
-          <div class="sensor-item">
-            <div>
-              <div class="sensor-icon">🌧️</div>
-            </div>
-            <div class="sensor-info">
-              <div class="sensor-label">Rainfall</div>
-              <div class="sensor-value" id="rainfall-value">15 mm/h</div>
-            </div>
-            <div style="width: 80px;">
-              <div class="progress-bar">
-                <div class="progress-fill" id="rainfall-bar" style="width: 15%;"></div>
+            <div class="risk-indicator">
+              <div class="risk-icon">✓</div>
+              <div class="risk-info">
+                <h3>Current Landslide Risk</h3>
+                <div class="risk-value">LOW</div>
               </div>
             </div>
           </div>
 
-          <div class="sensor-item">
-            <div>
-              <div class="sensor-icon">💧</div>
-            </div>
-            <div class="sensor-info">
-              <div class="sensor-label">Soil Moisture</div>
-              <div class="sensor-value" id="moisture-value">25%</div>
-            </div>
-            <div style="width: 80px;">
-              <div class="progress-bar">
-                <div class="progress-fill" id="moisture-bar" style="width: 25%;"></div>
-              </div>
+          <div class="card" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 12px; margin-top: 0;">⚠️ Warning Status</h3>
+            <div class="warning-box low">
+              <div class="warning-title">✓ Low Risk</div>
+              <div class="warning-message">System monitoring normally.</div>
             </div>
           </div>
 
-          <div class="sensor-item">
-            <div>
-              <div class="sensor-icon">📈</div>
-            </div>
-            <div class="sensor-info">
-              <div class="sensor-label">Slope Movement</div>
-              <div class="sensor-value" id="slope-value">2 mm</div>
-            </div>
-            <div style="width: 80px;">
-              <div class="progress-bar">
-                <div class="progress-fill" id="slope-bar" style="width: 10%;"></div>
+          <div class="sensor-section" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 16px;">📊 Sensor Data</div>
+            <div class="sensor-grid">
+              <div class="sensor-item">
+                <div class="sensor-icon">🌧️</div>
+                <div class="sensor-label">Rainfall</div>
+                <div class="sensor-value">15 mm/h</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 15%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">💧</div>
+                <div class="sensor-label">Soil Moisture</div>
+                <div class="sensor-value">25%</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">📈</div>
+                <div class="sensor-label">Slope Movement</div>
+                <div class="sensor-value">2 mm</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 10%"></div></div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- System Architecture -->
-        <div class="system-architecture">
-          <div class="section-title">🏗️ System Architecture</div>
-          <div class="architecture-flow">
-            <div class="arch-box">🌧️ Rainfall</div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-box">💧 Soil Moisture</div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-box">📈 Slope Movement</div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-box">🧠 AI / Risk Engine</div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-box">📊 Risk Level</div>
-            <div class="arch-arrow">→</div>
-            <div class="arch-box">🚨 Alerts</div>
+        <!-- Right: Controls & System Info -->
+        <div>
+          <div class="controls-section">
+            <h3 class="controls-title">🎮 Prototype Simulation Controls</h3>
+            <div class="button-grid">
+              <button class="btn-simulate success">✓ Normal Condition</button>
+              <button class="btn-simulate info">☁️ Heavy Rain</button>
+              <button class="btn-simulate warning">💧 Soil Saturation</button>
+              <button class="btn-simulate danger">⚠️ Simulate Landslide Risk</button>
+            </div>
+            <div class="button-grid full">
+              <button class="btn-simulate">📡 Toggle Network</button>
+            </div>
+          </div>
+
+          <div class="system-architecture" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 0;">🏗️ System Architecture</div>
+            <div class="architecture-flow">
+              <div class="arch-box">🌧️ Rainfall</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">💧 Soil Moisture</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📈 Slope Movement</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">🧠 AI / Risk Engine</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📊 Risk Level</div>
+            </div>
+            <div class="network-status available">
+              <div class="network-status-icon">📡</div>
+              <div class="network-status-text">Network Available</div>
+              <div style="font-size: 0.8rem; margin-top: 4px;">SMS / Dashboard</div>
+            </div>
+          </div>
+
+          <div class="warning-section" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 0;">💬 System Event Log</h3>
+            <div class="event-log">
+              <div class="log-entry"><span class="log-time">[16:24:00]</span> <span class="log-info">[SYSTEM]</span> Monitoring system installed.</div>
+              <div class="log-entry"><span class="log-time">[18:24:01]</span> <span class="log-system">[SYSTEM]</span> Sensor simulation started.</div>
+              <div class="log-entry"><span class="log-time">[18:24:02]</span> <span class="log-warning">[SYSTEM]</span> Waiting for environmental changes...</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Right Panel -->
-      <div class="right-panel">
-        <!-- Prototype Simulation Controls -->
-        <div class="controls-section">
-          <div class="controls-title">🎮 Prototype Simulation Controls</div>
-          
-          <div class="button-grid">
-            <button class="btn-simulate success" id="btn-normal" title="Reset to normal condition">✓ Normal Condition</button>
-            <button class="btn-simulate info" id="btn-rain" title="Simulate heavy rain">❄️ Heavy Rain</button>
+      <!-- Section 2: High Risk Condition -->
+      <div class="section-heading">2. After clicking "Simulate Landslide Risk"</div>
+      
+      <div class="main-container">
+        <!-- Left: NER Map (High Risk) -->
+        <div class="ner-map">
+          <div class="section-title">🗺️ NER Region Map</div>
+          <div class="map-container" id="map-container-2">
+            <div class="map-placeholder"></div>
+            <span class="risk-marker low" style="left: 20%; top: 35%;"></span>
+            <span class="risk-marker medium" style="left: 50%; top: 25%;"></span>
+            <span class="risk-marker high" style="left: 75%; top: 55%;"></span>
           </div>
-          
-          <div class="button-grid">
-            <button class="btn-simulate warning" id="btn-soil" title="Simulate soil saturation">🌊 Soil Saturation</button>
-            <button class="btn-simulate danger" id="btn-landslide" title="Simulate landslide risk">🔴 Simulate Landslide Risk</button>
-          </div>
-          
-          <div class="button-grid full">
-            <button class="btn-simulate info" id="btn-network" title="Toggle network status">📡 Toggle Network</button>
-          </div>
-        </div>
-
-        <!-- Warning/Status Section -->
-        <div class="warning-section">
-          <div class="section-title">⚠️ Warning Status</div>
-          <div id="warning-box" class="warning-box low">
-            <div class="warning-title">✓ Low Risk</div>
-            <div class="warning-message">System monitoring normally.</div>
-          </div>
-          <div id="network-warning" style="display:none;" class="warning-box high">
-            <div class="warning-title">🔴 Network Error</div>
-            <div class="warning-message">Network connection lost - System operating in offline mode with LOCAL AUDIO ALARM ACTIVE.</div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot low"></div>
+              <span>Low Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot medium"></div>
+              <span>Medium Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot high"></div>
+              <span>High Risk</span>
+            </div>
           </div>
         </div>
 
-        <!-- Message Panel -->
-        <div class="message-panel">
-          <div class="section-title">💬 System Messages</div>
-          <div class="messages-container scrollbar-hidden" id="messages-container">
-            <div class="message system">✓ System initialized and ready for monitoring.</div>
-          </div>
-          <div class="message-input-group">
-            <input type="text" class="message-input" id="message-input" placeholder="Type a message or command..." />
-            <button class="message-btn" id="send-message-btn">Send</button>
-          </div>
-        </div>
-
-        <!-- Notification Recipients -->
-        <div class="notification-recipients">
-          <div class="section-title">📢 Alert Notification Status</div>
-          <div class="recipient-list" id="recipient-list">
-            <div class="recipient-item">
-              <div class="recipient-icon">🚑</div>
-              <div class="recipient-info">
-                <div class="recipient-name">Rescue Team (North Sector)</div>
-                <div class="recipient-status">Standby</div>
+        <!-- Middle: Risk Status (High) -->
+        <div>
+          <div class="card risk-high">
+            <div class="risk-indicator">
+              <div class="risk-icon">⚠️</div>
+              <div class="risk-info">
+                <h3>Current Landslide Risk</h3>
+                <div class="risk-value" style="color: #dc3545;">HIGH</div>
               </div>
             </div>
-            <div class="recipient-item">
-              <div class="recipient-icon">🚓</div>
-              <div class="recipient-info">
-                <div class="recipient-name">District Administration</div>
-                <div class="recipient-status">Monitoring</div>
+          </div>
+
+          <div class="card" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 12px; margin-top: 0;">⚠️ Warning Status</h3>
+            <div class="warning-box high">
+              <div class="warning-title">🔴 HIGH RISK — LOCAL ALARM ACTIVATED</div>
+              <div class="warning-message">Immediate risk detected. Emergency protocols engaged.</div>
+            </div>
+          </div>
+
+          <div class="sensor-section" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 16px;">📊 Sensor Data</div>
+            <div class="sensor-grid">
+              <div class="sensor-item">
+                <div class="sensor-icon">🌧️</div>
+                <div class="sensor-label">Rainfall</div>
+                <div class="sensor-value">95 mm/h</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 95%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">💧</div>
+                <div class="sensor-label">Soil Moisture</div>
+                <div class="sensor-value">92%</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 92%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">📈</div>
+                <div class="sensor-label">Slope Movement</div>
+                <div class="sensor-value">18 mm</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 90%"></div></div>
               </div>
             </div>
-            <div class="recipient-item">
-              <div class="recipient-icon">📞</div>
-              <div class="recipient-info">
-                <div class="recipient-name">Village Alert System</div>
-                <div class="recipient-status">Connected</div>
+          </div>
+        </div>
+
+        <!-- Right: Controls & System Info -->
+        <div>
+          <div class="controls-section">
+            <h3 class="controls-title">🎮 Prototype Simulation Controls</h3>
+            <div class="button-grid">
+              <button class="btn-simulate">✓ Normal Condition</button>
+              <button class="btn-simulate info">☁️ Heavy Rain</button>
+              <button class="btn-simulate warning">💧 Soil Saturation</button>
+              <button class="btn-simulate danger active">⚠️ Simulate Landslide Risk</button>
+            </div>
+            <div class="button-grid full">
+              <button class="btn-simulate">📡 Toggle Network</button>
+            </div>
+          </div>
+
+          <div class="system-architecture" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 0;">🏗️ System Architecture</div>
+            <div class="architecture-flow">
+              <div class="arch-box">🌧️ Rainfall</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">💧 Soil Moisture</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📈 Slope Movement</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">🧠 AI / Risk Engine</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📊 Risk Level</div>
+            </div>
+            <div class="network-status available">
+              <div class="network-status-icon">📡</div>
+              <div class="network-status-text">Network Available</div>
+              <div style="font-size: 0.8rem; margin-top: 4px;">SMS / Dashboard</div>
+            </div>
+          </div>
+
+          <div class="warning-section" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 0;">💬 System Event Log</h3>
+            <div class="event-log">
+              <div class="log-entry"><span class="log-time">[18:26:14]</span> <span class="log-warning">[SIMULATION]</span> Critical slope movement simulated.</div>
+              <div class="log-entry"><span class="log-time">[18:26:16]</span> <span class="log-system">[RISK ENGINE]</span> HIGH risk detected, score 100.</div>
+              <div class="log-entry"><span class="log-time">[18:26:17]</span> <span class="log-warning">[WARNING]</span> Local alarm + remote alert triggered.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Network Offline -->
+      <div class="section-heading">3. After turning Network OFF (Local Warning Active)</div>
+      
+      <div class="main-container">
+        <!-- Left: NER Map (Offline) -->
+        <div class="ner-map">
+          <div class="section-title">🗺️ NER Region Map</div>
+          <div class="map-container" id="map-container-3">
+            <div class="map-placeholder"></div>
+            <span class="risk-marker low" style="left: 20%; top: 35%;"></span>
+            <span class="risk-marker medium" style="left: 50%; top: 25%;"></span>
+            <span class="risk-marker high" style="left: 75%; top: 55%;"></span>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot low"></div>
+              <span>Low Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot medium"></div>
+              <span>Medium Risk</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot high"></div>
+              <span>High Risk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Middle: Risk Status (Offline) -->
+        <div>
+          <div class="card risk-high">
+            <div class="risk-indicator">
+              <div class="risk-icon">⚠️</div>
+              <div class="risk-info">
+                <h3>Current Landslide Risk</h3>
+                <div class="risk-value" style="color: #dc3545;">HIGH</div>
               </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 12px; margin-top: 0;">⚠️ Warning Status</h3>
+            <div class="warning-box high">
+              <div class="warning-title">🔴 HIGH RISK — LOCAL ALARM ACTIVATED</div>
+              <div class="warning-message">Offline mode: Using local siren/alarm system.</div>
+            </div>
+          </div>
+
+          <div class="sensor-section" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 16px;">📊 Sensor Data</div>
+            <div class="sensor-grid">
+              <div class="sensor-item">
+                <div class="sensor-icon">🌧️</div>
+                <div class="sensor-label">Rainfall</div>
+                <div class="sensor-value">95 mm/h</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 95%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">💧</div>
+                <div class="sensor-label">Soil Moisture</div>
+                <div class="sensor-value">92%</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 92%"></div></div>
+              </div>
+              <div class="sensor-item">
+                <div class="sensor-icon">📈</div>
+                <div class="sensor-label">Slope Movement</div>
+                <div class="sensor-value">18 mm</div>
+                <div class="progress-bar"><div class="progress-fill high" style="width: 90%"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Controls & System Info (Offline) -->
+        <div>
+          <div class="controls-section">
+            <h3 class="controls-title">🎮 Prototype Simulation Controls</h3>
+            <div class="button-grid">
+              <button class="btn-simulate">✓ Normal Condition</button>
+              <button class="btn-simulate info">☁️ Heavy Rain</button>
+              <button class="btn-simulate warning">💧 Soil Saturation</button>
+              <button class="btn-simulate danger active">⚠️ Simulate Landslide Risk</button>
+            </div>
+            <div class="button-grid full">
+              <button class="btn-simulate">📡 Toggle Network</button>
+            </div>
+          </div>
+
+          <div class="system-architecture" style="margin-top: 16px;">
+            <div class="section-title" style="margin-bottom: 0;">🏗️ System Architecture</div>
+            <div class="architecture-flow">
+              <div class="arch-box">🌧️ Rainfall</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">💧 Soil Moisture</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📈 Slope Movement</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">🧠 AI / Risk Engine</div>
+              <div class="arch-arrow">→</div>
+              <div class="arch-box">📊 Risk Level</div>
+            </div>
+            <div class="network-status unavailable">
+              <div class="network-status-icon">📡❌</div>
+              <div class="network-status-text">Network Unavailable</div>
+              <div style="font-size: 0.8rem; margin-top: 4px;">Local Alarm</div>
+            </div>
+          </div>
+
+          <div class="warning-section" style="margin-top: 16px;">
+            <h3 class="section-title" style="margin-bottom: 0;">💬 System Event Log</h3>
+            <div class="event-log">
+              <div class="log-entry"><span class="log-time">[18:29:11]</span> <span class="log-warning">[NETWORK]</span> Network unavailable.</div>
+              <div class="log-entry"><span class="log-time">[18:29:11]</span> <span class="log-system">[SYSTEM]</span> Switching to LOCAL WARNING MODE.</div>
+              <div class="log-entry"><span class="log-time">[18:29:12]</span> <span class="log-warning">[LOCAL ALARM]</span> 🔊 NETWORK OFFLINE</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>A safer tomorrow for the hills of NER | Smart Monitoring • Intelligent Prediction • Local Warning • Even Offline</p>
+    </div>
   </div>
 
   <script>
-    // Login System
+    // Login functionality
     function handleLogin(event) {
       event.preventDefault();
       const username = document.getElementById('username-input').value;
       const password = document.getElementById('password-input').value;
-      const errorDiv = document.getElementById('login-error');
-      const successDiv = document.getElementById('login-success');
-      const submitBtn = document.getElementById('login-submit-btn');
 
-      errorDiv.classList.remove('show');
-      successDiv.classList.remove('show');
-
-      // Validate credentials
       if (username === 'admin' && password === '1234') {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Logging in...';
-        
-        // Simulate login delay
+        showLoginSuccess('Login successful! Redirecting...');
         setTimeout(() => {
-          successDiv.textContent = '✓ Login successful! Redirecting...';
-          successDiv.classList.add('show');
-          
-          setTimeout(() => {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('dashboard-container').classList.add('show');
-            initializeDashboard();
-          }, 800);
-        }, 500);
+          showDashboard();
+        }, 1500);
       } else {
-        errorDiv.textContent = '❌ Invalid username or password. Try admin/1234';
-        errorDiv.classList.add('show');
-        submitBtn.disabled = false;
+        showLoginError('Invalid credentials. Try admin/1234');
       }
     }
 
-    // Message System
-    function sendMessage() {
-      const input = document.getElementById('message-input');
-      const message = input.value.trim();
-      
-      if (message === '') return;
-
-      const container = document.getElementById('messages-container');
-      const msgElement = document.createElement('div');
-      msgElement.className = 'message system';
-      
-      const timestamp = new Date().toLocaleTimeString();
-      msgElement.innerHTML = `<strong>[${timestamp}]</strong> ${escapeHtml(message)}`;
-      
-      container.appendChild(msgElement);
-      container.scrollTop = container.scrollHeight;
-      input.value = '';
-      
-      // Process command
-      processCommand(message);
-    }
-
-    function processCommand(message) {
-      const container = document.getElementById('messages-container');
-      const lowerMsg = message.toLowerCase();
-      let response = '';
-      let msgClass = 'system';
-
-      if (lowerMsg.includes('rainfall') || lowerMsg.includes('rain')) {
-        response = '🌧️ Rainfall data updated. Current level: 15 mm/h';
-      } else if (lowerMsg.includes('moisture') || lowerMsg.includes('soil')) {
-        response = '💧 Soil moisture level: 25%. Within normal range.';
-      } else if (lowerMsg.includes('slope') || lowerMsg.includes('movement')) {
-        response = '📈 Slope movement detected: 2 mm. Monitoring closely.';
-      } else if (lowerMsg.includes('alert') || lowerMsg.includes('alarm')) {
-        response = '🔔 Alert system status: Online and operational.';
-        msgClass = 'warning';
-      } else if (lowerMsg.includes('risk') || lowerMsg.includes('level')) {
-        response = '📊 Current risk level: LOW (Score: 12/100). System operating normally.';
-      } else if (lowerMsg.includes('network') || lowerMsg.includes('status')) {
-        response = '📡 Network status: ONLINE. All systems connected.';
-      } else if (lowerMsg.includes('help')) {
-        response = 'Available commands: rainfall, moisture, slope, alert, risk, network, status, help';
-      } else {
-        response = '❓ Command not recognized. Type "help" for available commands.';
-        msgClass = 'system';
-      }
-
+    function showLoginError(message) {
+      const errorElement = document.getElementById('login-error');
+      errorElement.textContent = message;
+      errorElement.classList.add('show');
       setTimeout(() => {
-        const respElement = document.createElement('div');
-        respElement.className = `message ${msgClass}`;
-        respElement.innerHTML = `<strong>[System]</strong> ${response}`;
-        container.appendChild(respElement);
-        container.scrollTop = container.scrollHeight;
-      }, 300);
+        errorElement.classList.remove('show');
+      }, 3000);
     }
 
-    function escapeHtml(text) {
-      const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      };
-      return text.replace(/[&<>"']/g, m => map[m]);
+    function showLoginSuccess(message) {
+      const successElement = document.getElementById('login-success');
+      successElement.textContent = message;
+      successElement.classList.add('show');
     }
 
-    // Dashboard Initialization
-    function initializeDashboard() {
+    function showDashboard() {
+      document.getElementById('login-container').style.display = 'none';
+      document.getElementById('dashboard-container').classList.add('show');
       updateTime();
-      setInterval(updateTime, 1000);
-
-      // Message system
-      document.getElementById('send-message-btn').addEventListener('click', sendMessage);
-      document.getElementById('message-input').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendMessage();
-      });
-
-      // Simulation buttons
-      document.getElementById('btn-normal').addEventListener('click', () => simulateNormalCondition());
-      document.getElementById('btn-rain').addEventListener('click', () => simulateHeavyRain());
-      document.getElementById('btn-soil').addEventListener('click', () => simulateSoilSaturation());
-      document.getElementById('btn-landslide').addEventListener('click', () => simulateLandslideRisk());
-      document.getElementById('btn-network').addEventListener('click', () => toggleNetwork());
-
-      // Logout
-      document.getElementById('logout-btn').addEventListener('click', () => {
-        document.getElementById('login-container').style.display = 'flex';
-        document.getElementById('dashboard-container').classList.remove('show');
-        document.getElementById('login-form').reset();
-        document.getElementById('login-error').classList.remove('show');
-        document.getElementById('login-success').classList.remove('show');
-      });
-
-      // Alarm controls
-      document.getElementById('btn-mute-alarm').addEventListener('click', () => {
-        document.getElementById('alarm-notification').classList.remove('show');
-      });
-      document.getElementById('btn-dismiss-alarm').addEventListener('click', () => {
-        document.getElementById('alarm-notification').classList.remove('show');
-      });
-
-      addSystemMessage('Dashboard loaded successfully. Ready for monitoring.');
+      setInterval(updateTime, 60000);
     }
 
     function updateTime() {
       const now = new Date();
-      document.getElementById('current-time').textContent = now.toLocaleTimeString();
+      document.getElementById('current-time').textContent = now.toLocaleString('en-US', {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      });
     }
 
-    function addSystemMessage(msg) {
-      const container = document.getElementById('messages-container');
-      const msgElement = document.createElement('div');
-      msgElement.className = 'message system';
-      msgElement.textContent = '✓ ' + msg;
-      container.appendChild(msgElement);
-      container.scrollTop = container.scrollHeight;
-    }
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      document.getElementById('login-container').style.display = 'flex';
+      document.getElementById('dashboard-container').classList.remove('show');
+      document.getElementById('username-input').value = '';
+      document.getElementById('password-input').value = '';
+    });
 
-    function simulateNormalCondition() {
-      document.getElementById('risk-level').textContent = 'LOW';
-      document.getElementById('risk-score').textContent = '12 / 100';
-      document.getElementById('rainfall-value').textContent = '15 mm/h';
-      document.getElementById('rainfall-bar').style.width = '15%';
-      document.getElementById('moisture-value').textContent = '25%';
-      document.getElementById('moisture-bar').style.width = '25%';
-      document.getElementById('slope-value').textContent = '2 mm';
-      document.getElementById('slope-bar').style.width = '10%';
-      updateWarningBox('low', '✓ Low Risk', 'System monitoring normally.');
-      addSystemMessage('System reset to normal condition.');
-    }
+    // Network toggle and alarm functionality
+    let isNetworkOnline = true;
+    document.querySelectorAll('.btn-simulate').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const text = e.target.textContent;
+        if (text.includes('Toggle Network')) {
+          isNetworkOnline = !isNetworkOnline;
+          updateNetworkStatus();
+        }
+      });
+    });
 
-    function simulateHeavyRain() {
-      document.getElementById('rainfall-value').textContent = '95 mm/h';
-      document.getElementById('rainfall-bar').style.width = '95%';
-      updateWarningBox('high', '⚠️ Heavy Rainfall Alert', 'Increased precipitation detected. Soil saturation rising.');
-      addSystemMessage('🌧️ Heavy rain simulation activated.');
-    }
-
-    function simulateSoilSaturation() {
-      document.getElementById('risk-level').textContent = 'MEDIUM';
-      document.getElementById('risk-score').textContent = '55 / 100';
-      document.getElementById('moisture-value').textContent = '92%';
-      document.getElementById('moisture-bar').style.width = '92%';
-      document.getElementById('moisture-bar').classList.add('medium');
-      updateWarningBox('high', '⚠️ High Soil Saturation', 'Soil moisture exceeds threshold. Heightened risk conditions.');
-      addSystemMessage('💧 Soil saturation simulation activated.');
-    }
-
-    function simulateLandslideRisk() {
-      document.getElementById('risk-level').textContent = 'HIGH';
-      document.getElementById('risk-score').textContent = '100 / 100';
-      document.getElementById('rainfall-value').textContent = '95 mm/h';
-      document.getElementById('rainfall-bar').style.width = '95%';
-      document.getElementById('moisture-value').textContent = '92%';
-      document.getElementById('moisture-bar').style.width = '92%';
-      document.getElementById('slope-value').textContent = '18 mm';
-      document.getElementById('slope-bar').style.width = '90%';
-      document.getElementById('slope-bar').classList.add('high');
-      updateWarningBox('high', '🔴 CRITICAL - Landslide Risk!', 'HIGH RISK conditions detected. LOCAL ALARM ACTIVATED. Immediate evacuation recommended.');
-      document.getElementById('alarm-notification').classList.add('show');
-      addSystemMessage('🔴 CRITICAL: Landslide risk simulation activated. Alert system engaged.');
-    }
-
-    function toggleNetwork() {
+    function updateNetworkStatus() {
       const badge = document.getElementById('network-badge');
-      const isOnline = badge.textContent.includes('ONLINE');
-      
-      if (isOnline) {
-        badge.classList.add('offline');
-        badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
-        document.getElementById('network-warning').style.display = 'block';
-        document.getElementById('alarm-notification').classList.add('show');
-        addSystemMessage('📡 Network connection lost. Switching to offline mode with local alert system.');
-      } else {
+      const alarm = document.getElementById('alarm-notification');
+
+      if (isNetworkOnline) {
         badge.classList.remove('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
-        document.getElementById('network-warning').style.display = 'none';
-        document.getElementById('alarm-notification').classList.remove('show');
-        addSystemMessage('📡 Network connection restored. All systems online.');
+        alarm.classList.remove('show');
+      } else {
+        badge.classList.add('offline');
+        badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
+        alarm.classList.add('show');
       }
     }
 
-    function updateWarningBox(level, title, message) {
-      const box = document.getElementById('warning-box');
-      box.className = `warning-box ${level}`;
-      box.querySelector('.warning-title').textContent = title;
-      box.querySelector('.warning-message').textContent = message;
-    }
+    // Alarm controls
+    document.getElementById('btn-mute-alarm').addEventListener('click', () => {
+      document.getElementById('alarm-notification').classList.remove('show');
+    });
+
+    document.getElementById('btn-dismiss-alarm').addEventListener('click', () => {
+      document.getElementById('alarm-notification').classList.remove('show');
+    });
   </script>
 </body>
 </html>
