@@ -216,13 +216,13 @@
     }
 
     .top-bar {
-      background: #1a2332;
+      background: linear-gradient(135deg, #1a2332 0%, #2d3f52 100%);
       color: #fff;
       padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -364,60 +364,150 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
+    /* ENHANCED MAP STYLES */
     .ner-map {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .ner-map:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     }
 
     .map-container {
       width: 100%;
       height: 400px;
-      background: linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%);
-      border-radius: 6px;
+      background: linear-gradient(135deg, #1a472a 0%, #0d2818 50%, #1a4d32 100%);
+      border-radius: 10px;
       position: relative;
       overflow: hidden;
       margin-bottom: 12px;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.15);
+      border: 2px solid #0d2818;
+    }
+
+    /* Atmospheric effect for map */
+    .map-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 40%),
+                  radial-gradient(ellipse at 80% 70%, rgba(100,200,100,0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .map-container::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 15% 20%, rgba(76, 175, 80, 0.03) 0%, transparent 30%),
+        radial-gradient(circle at 85% 80%, rgba(76, 175, 80, 0.02) 0%, transparent 40%);
+      pointer-events: none;
     }
 
     .ner-region {
       position: absolute;
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 3px solid rgba(255,255,255,0.4);
       cursor: pointer;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: white;
       user-select: none;
+      z-index: 10;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.2);
+    }
+
+    .ner-region::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      animation: pulse-ring 2s ease-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
     }
 
     .ner-region:hover {
-      transform: scale(1.2);
-      border: 3px solid rgba(255,255,255,0.8);
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      transform: scale(1.25);
+      border: 3px solid rgba(255,255,255,0.9);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5), inset 0 1px 3px rgba(255,255,255,0.3), 0 0 30px currentColor;
     }
 
-    .ner-region.low { background: #28a745; }
-    .ner-region.medium { background: #ffc107; }
-    .ner-region.high { background: #dc3545; }
+    .ner-region.low { 
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3), inset 0 1px 3px rgba(255,255,255,0.2);
+    }
+
+    .ner-region.low:hover {
+      box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5), inset 0 1px 3px rgba(255,255,255,0.3), 0 0 30px rgba(40, 167, 69, 0.8);
+    }
+
+    .ner-region.medium { 
+      background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+      box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3), inset 0 1px 3px rgba(255,255,255,0.2);
+    }
+
+    .ner-region.medium:hover {
+      box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5), inset 0 1px 3px rgba(255,255,255,0.3), 0 0 30px rgba(255, 193, 7, 0.8);
+    }
+
+    .ner-region.high { 
+      background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3), inset 0 1px 3px rgba(255,255,255,0.2);
+      animation: pulse-high 1.5s ease-in-out infinite;
+    }
+
+    .ner-region.high:hover {
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.5), inset 0 1px 3px rgba(255,255,255,0.3), 0 0 30px rgba(220, 53, 69, 0.8);
+    }
+
+    @keyframes pulse-high {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
     .ner-region-label {
       position: absolute;
-      font-size: 0.7rem;
-      background: rgba(0,0,0,0.8);
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.9);
       color: white;
-      padding: 3px 6px;
-      border-radius: 3px;
+      padding: 4px 8px;
+      border-radius: 4px;
       white-space: nowrap;
       display: none;
+      z-index: 100;
+      bottom: -30px;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     }
 
     .ner-region:hover .ner-region-label {
@@ -429,18 +519,24 @@
       gap: 16px;
       font-size: 0.85rem;
       flex-wrap: wrap;
+      margin-top: 12px;
     }
 
     .legend-item {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border: 1px solid #e9ecef;
     }
 
     .legend-dot {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     .legend-dot.high { background: #dc3545; }
@@ -540,6 +636,41 @@
     .warning-message {
       font-size: 0.85rem;
       color: #555;
+    }
+
+    .system-architecture {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .architecture-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.75rem;
+      margin-top: 12px;
+      flex-wrap: wrap;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .arch-box {
+      background: #f8f9fa;
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: 1px solid #e9ecef;
+      text-align: center;
+      min-width: 70px;
+      white-space: nowrap;
+    }
+
+    .arch-arrow {
+      color: #667eea;
+      font-weight: 700;
+      margin: 0 4px;
     }
 
     .controls-section {
@@ -730,15 +861,16 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: #28a745;
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
       color: #fff;
       padding: 16px 20px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+      box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
       display: none;
       z-index: 200;
       animation: slideInUp 0.3s ease;
       min-width: 300px;
+      border-left: 4px solid #0d6e2f;
     }
 
     .sms-notification.show {
@@ -750,107 +882,9 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    /* Photo Upload Section Styles */
-    .photo-section {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-    }
-
-    .photo-upload-area {
-      border: 2px dashed #667eea;
-      border-radius: 6px;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: #f8f9ff;
-    }
-
-    .photo-upload-area:hover {
-      background: #f0f2ff;
-      border-color: #764ba2;
-    }
-
-    .photo-upload-area.dragover {
-      background: #e8f5e9;
-      border-color: #28a745;
-    }
-
-    .photo-icon {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .photo-upload-text {
-      font-size: 0.9rem;
-      color: #667eea;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .photo-upload-subtext {
-      font-size: 0.8rem;
-      color: #999;
-    }
-
-    #photo-input {
-      display: none;
-    }
-
-    .photo-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .photo-item {
-      position: relative;
-      border-radius: 6px;
-      overflow: hidden;
-      background: #f0f0f0;
-      aspect-ratio: 1;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .photo-delete-btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: #dc3545;
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .photo-item:hover .photo-delete-btn {
-      opacity: 1;
-    }
-
-    .photo-meta {
-      font-size: 0.7rem;
-      color: #999;
-      padding: 4px;
-      text-align: center;
-      background: #f8f9fa;
+    .sms-notification.error {
+      background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+      border-left-color: #721c24;
     }
 
     .footer {
@@ -859,6 +893,42 @@
       padding: 20px 24px;
       text-align: center;
       font-size: 0.85rem;
+    }
+
+    .risk-indicator {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .risk-icon {
+      font-size: 2rem;
+    }
+
+    .risk-info h3 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #999;
+      text-transform: uppercase;
+    }
+
+    .risk-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1a2332;
+    }
+
+    .card.risk-high {
+      border-top: 4px solid #dc3545;
+    }
+
+    .card.risk-low {
+      border-top: 4px solid #28a745;
+    }
+
+    .card.risk-medium {
+      border-top: 4px solid #ffc107;
     }
   </style>
 </head>
@@ -938,8 +1008,8 @@
     </div>
 
     <div class="sms-notification" id="sms-notification">
-      <div style="font-weight: 700; margin-bottom: 8px;">📱 SMS Alert Sent</div>
-      <div id="sms-message">Alert sent to registered phone number</div>
+      <div style="font-weight: 700; margin-bottom: 8px;">📱 SMS Alert</div>
+      <div id="sms-message">Sending alert to registered phone number...</div>
     </div>
 
     <div class="top-bar">
@@ -962,18 +1032,6 @@
 
     <div class="content-wrapper">
       <div class="section-heading">📡 NER Regions - Live Monitoring</div>
-
-      <!-- Photo Upload Section -->
-      <div class="photo-section">
-        <div class="section-title">📸 Upload Geotagged Photos</div>
-        <div class="photo-upload-area" id="photo-upload-area">
-          <div class="photo-icon">📷</div>
-          <div class="photo-upload-text">Click or drag photos here</div>
-          <div class="photo-upload-subtext">Geotagged photos of landslide areas (JPEG, PNG)</div>
-          <input type="file" id="photo-input" multiple accept="image/*" />
-        </div>
-        <div class="photo-gallery" id="photo-gallery"></div>
-      </div>
 
       <div class="main-container">
         <div class="ner-map">
@@ -1001,43 +1059,52 @@
             <div class="sensor-item">
               <div class="sensor-icon">🌧️</div>
               <div class="sensor-label">Rainfall</div>
-              <div class="sensor-value" id="rainfall-value">15 mm/h</div>
-              <div class="progress-bar"><div class="progress-fill" style="width: 15%;"></div></div>
+              <div class="sensor-value" id="rainfall-value">0 mm</div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="rainfall-progress" style="width: 0%"></div>
+              </div>
             </div>
             <div class="sensor-item">
               <div class="sensor-icon">💧</div>
               <div class="sensor-label">Soil Moisture</div>
-              <div class="sensor-value" id="moisture-value">25%</div>
-              <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
+              <div class="sensor-value" id="moisture-value">0%</div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="moisture-progress" style="width: 0%"></div>
+              </div>
             </div>
             <div class="sensor-item">
-              <div class="sensor-icon">🏔️</div>
+              <div class="sensor-icon">⛰️</div>
               <div class="sensor-label">Slope Movement</div>
-              <div class="sensor-value" id="slope-value">2 mm</div>
-              <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
+              <div class="sensor-value" id="slope-value">0 mm</div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="slope-progress" style="width: 0%"></div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="warning-section">
           <div class="section-title">⚠️ Current Status</div>
-          <div id="risk-status">
+          <div class="card risk-low">
             <div class="risk-indicator">
               <div class="risk-icon">✅</div>
               <div class="risk-info">
-                <h3>Current Landslide Risk</h3>
-                <div class="risk-value" id="current-risk">LOW</div>
+                <h3>Risk Level</h3>
+                <div class="risk-value" id="risk-level">LOW</div>
               </div>
             </div>
           </div>
-          <div id="warning-messages"></div>
+          <div class="warning-box low" id="status-warning">
+            <div class="warning-title">Normal Operations</div>
+            <div class="warning-message">System monitoring normally. No alerts at this time.</div>
+          </div>
         </div>
       </div>
 
       <div class="controls-section">
         <div class="section-title">🎮 Prototype Simulation Controls</div>
         <div class="button-grid">
-          <button class="btn-simulate success" onclick="simulateNormalCondition()">✓ Normal Condition</button>
+          <button class="btn-simulate success" onclick="simulateNormalCondition()">✅ Normal Condition</button>
           <button class="btn-simulate warning" onclick="simulateHeavyRain()">🌧️ Heavy Rain</button>
           <button class="btn-simulate warning" onclick="simulateSoilSaturation()">💧 Soil Saturation</button>
           <button class="btn-simulate danger" onclick="simulateLandslideRisk()">🚨 Simulate Landslide Risk</button>
@@ -1045,9 +1112,16 @@
         </div>
       </div>
 
-      <div class="sensor-section">
+      <div class="controls-section">
         <div class="section-title">📋 System Event Log</div>
-        <div class="event-log" id="event-log"></div>
+        <div class="event-log" id="event-log">
+          <div class="log-entry">
+            <span class="log-time">[10:24:00]</span> <span class="log-system">[SYSTEM]</span> NER Landslide Monitoring System initialized.
+          </div>
+          <div class="log-entry">
+            <span class="log-time">[10:24:01]</span> <span class="log-info">[INFO]</span> Waiting for environmental changes...
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1057,399 +1131,356 @@
   </div>
 
   <script>
-    let isNetworkOnline = true;
-    let users = {};
-    let currentUser = null;
-    let uploadedPhotos = [];
-    let alarmMuted = false;
-    let sirenAudioContext = null;
-    let sirenOscillators = [];
+    // NER Region Data with coordinates (percentage-based for responsiveness)
+    const nerRegions = [
+      { name: 'Arunachal Pradesh', x: 35, y: 25, risk: 'low' },
+      { name: 'Assam', x: 45, y: 40, risk: 'low' },
+      { name: 'Manipur', x: 65, y: 55, risk: 'medium' },
+      { name: 'Meghalaya', x: 35, y: 55, risk: 'low' },
+      { name: 'Mizoram', x: 60, y: 75, risk: 'low' },
+      { name: 'Nagaland', x: 55, y: 35, risk: 'medium' },
+      { name: 'Sikkim', x: 55, y: 15, risk: 'low' },
+      { name: 'Tripura', x: 50, y: 70, risk: 'low' }
+    ];
 
-    // Initialize
-    window.addEventListener('DOMContentLoaded', function() {
-      loadUsers();
-      setupPhotoUpload();
-      updateTime();
-      setInterval(updateTime, 1000);
+    // User data storage
+    let users = JSON.parse(localStorage.getItem('users')) || {};
+    let currentUser = null;
+    let isNetworkOnline = true;
+    let userPhoneNumber = null;
+
+    // Initialize map on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      initializeMap();
+      updateClock();
+      setInterval(updateClock, 1000);
     });
 
-    // ===== AUTHENTICATION =====
-    function loadUsers() {
-      const stored = localStorage.getItem('ner_users');
-      if (stored) users = JSON.parse(stored);
+    function initializeMap() {
+      const mapContainer = document.getElementById('map-container');
+      mapContainer.innerHTML = '';
+
+      nerRegions.forEach((region, index) => {
+        const regionEl = document.createElement('div');
+        regionEl.className = `ner-region ${region.risk}`;
+        regionEl.style.left = region.x + '%';
+        regionEl.style.top = region.y + '%';
+        regionEl.style.transform = 'translate(-50%, -50%)';
+        regionEl.innerHTML = `
+          <span>${index + 1}</span>
+          <div class="ner-region-label">${region.name}</div>
+        `;
+        
+        regionEl.addEventListener('click', () => showRegionInfo(region));
+        regionEl.addEventListener('mouseover', () => {
+          regionEl.style.filter = 'brightness(1.2)';
+        });
+        regionEl.addEventListener('mouseout', () => {
+          regionEl.style.filter = 'brightness(1)';
+        });
+
+        mapContainer.appendChild(regionEl);
+      });
     }
 
-    function saveUsers() {
-      localStorage.setItem('ner_users', JSON.stringify(users));
+    function showRegionInfo(region) {
+      alert(`Region: ${region.name}\nRisk Level: ${region.risk.toUpperCase()}`);
     }
 
+    // Authentication Functions
     function toggleAuthForms() {
       document.getElementById('login-form-container').classList.toggle('hidden-form');
       document.getElementById('register-form-container').classList.toggle('hidden-form');
-      clearAuthErrors();
     }
 
-    function handleRegister(e) {
-      e.preventDefault();
-      const fullname = document.getElementById('register-fullname').value;
+    function checkPasswordStrength() {
+      const password = document.getElementById('register-password').value;
+      const strengthEl = document.getElementById('password-strength');
+      strengthEl.style.display = 'block';
+
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+      if (/\d/.test(password)) strength++;
+      if (/[^a-zA-Z\d]/.test(password)) strength++;
+
+      const levels = ['weak', 'fair', 'good', 'strong'];
+      const messages = ['Weak Password', 'Fair Password', 'Good Password', 'Strong Password'];
+
+      strengthEl.className = 'password-strength ' + levels[Math.min(strength - 1, 3)];
+      strengthEl.textContent = messages[Math.min(strength - 1, 3)];
+    }
+
+    function handleRegister(event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('register-fullname').value;
       const username = document.getElementById('register-username').value;
       const phone = document.getElementById('register-phone').value;
       const password = document.getElementById('register-password').value;
-      const confirm = document.getElementById('register-confirm-password').value;
-      const errorDiv = document.getElementById('register-error');
-      const successDiv = document.getElementById('register-success');
+      const confirmPassword = document.getElementById('register-confirm-password').value;
 
-      errorDiv.classList.remove('show');
-      successDiv.classList.remove('show');
-
-      if (password !== confirm) {
-        showError(errorDiv, 'Passwords do not match!');
+      if (password !== confirmPassword) {
+        showError('register-error', 'Passwords do not match!');
         return;
       }
 
       if (users[username]) {
-        showError(errorDiv, 'Username already exists!');
+        showError('register-error', 'Username already exists!');
         return;
       }
 
-      users[username] = { fullname, username, phone, password };
-      saveUsers();
-      showSuccess(successDiv, 'Registration successful! Please login.');
+      users[username] = { fullName, password, phone };
+      localStorage.setItem('users', JSON.stringify(users));
+
+      showSuccess('register-success', 'Registration successful! Please login.');
       document.getElementById('register-form').reset();
       setTimeout(() => toggleAuthForms(), 2000);
     }
 
-    function handleLogin(e) {
-      e.preventDefault();
+    function handleLogin(event) {
+      event.preventDefault();
+
       const username = document.getElementById('login-username').value;
       const password = document.getElementById('login-password').value;
-      const errorDiv = document.getElementById('login-error');
-
-      errorDiv.classList.remove('show');
 
       if (!users[username] || users[username].password !== password) {
-        showError(errorDiv, 'Invalid username or password!');
+        showError('login-error', 'Invalid username or password!');
         return;
       }
 
-      currentUser = users[username];
-      showDashboard();
-      document.getElementById('login-form').reset();
+      currentUser = username;
+      userPhoneNumber = users[username].phone;
+      document.getElementById('current-user').textContent = username;
+      document.getElementById('auth-container').classList.remove('show');
+      document.getElementById('dashboard-container').classList.add('show');
+      addLog(`[LOGIN] User '${username}' logged in successfully.`);
     }
 
     function handleLogout() {
       currentUser = null;
-      document.getElementById('auth-container').style.display = 'flex';
+      userPhoneNumber = null;
       document.getElementById('dashboard-container').classList.remove('show');
-      uploadedPhotos = [];
-      document.getElementById('photo-gallery').innerHTML = '';
-      stopSiren();
+      document.getElementById('auth-container').classList.add('show');
+      document.getElementById('login-form').reset();
+      addLog('[LOGOUT] User logged out.');
     }
 
-    function showError(div, msg) {
-      div.textContent = msg;
-      div.classList.add('show');
+    // Simulation Functions
+    function simulateNormalCondition() {
+      updateSensorData(15, 25, 2);
+      updateRiskLevel('low');
+      updateNERRegions('low');
+      addLog('[SYSTEM] Simulating normal condition.');
     }
 
-    function showSuccess(div, msg) {
-      div.textContent = msg;
-      div.classList.add('show');
+    function simulateHeavyRain() {
+      updateSensorData(95, 65, 8);
+      updateRiskLevel('medium');
+      updateNERRegions('medium');
+      addLog('[SYSTEM] Heavy rain simulation activated.');
     }
 
-    function clearAuthErrors() {
-      document.getElementById('login-error').classList.remove('show');
-      document.getElementById('register-error').classList.remove('show');
+    function simulateSoilSaturation() {
+      updateSensorData(50, 92, 12);
+      updateRiskLevel('medium');
+      updateNERRegions('medium');
+      addLog('[SYSTEM] Soil saturation simulation activated.');
     }
 
-    function checkPasswordStrength() {
-      const pwd = document.getElementById('register-password').value;
-      const strengthDiv = document.getElementById('password-strength');
-      strengthDiv.style.display = 'block';
-      
-      let strength = 'weak';
-      if (pwd.length >= 8 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) strength = 'strong';
-      else if (pwd.length >= 6 && /[A-Z]/.test(pwd)) strength = 'good';
-      else if (pwd.length >= 6) strength = 'fair';
-
-      strengthDiv.className = `password-strength ${strength}`;
-      strengthDiv.textContent = `Password Strength: ${strength.toUpperCase()}`;
+    function simulateLandslideRisk() {
+      updateSensorData(95, 92, 18);
+      updateRiskLevel('high');
+      updateNERRegions('high');
+      addLog('[WARNING] HIGH RISK detected! Sending SMS alert...');
+      sendSMSAlert('HIGH RISK landslide detected in NER region! Rainfall: 95mm/h, Soil Moisture: 92%, Slope Movement: 18mm. Take immediate action.');
     }
 
-    function showDashboard() {
-      document.getElementById('auth-container').style.display = 'none';
-      document.getElementById('dashboard-container').classList.add('show');
-      document.getElementById('current-user').textContent = currentUser.fullname;
-      initializeMapRegions();
-      addLog('[SYSTEM] Dashboard initialized. Monitoring system online.');
-    }
-
-    // ===== PHOTO UPLOAD =====
-    function setupPhotoUpload() {
-      const uploadArea = document.getElementById('photo-upload-area');
-      const photoInput = document.getElementById('photo-input');
-
-      uploadArea.addEventListener('click', () => photoInput.click());
-
-      uploadArea.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadArea.classList.add('dragover');
-      });
-
-      uploadArea.addEventListener('dragleave', () => {
-        uploadArea.classList.remove('dragover');
-      });
-
-      uploadArea.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadArea.classList.remove('dragover');
-        handlePhotoFiles(e.dataTransfer.files);
-      });
-
-      photoInput.addEventListener('change', (e) => {
-        handlePhotoFiles(e.target.files);
-      });
-    }
-
-    function handlePhotoFiles(files) {
-      Array.from(files).forEach(file => {
-        if (file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const photo = {
-              id: Date.now(),
-              src: e.target.result,
-              name: file.name,
-              timestamp: new Date().toLocaleString()
-            };
-            uploadedPhotos.push(photo);
-            displayPhotos();
-            addLog(`[PHOTO] Geotagged photo uploaded: ${file.name}`);
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-
-    function displayPhotos() {
-      const gallery = document.getElementById('photo-gallery');
-      gallery.innerHTML = uploadedPhotos.map(photo => `
-        <div class="photo-item">
-          <img src="${photo.src}" alt="${photo.name}">
-          <button class="photo-delete-btn" onclick="deletePhoto(${photo.id})">✕</button>
-          <div class="photo-meta">${photo.name}</div>
-        </div>
-      `).join('');
-    }
-
-    function deletePhoto(id) {
-      uploadedPhotos = uploadedPhotos.filter(p => p.id !== id);
-      displayPhotos();
-      addLog('[PHOTO] Photo deleted');
-    }
-
-    // ===== NETWORK & SMS =====
     function toggleNetwork() {
       isNetworkOnline = !isNetworkOnline;
-      updateNetworkStatus();
-      addLog(`[NETWORK] Network status changed to ${isNetworkOnline ? 'ONLINE' : 'OFFLINE'}`);
-      
-      if (!isNetworkOnline && currentUser) {
-        playSiren();
-        showAlarm();
-      } else {
-        stopSiren();
-        dismissAlarm();
-      }
-    }
-
-    function updateNetworkStatus() {
       const badge = document.getElementById('network-badge');
       if (isNetworkOnline) {
         badge.classList.remove('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
+        addLog('[SYSTEM] Network connection restored.');
       } else {
         badge.classList.add('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
+        addLog('[WARNING] Network connection lost! Switching to LOCAL WARNING MODE.');
+        showAlarm();
       }
     }
 
-    function sendSMS() {
-      if (isNetworkOnline && currentUser) {
-        const phone = currentUser.phone;
-        const smsDiv = document.getElementById('sms-notification');
-        smsDiv.classList.add('show');
-        document.getElementById('sms-message').textContent = `📱 Alert sent to +91${phone}`;
-        addLog(`[SMS] SMS sent to +91${phone}: HIGH RISK ALERT - Landslide warning activated!`);
-        setTimeout(() => smsDiv.classList.remove('show'), 4000);
-      }
+    function updateSensorData(rainfall, moisture, slope) {
+      document.getElementById('rainfall-value').textContent = rainfall + ' mm/h';
+      document.getElementById('rainfall-progress').style.width = (rainfall / 100) * 100 + '%';
+      document.getElementById('rainfall-progress').className = 'progress-fill ' + getRiskClass(rainfall, 100);
+
+      document.getElementById('moisture-value').textContent = moisture + '%';
+      document.getElementById('moisture-progress').style.width = moisture + '%';
+      document.getElementById('moisture-progress').className = 'progress-fill ' + getRiskClass(moisture, 100);
+
+      document.getElementById('slope-value').textContent = slope + ' mm';
+      document.getElementById('slope-progress').style.width = (slope / 20) * 100 + '%';
+      document.getElementById('slope-progress').className = 'progress-fill ' + getRiskClass(slope, 20);
     }
 
-    // ===== SIREN AUDIO =====
-    function playSiren() {
-      if (!sirenAudioContext) {
-        sirenAudioContext = new (window.AudioContext || window.webkitAudioContext)();
-      }
-
-      const ctx = sirenAudioContext;
-      if (ctx.state === 'suspended') ctx.resume();
-
-      // Create two oscillators for siren effect
-      const osc1 = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const lfo = ctx.createOscillator();
-
-      osc1.frequency.value = 800;
-      osc2.frequency.value = 600;
-      lfo.frequency.value = 3;
-
-      lfo.connect(osc1.frequency);
-      lfo.connect(osc2.frequency);
-
-      gain.gain.setValueAtTime(0.2, ctx.currentTime);
-      osc1.connect(gain);
-      osc2.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc1.start();
-      osc2.start();
-      lfo.start();
-
-      sirenOscillators = [osc1, osc2, lfo];
-      addLog('[ALARM] 🔊 SIREN ACTIVATED - OFFLINE MODE');
+    function getRiskClass(value, max) {
+      const percent = (value / max) * 100;
+      return percent > 70 ? 'high' : percent > 40 ? 'medium' : 'low';
     }
 
-    function stopSiren() {
-      if (sirenAudioContext && sirenOscillators.length > 0) {
-        sirenOscillators.forEach(osc => {
-          try { osc.stop(); } catch(e) {}
+    function updateRiskLevel(level) {
+      const riskEl = document.getElementById('risk-level');
+      const warningEl = document.getElementById('status-warning');
+      const cardEl = warningEl.parentElement.querySelector('.card');
+
+      const levels = {
+        low: { text: 'LOW', icon: '✅', message: 'Normal Operations', detail: 'System monitoring normally. No alerts at this time.' },
+        medium: { text: 'MEDIUM', icon: '⚠️', message: 'Caution Advised', detail: 'Moderate landslide risk detected. Increase monitoring.' },
+        high: { text: 'HIGH', icon: '🚨', message: 'Critical Alert', detail: 'High landslide risk! Local alarm activated. Evacuate if necessary.' }
+      };
+
+      riskEl.textContent = levels[level].text;
+      riskEl.parentElement.parentElement.parentElement.className = 'card risk-' + level;
+      warningEl.className = 'warning-box ' + level;
+      warningEl.innerHTML = `
+        <div class="warning-title">${levels[level].icon} ${levels[level].message}</div>
+        <div class="warning-message">${levels[level].detail}</div>
+      `;
+    }
+
+    function updateNERRegions(risk) {
+      document.querySelectorAll('.ner-region').forEach(region => {
+        region.classList.remove('low', 'medium', 'high');
+        region.classList.add(risk);
+      });
+    }
+
+    // SMS Alert Function with Twilio Integration
+    async function sendSMSAlert(message) {
+      if (!userPhoneNumber) {
+        showSMSNotification('No phone number registered', true);
+        return;
+      }
+
+      const smsEl = document.getElementById('sms-notification');
+      smsEl.classList.add('show');
+      document.getElementById('sms-message').textContent = 'Sending alert to ' + userPhoneNumber + '...';
+
+      try {
+        // Backend API call to send SMS via Twilio
+        const response = await fetch('/api/send-sms', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            to: userPhoneNumber,
+            message: message
+          })
         });
-        sirenOscillators = [];
+
+        if (response.ok) {
+          document.getElementById('sms-message').textContent = '✅ Alert sent to ' + userPhoneNumber;
+          addLog('[SMS] Alert successfully sent to registered phone number.');
+          setTimeout(() => smsEl.classList.remove('show'), 4000);
+        } else {
+          throw new Error('Failed to send SMS');
+        }
+      } catch (error) {
+        // Fallback: Show simulation mode message
+        document.getElementById('sms-message').innerHTML = `
+          ✅ <strong>SMS Simulation</strong><br>
+          Message would be sent to: ${userPhoneNumber}<br>
+          <small style="color: #ccc; margin-top: 8px; display: block;">
+            To enable real SMS: Configure Twilio API credentials in backend
+          </small>
+        `;
+        addLog('[SMS] SMS alert simulated (backend not configured).');
+        setTimeout(() => smsEl.classList.remove('show'), 5000);
       }
-      alarmMuted = false;
+    }
+
+    function showSMSNotification(message, isError = false) {
+      const smsEl = document.getElementById('sms-notification');
+      if (isError) smsEl.classList.add('error');
+      document.getElementById('sms-message').textContent = message;
+      smsEl.classList.add('show');
+      setTimeout(() => {
+        smsEl.classList.remove('show');
+        smsEl.classList.remove('error');
+      }, 4000);
+    }
+
+    // Alarm Functions
+    function showAlarm() {
+      const alarmEl = document.getElementById('alarm-notification');
+      alarmEl.classList.add('show', 'pulse');
+      playAlarmSound();
     }
 
     function muteAlarm() {
-      alarmMuted = true;
-      stopSiren();
-      addLog('[ALARM] Siren muted by user');
+      document.getElementById('alarm-notification').classList.remove('pulse');
     }
 
     function dismissAlarm() {
       document.getElementById('alarm-notification').classList.remove('show', 'pulse');
-      stopSiren();
     }
 
-    function showAlarm() {
-      const alarm = document.getElementById('alarm-notification');
-      alarm.classList.add('show', 'pulse');
+    function playAlarmSound() {
+      // Create a simple beep using Web Audio API
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      oscillator.frequency.value = 1000;
+      oscillator.type = 'sine';
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
     }
 
-    // ===== SIMULATION =====
-    function simulateNormalCondition() {
-      updateSensorValues(15, 25, 2, 'LOW', '✅');
-      addLog('[SIMULATION] Normal condition simulated');
+    // Utility Functions
+    function showError(elementId, message) {
+      const errorEl = document.getElementById(elementId);
+      errorEl.textContent = message;
+      errorEl.classList.add('show');
+      setTimeout(() => errorEl.classList.remove('show'), 4000);
     }
 
-    function simulateHeavyRain() {
-      updateSensorValues(95, 45, 5, 'MEDIUM', '⚠️');
-      addLog('[SIMULATION] Heavy rain scenario activated');
-      if (isNetworkOnline) sendSMS();
+    function showSuccess(elementId, message) {
+      const successEl = document.getElementById(elementId);
+      successEl.textContent = message;
+      successEl.classList.add('show');
+      setTimeout(() => successEl.classList.remove('show'), 4000);
     }
 
-    function simulateSoilSaturation() {
-      updateSensorValues(50, 92, 8, 'MEDIUM', '⚠️');
-      addLog('[SIMULATION] Soil saturation scenario activated');
-      if (isNetworkOnline) sendSMS();
-    }
-
-    function simulateLandslideRisk() {
-      updateSensorValues(95, 92, 18, 'HIGH', '🔴');
-      addLog('[SIMULATION] HIGH RISK LANDSLIDE DETECTED!');
-      if (isNetworkOnline) {
-        sendSMS();
-        showAlarm();
-      } else {
-        playSiren();
-        showAlarm();
-      }
-    }
-
-    function updateSensorValues(rainfall, moisture, slope, risk, icon) {
-      document.getElementById('rainfall-value').textContent = rainfall + ' mm/h';
-      document.getElementById('moisture-value').textContent = moisture + '%';
-      document.getElementById('slope-value').textContent = slope + ' mm';
-      document.getElementById('current-risk').textContent = risk;
-      document.querySelector('.risk-icon').textContent = icon;
-      
-      updateMapRegions(risk);
-    }
-
-    // ===== MAP REGIONS =====
-    function initializeMapRegions() {
-      const mapContainer = document.getElementById('map-container');
-      mapContainer.innerHTML = `
-        <div class="ner-region low" style="top: 20%; left: 15%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Sikkim</div>
-        </div>
-        <div class="ner-region low" style="top: 35%; left: 35%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Arunachal Pradesh</div>
-        </div>
-        <div class="ner-region medium" style="top: 50%; left: 20%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Assam</div>
-        </div>
-        <div class="ner-region low" style="top: 65%; left: 35%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Nagaland</div>
-        </div>
-        <div class="ner-region low" style="top: 70%; left: 20%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Manipur</div>
-        </div>
-        <div class="ner-region low" style="top: 50%; left: 10%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Meghalaya</div>
-        </div>
-        <div class="ner-region low" style="top: 80%; left: 25%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Tripura</div>
-        </div>
-        <div class="ner-region low" style="top: 75%; left: 40%;" onclick="handleRegionClick(this)">
-          <div class="ner-region-label">Mizoram</div>
-        </div>
-      `;
-    }
-
-    function handleRegionClick(region) {
-      addLog(`[REGION] ${region.querySelector('.ner-region-label').textContent} clicked - Risk: ${region.className.split(' ')[1].toUpperCase()}`);
-    }
-
-    function updateMapRegions(risk) {
-      const regions = document.querySelectorAll('.ner-region');
-      regions.forEach(r => {
-        r.classList.remove('low', 'medium', 'high');
-        if (risk === 'HIGH') r.classList.add('high');
-        else if (risk === 'MEDIUM') r.classList.add('medium');
-        else r.classList.add('low');
-      });
-    }
-
-    // ===== EVENT LOG =====
     function addLog(message) {
-      const log = document.getElementById('event-log');
-      const time = new Date().toLocaleTimeString();
+      const logEl = document.getElementById('event-log');
+      const timestamp = new Date().toLocaleTimeString();
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      
-      let logClass = 'log-info';
-      if (message.includes('ERROR') || message.includes('OFFLINE')) logClass = 'log-warning';
-      if (message.includes('SIMULATION') || message.includes('SYSTEM')) logClass = 'log-system';
 
-      entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="${logClass}">${message}</span>`;
-      log.insertBefore(entry, log.firstChild);
-      if (log.children.length > 20) log.removeChild(log.lastChild);
+      if (message.includes('[WARNING]')) {
+        entry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-warning">${message}</span>`;
+      } else if (message.includes('[SYSTEM]')) {
+        entry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-system">${message}</span>`;
+      } else if (message.includes('[SMS]')) {
+        entry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-info">${message}</span>`;
+      } else {
+        entry.innerHTML = `<span class="log-time">[${timestamp}]</span> <span class="log-info">${message}</span>`;
+      }
+
+      logEl.appendChild(entry);
+      logEl.scrollTop = logEl.scrollHeight;
     }
 
-    function updateTime() {
-      document.getElementById('current-time').textContent = new Date().toLocaleString('en-US', {
-        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
-      });
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('current-time').textContent = now.toLocaleTimeString();
     }
   </script>
 </body>
