@@ -15,7 +15,7 @@
       padding: 0;
     }
 
-    .login-container {
+    .auth-container {
       position: fixed;
       top: 0;
       left: 0;
@@ -28,13 +28,13 @@
       z-index: 1000;
     }
 
-    .login-card {
+    .auth-card {
       background: #fff;
       border-radius: 12px;
       padding: 40px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 400px;
+      max-width: 420px;
       animation: slideUp 0.4s ease;
     }
 
@@ -43,12 +43,12 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    .login-header {
+    .auth-header {
       text-align: center;
       margin-bottom: 30px;
     }
 
-    .login-logo {
+    .auth-logo {
       font-size: 3rem;
       margin-bottom: 12px;
       animation: bounce 2s infinite;
@@ -59,14 +59,14 @@
       50% { transform: translateY(-10px); }
     }
 
-    .login-title {
+    .auth-title {
       font-size: 1.5rem;
       font-weight: 700;
       color: #1a2332;
       margin-bottom: 8px;
     }
 
-    .login-subtitle {
+    .auth-subtitle {
       font-size: 0.9rem;
       color: #999;
     }
@@ -99,7 +99,7 @@
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
 
-    .login-button {
+    .auth-button {
       width: 100%;
       padding: 12px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -113,12 +113,12 @@
       margin-top: 8px;
     }
 
-    .login-button:hover {
+    .auth-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
     }
 
-    .login-error {
+    .auth-error {
       background: #f8d7da;
       color: #721c24;
       padding: 12px;
@@ -129,12 +129,12 @@
       border: 1px solid #f5c6cb;
     }
 
-    .login-error.show {
+    .auth-error.show {
       display: block;
       animation: shake 0.3s ease;
     }
 
-    .login-success {
+    .auth-success {
       background: #d4edda;
       color: #155724;
       padding: 12px;
@@ -145,7 +145,7 @@
       border: 1px solid #c3e6cb;
     }
 
-    .login-success.show {
+    .auth-success.show {
       display: block;
     }
 
@@ -155,13 +155,56 @@
       75% { transform: translateX(5px); }
     }
 
-    .login-footer {
+    .auth-footer {
       margin-top: 20px;
       padding-top: 20px;
       border-top: 1px solid #e9ecef;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #999;
       text-align: center;
+    }
+
+    .toggle-auth {
+      color: #667eea;
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .toggle-auth:hover {
+      color: #764ba2;
+    }
+
+    .hidden-form {
+      display: none;
+    }
+
+    .password-strength {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      padding: 8px;
+      border-radius: 4px;
+      background: #f0f0f0;
+    }
+
+    .password-strength.weak {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .password-strength.fair {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .password-strength.good {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .password-strength.strong {
+      background: #e0f2f1;
+      color: #00695c;
     }
 
     .dashboard-container {
@@ -209,6 +252,16 @@
       display: flex;
       align-items: center;
       gap: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      font-size: 0.85rem;
     }
 
     .status-badge {
@@ -786,6 +839,30 @@
       color: #555;
     }
 
+    .sms-notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #28a745;
+      color: #fff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4);
+      display: none;
+      z-index: 200;
+      animation: slideInUp 0.3s ease;
+      min-width: 300px;
+    }
+
+    .sms-notification.show {
+      display: block;
+    }
+
+    @keyframes slideInUp {
+      from { transform: translateY(100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     .footer {
       background: #1a2332;
       color: #fff;
@@ -796,28 +873,65 @@
   </style>
 </head>
 <body>
-  <!-- Login -->
-  <div class="login-container" id="login-container">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="login-logo">⛰️</div>
-        <div class="login-title">NER Landslide Early Warning</div>
-        <div class="login-subtitle">Secure Access Portal</div>
+  <!-- Auth Container (Login/Register) -->
+  <div class="auth-container" id="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-logo">⛰️</div>
+        <div class="auth-title">NER Landslide Early Warning</div>
+        <div class="auth-subtitle">Secure Access Portal</div>
       </div>
-      <div class="login-error" id="login-error"></div>
-      <form id="login-form" onsubmit="handleLogin(event)">
-        <div class="form-group">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-input" id="username-input" placeholder="Enter username" required />
+
+      <!-- Login Form -->
+      <div id="login-form-container">
+        <div class="auth-error" id="login-error"></div>
+        <form id="login-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="login-username" placeholder="Enter username" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" id="login-password" placeholder="Enter password" required />
+          </div>
+          <button type="submit" class="auth-button">Login</button>
+        </form>
+        <div class="auth-footer">
+          <p>Don't have an account? <span class="toggle-auth" onclick="toggleAuthForms()">Register here</span></p>
         </div>
-        <div class="form-group">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-input" id="password-input" placeholder="Enter password" required />
+      </div>
+
+      <!-- Register Form -->
+      <div id="register-form-container" class="hidden-form">
+        <div class="auth-error" id="register-error"></div>
+        <div class="auth-success" id="register-success"></div>
+        <form id="register-form" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-input" id="register-fullname" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-input" id="register-username" placeholder="Choose username" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" id="register-phone" placeholder="Enter 10-digit phone number" pattern="[0-9]{10}" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-input" id="register-password" placeholder="Create password" oninput="checkPasswordStrength()" required />
+            <div class="password-strength" id="password-strength" style="display: none;"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-input" id="register-confirm-password" placeholder="Confirm password" required />
+          </div>
+          <button type="submit" class="auth-button">Register</button>
+        </form>
+        <div class="auth-footer">
+          <p>Already have an account? <span class="toggle-auth" onclick="toggleAuthForms()">Login here</span></p>
         </div>
-        <button type="submit" class="login-button">Login</button>
-      </form>
-      <div class="login-footer">
-        <p>Demo: admin / 1234</p>
       </div>
     </div>
   </div>
@@ -833,12 +947,20 @@
       </div>
     </div>
 
+    <div class="sms-notification" id="sms-notification">
+      <div style="font-weight: 700; margin-bottom: 8px;">📱 SMS Alert Sent</div>
+      <div id="sms-message">Alert sent to registered phone number</div>
+    </div>
+
     <div class="top-bar">
       <div class="top-bar-left">
         <div class="logo">⛰️ NER Landslide Early Warning System</div>
         <div class="title">AI-Based Risk Monitoring & Multi-Mode Warning</div>
       </div>
       <div class="top-bar-right">
+        <div class="user-info">
+          👤 <span id="current-user">User</span>
+        </div>
         <div class="status-badge" id="network-badge">
           <span class="status-dot"></span>
           <span>NETWORK: ONLINE</span>
@@ -970,8 +1092,15 @@
   </div>
 
   <script>
+    // ==================== USER MANAGEMENT ====================
+    const userDatabase = JSON.parse(localStorage.getItem('users')) || {};
+    const currentSession = JSON.parse(localStorage.getItem('currentSession')) || null;
+
+    // ==================== STATE MANAGEMENT ====================
     const state = {
-      isLoggedIn: false,
+      isLoggedIn: !!currentSession,
+      currentUser: currentSession ? currentSession.username : null,
+      currentPhone: currentSession ? currentSession.phone : null,
       isOnline: true,
       currentRisk: 'low',
       alarmActive: false,
@@ -985,258 +1114,422 @@
       ]
     };
 
+    // ==================== INITIALIZATION ====================
     document.addEventListener('DOMContentLoaded', () => {
+      if (state.isLoggedIn) {
+        showDashboard();
+        updateTime();
+        setInterval(updateTime, 1000);
+        renderMap();
+      } else {
+        showAuthContainer();
+      }
+    });
+
+    // ==================== AUTH FORM MANAGEMENT ====================
+    function toggleAuthForms() {
+      const loginForm = document.getElementById('login-form-container');
+      const registerForm = document.getElementById('register-form-container');
+      
+      loginForm.classList.toggle('hidden-form');
+      registerForm.classList.toggle('hidden-form');
+      
+      // Clear errors
+      clearErrors();
+    }
+
+    function clearErrors() {
+      document.getElementById('login-error').classList.remove('show');
+      document.getElementById('register-error').classList.remove('show');
+      document.getElementById('register-success').classList.remove('show');
+    }
+
+    // ==================== PASSWORD STRENGTH CHECKER ====================
+    function checkPasswordStrength() {
+      const password = document.getElementById('register-password').value;
+      const strengthDiv = document.getElementById('password-strength');
+      
+      let strength = 0;
+      if (password.length >= 6) strength++;
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[!@#$%^&*]/.test(password)) strength++;
+
+      let level = 'weak';
+      let message = 'Weak password';
+
+      if (strength >= 4) {
+        level = 'strong';
+        message = '✓ Strong password';
+      } else if (strength >= 3) {
+        level = 'good';
+        message = 'Good password';
+      } else if (strength >= 2) {
+        level = 'fair';
+        message = 'Fair password';
+      }
+
+      strengthDiv.className = `password-strength ${level}`;
+      strengthDiv.textContent = message;
+      strengthDiv.style.display = 'block';
+    }
+
+    // ==================== REGISTRATION ====================
+    function handleRegister(e) {
+      e.preventDefault();
+      
+      const fullname = document.getElementById('register-fullname').value.trim();
+      const username = document.getElementById('register-username').value.trim();
+      const phone = document.getElementById('register-phone').value.trim();
+      const password = document.getElementById('register-password').value;
+      const confirmPassword = document.getElementById('register-confirm-password').value;
+
+      const errorDiv = document.getElementById('register-error');
+      const successDiv = document.getElementById('register-success');
+
+      errorDiv.classList.remove('show');
+      successDiv.classList.remove('show');
+
+      // Validation
+      if (!fullname) {
+        showError(errorDiv, 'Please enter your full name');
+        return;
+      }
+
+      if (username.length < 3) {
+        showError(errorDiv, 'Username must be at least 3 characters');
+        return;
+      }
+
+      if (userDatabase[username]) {
+        showError(errorDiv, 'Username already exists');
+        return;
+      }
+
+      if (phone.length !== 10 || !/^\d+$/.test(phone)) {
+        showError(errorDiv, 'Please enter a valid 10-digit phone number');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError(errorDiv, 'Password must be at least 6 characters');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showError(errorDiv, 'Passwords do not match');
+        return;
+      }
+
+      // Save user
+      userDatabase[username] = {
+        fullname,
+        phone,
+        password: btoa(password) // Basic encoding (not secure - use proper hashing in production)
+      };
+      localStorage.setItem('users', JSON.stringify(userDatabase));
+
+      // Show success
+      showSuccess(successDiv, 'Registration successful! Redirecting to login...');
+      
+      // Reset form
+      document.getElementById('register-form').reset();
+      document.getElementById('password-strength').style.display = 'none';
+
+      // Redirect to login after 2 seconds
+      setTimeout(() => {
+        toggleAuthForms();
+      }, 2000);
+    }
+
+    // ==================== LOGIN ====================
+    function handleLogin(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errorDiv = document.getElementById('login-error');
+
+      errorDiv.classList.remove('show');
+
+      if (!username || !password) {
+        showError(errorDiv, 'Please enter username and password');
+        return;
+      }
+
+      if (!userDatabase[username]) {
+        showError(errorDiv, 'Invalid username or password');
+        return;
+      }
+
+      const user = userDatabase[username];
+      if (btoa(password) !== user.password) {
+        showError(errorDiv, 'Invalid username or password');
+        return;
+      }
+
+      // Successful login
+      state.isLoggedIn = true;
+      state.currentUser = username;
+      state.currentPhone = user.phone;
+
+      const session = {
+        username,
+        phone: user.phone,
+        loginTime: new Date().toISOString()
+      };
+      localStorage.setItem('currentSession', JSON.stringify(session));
+
+      showDashboard();
+      addLog('SYSTEM', `User ${username} logged in successfully`, 'info');
       updateTime();
       setInterval(updateTime, 1000);
       renderMap();
-    });
+    }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('username-input').value;
-      const pass = document.getElementById('password-input').value;
-      
-      if (user === 'admin' && pass === '1234') {
-        state.isLoggedIn = true;
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('dashboard-container').classList.add('show');
-        addLog('User logged in', 'info');
-      } else {
-        const err = document.getElementById('login-error');
-        err.textContent = 'Invalid credentials!';
-        err.classList.add('show');
-        setTimeout(() => err.classList.remove('show'), 3000);
+    // ==================== LOGOUT ====================
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        state.isLoggedIn = false;
+        localStorage.removeItem('currentSession');
+        showAuthContainer();
+        document.getElementById('login-form').reset();
+        document.getElementById('register-form').reset();
+        clearErrors();
       }
     }
 
-    function handleLogout() {
-      state.isLoggedIn = false;
-      state.isOnline = true;
-      state.currentRisk = 'low';
-      state.alarmActive = false;
-      state.regions.forEach(r => r.risk = 'low');
-      
-      document.getElementById('login-container').style.display = 'flex';
+    // ==================== UI MANAGEMENT ====================
+    function showAuthContainer() {
+      document.getElementById('auth-container').style.display = 'flex';
       document.getElementById('dashboard-container').classList.remove('show');
-      document.getElementById('username-input').value = '';
-      document.getElementById('password-input').value = '';
-      stopAlarm();
-      addLog('User logged out', 'info');
     }
 
+    function showDashboard() {
+      document.getElementById('auth-container').style.display = 'none';
+      document.getElementById('dashboard-container').classList.add('show');
+      document.getElementById('current-user').textContent = state.currentUser;
+    }
+
+    function showError(element, message) {
+      element.textContent = '❌ ' + message;
+      element.classList.add('show');
+    }
+
+    function showSuccess(element, message) {
+      element.textContent = '✓ ' + message;
+      element.classList.add('show');
+    }
+
+    // ==================== TIME UPDATE ====================
     function updateTime() {
-      const now = new Date().toLocaleTimeString('en-US', { hour12: false });
-      document.getElementById('current-time').textContent = now;
+      const now = new Date();
+      document.getElementById('current-time').textContent = now.toLocaleTimeString();
     }
 
+    // ==================== MAP RENDERING ====================
     function renderMap() {
-      const map = document.getElementById('map-container');
-      map.innerHTML = '';
-      
-      state.regions.forEach(r => {
-        const div = document.createElement('div');
-        div.className = `ner-region ${r.risk}`;
-        div.style.left = r.x + '%';
-        div.style.top = r.y + '%';
-        div.style.marginLeft = '-30px';
-        div.style.marginTop = '-30px';
-        div.innerHTML = r.name.substring(0, 2).toUpperCase() + `<div class="ner-region-label">${r.name}</div>`;
-        div.onclick = () => alert(`📍 ${r.name}\nRisk: ${r.risk.toUpperCase()}`);
-        map.appendChild(div);
+      const mapContainer = document.getElementById('map-container');
+      mapContainer.innerHTML = '';
+
+      state.regions.forEach((region, index) => {
+        const element = document.createElement('div');
+        element.className = `ner-region ${region.risk}`;
+        element.style.left = region.x + '%';
+        element.style.top = region.y + '%';
+        element.style.transform = 'translate(-50%, -50%)';
+        element.innerHTML = `
+          <span>${index + 1}</span>
+          <div class="ner-region-label">${region.name}</div>
+        `;
+        element.onclick = () => {
+          addLog('USER', `Clicked region: ${region.name} (${region.risk} risk)`, 'info');
+        };
+        mapContainer.appendChild(element);
       });
     }
 
+    // ==================== SIMULATION CONTROLS ====================
     function simulateNormal() {
       state.currentRisk = 'low';
       state.regions.forEach(r => r.risk = 'low');
-      updateSensors(15, 25, 2);
-      updateRisk('LOW', '✓', 'low');
-      updateWarning('✓ Normal', 'All regions stable. Monitoring continues.', 'low');
-      clearAlerts();
-      renderMap();
-      addLog('Simulation: Normal Condition', 'system');
+      updateDashboard();
+      sendSMSAlert(`Normal conditions in all regions`);
+      addLog('SYSTEM', 'Simulation: Normal conditions', 'info');
     }
 
     function simulateRain() {
       state.currentRisk = 'medium';
-      state.regions.forEach((r, i) => r.risk = i % 2 === 0 ? 'medium' : 'low');
-      updateSensors(85, 65, 5);
-      updateRisk('MEDIUM', '⚠️', 'medium');
-      updateWarning('⚠️ Heavy Rain', 'Rainfall increasing. Monitor slope conditions.', 'medium');
-      sendAlerts('Heavy rainfall warning! Stay alert in affected areas.');
-      renderMap();
-      addLog('Simulation: Heavy Rain activated', 'warning');
+      state.regions.forEach(r => r.risk = 'medium');
+      document.getElementById('sensor-rainfall').textContent = '50 mm/h';
+      document.getElementById('fill-rainfall').style.width = '50%';
+      updateDashboard();
+      sendSMSAlert('Heavy rain detected in NER region. Monitoring intensified.');
+      addLog('SYSTEM', 'Simulation: Heavy rain initiated', 'warning');
     }
 
     function simulateSaturation() {
-      state.currentRisk = 'medium';
-      state.regions.forEach((r, i) => {
-        if (i % 3 === 0) r.risk = 'high';
-        else r.risk = i % 2 === 0 ? 'medium' : 'low';
-      });
-      updateSensors(70, 90, 8);
-      updateRisk('MEDIUM', '⚠️', 'medium');
-      updateWarning('⚠️ Saturation Alert', 'Soil moisture critically high. Evacuation advised.', 'medium');
-      sendAlerts('Soil saturation warning! Evacuate vulnerable areas immediately!');
-      renderMap();
-      addLog('Simulation: Soil Saturation', 'warning');
+      state.currentRisk = 'high';
+      state.regions.forEach(r => r.risk = 'high');
+      document.getElementById('sensor-moisture').textContent = '92%';
+      document.getElementById('fill-moisture').style.width = '92%';
+      document.getElementById('sensor-movement').textContent = '15 mm';
+      document.getElementById('fill-movement').style.width = '75%';
+      updateDashboard();
+      sendSMSAlert('Soil saturation critical! Risk level: HIGH');
+      addLog('SYSTEM', 'Simulation: Soil saturation critical', 'warning');
     }
 
     function simulateLandslide() {
       state.currentRisk = 'high';
-      state.regions.forEach((r, i) => r.risk = i % 2 === 0 ? 'high' : 'medium');
-      updateSensors(95, 95, 25);
-      updateRisk('HIGH', '🚨', 'high');
-      updateWarning('🚨 CRITICAL ALERT', 'EXTREME landslide risk! Emergency evacuation NOW!', 'high');
-      sendAlerts('🚨 CRITICAL: High landslide risk! IMMEDIATE EVACUATION REQUIRED!');
-      playAlarm();
-      renderMap();
-      addLog('Simulation: LANDSLIDE RISK - CRITICAL!', 'warning');
-    }
-
-    function updateSensors(r, m, s) {
-      document.getElementById('sensor-rainfall').textContent = r + ' mm/h';
-      document.getElementById('sensor-moisture').textContent = m + '%';
-      document.getElementById('sensor-movement').textContent = s + ' mm';
-      
-      const getRiskClass = v => v > 70 ? 'high' : v > 35 ? 'medium' : '';
-      
-      document.getElementById('fill-rainfall').style.width = r + '%';
-      document.getElementById('fill-rainfall').className = 'progress-fill ' + getRiskClass(r);
-      
-      document.getElementById('fill-moisture').style.width = m + '%';
-      document.getElementById('fill-moisture').className = 'progress-fill ' + getRiskClass(m);
-      
-      document.getElementById('fill-movement').style.width = Math.min(s * 3, 100) + '%';
-      document.getElementById('fill-movement').className = 'progress-fill ' + getRiskClass(Math.min(s * 3, 100));
-    }
-
-    function updateRisk(level, icon, risk) {
-      document.getElementById('risk-level').textContent = level;
-      document.getElementById('risk-card').className = 'card risk-' + risk;
-      document.querySelector('.risk-icon').textContent = icon;
-    }
-
-    function updateWarning(title, msg, risk) {
-      const box = document.getElementById('warning-box');
-      box.className = 'warning-box ' + risk;
-      box.querySelector('.warning-title').textContent = title;
-      box.querySelector('.warning-message').textContent = msg;
-    }
-
-    function sendAlerts(msg) {
-      const panel = document.getElementById('message-panel');
-      const container = document.getElementById('message-container');
-      container.innerHTML = '';
-      panel.classList.add('show');
-      
-      state.regions.forEach(r => {
-        if (r.risk !== 'low') {
-          const item = document.createElement('div');
-          item.className = 'message-item ' + r.risk;
-          item.innerHTML = `<div class="message-region">📢 ${r.name}</div><div class="message-text">${msg}</div>`;
-          container.appendChild(item);
-        }
-      });
-    }
-
-    function clearAlerts() {
-      document.getElementById('message-panel').classList.remove('show');
+      state.regions.forEach(r => r.risk = 'high');
+      document.getElementById('sensor-rainfall').textContent = '95 mm/h';
+      document.getElementById('fill-rainfall').style.width = '95%';
+      document.getElementById('sensor-moisture').textContent = '99%';
+      document.getElementById('fill-moisture').style.width = '99%';
+      document.getElementById('sensor-movement').textContent = '45 mm';
+      document.getElementById('fill-movement').style.width = '100%';
+      updateDashboard();
+      triggerAlarm();
+      sendSMSAlert('⚠️ LANDSLIDE ALERT: Critical risk detected! Evacuate immediately!');
+      addLog('SYSTEM', 'Simulation: LANDSLIDE RISK DETECTED', 'warning');
     }
 
     function toggleNetwork() {
       state.isOnline = !state.isOnline;
       const badge = document.getElementById('network-badge');
       const status = document.getElementById('network-status');
-      const btn = event.target;
       
       if (state.isOnline) {
         badge.classList.remove('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
-        status.classList.remove('unavailable');
         status.classList.add('available');
-        status.innerHTML = '<div class="network-status-icon">📡</div><div class="network-status-text">Network Available</div><div style="font-size: 0.8rem; margin-top: 4px;">SMS & Dashboard Alerts Active</div>';
-        btn.style.background = '#28a745';
-        btn.style.color = '#fff';
-        stopAlarm();
-        addLog('Network: ONLINE', 'info');
+        status.classList.remove('unavailable');
+        status.innerHTML = `
+          <div class="network-status-icon">📡</div>
+          <div class="network-status-text">Network Available</div>
+          <div style="font-size: 0.8rem; margin-top: 4px;">SMS & Dashboard Alerts Active</div>
+        `;
+        addLog('SYSTEM', 'Network connection restored', 'info');
       } else {
         badge.classList.add('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
         status.classList.remove('available');
         status.classList.add('unavailable');
-        status.innerHTML = '<div class="network-status-icon">❌</div><div class="network-status-text">Network Unavailable</div><div style="font-size: 0.8rem; margin-top: 4px;">Local Alarm Active</div>';
-        btn.style.background = '#dc3545';
-        btn.style.color = '#fff';
-        if (state.currentRisk !== 'low') {
-          showAlarm();
-          playAlarm();
-        }
-        addLog('Network: OFFLINE - Local alarm engaged', 'warning');
+        status.innerHTML = `
+          <div class="network-status-icon">📡</div>
+          <div class="network-status-text">Network Unavailable</div>
+          <div style="font-size: 0.8rem; margin-top: 4px;">Local Warning Activated - SMS Queued</div>
+        `;
+        addLog('SYSTEM', 'Network connection lost', 'warning');
+        triggerAlarm();
       }
     }
 
-    function showAlarm() {
-      const alarm = document.getElementById('alarm-notification');
-      alarm.classList.add('show', 'pulse');
+    // ==================== ALERTS & NOTIFICATIONS ====================
+    function updateDashboard() {
+      const riskCard = document.getElementById('risk-card');
+      const riskLevel = document.getElementById('risk-level');
+      const warningBox = document.getElementById('warning-box');
+      const warningMessage = document.getElementById('warning-message');
+
+      riskCard.className = 'card risk-' + state.currentRisk;
+      riskLevel.textContent = state.currentRisk.toUpperCase();
+
+      const riskScores = { low: 12, medium: 50, high: 100 };
+      riskLevel.textContent = `${state.currentRisk.toUpperCase()}`;
+
+      warningBox.className = 'warning-box ' + state.currentRisk;
+
+      const messages = {
+        low: { title: '✓ Normal Operations', msg: 'All regions stable. Monitoring in progress.' },
+        medium: { title: '⚠️ Moderate Alert', msg: 'Enhanced monitoring active in affected regions.' },
+        high: { title: '🔴 High Risk Alert', msg: 'Immediate action required. Evacuation recommended.' }
+      };
+
+      warningBox.innerHTML = `
+        <div class="warning-title">${messages[state.currentRisk].title}</div>
+        <div class="warning-message">${messages[state.currentRisk].msg}</div>
+      `;
+
+      renderMap();
     }
 
-    function playAlarm() {
-      if (state.alarmActive) return;
-      state.alarmActive = true;
-      
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      gain.gain.setValueAtTime(0.3, ctx.currentTime);
-      osc.frequency.setValueAtTime(800, ctx.currentTime);
-      osc.start();
-      
-      const toggle = setInterval(() => {
-        if (!state.alarmActive) {
-          clearInterval(toggle);
-          gain.gain.setValueAtTime(0, ctx.currentTime);
-          osc.stop();
-          return;
+    function triggerAlarm() {
+      if (!state.alarmActive) {
+        state.alarmActive = true;
+        const alarm = document.getElementById('alarm-notification');
+        alarm.classList.add('show', 'pulse');
+        
+        // Simple audio notification (beep)
+        try {
+          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = 800;
+          gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+          
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.5);
+        } catch (e) {
+          console.log('Audio context not available');
         }
-        osc.frequency.setValueAtTime(osc.frequency.value === 800 ? 1200 : 800, ctx.currentTime);
-      }, 300);
-      
-      setTimeout(() => {
-        state.alarmActive = false;
-      }, 5000);
+      }
     }
 
     function muteAlarm() {
-      state.alarmActive = false;
-      addLog('Alarm muted', 'info');
+      document.getElementById('alarm-notification').classList.remove('pulse');
+      addLog('USER', 'Alarm muted', 'info');
     }
 
     function dismissAlarm() {
       state.alarmActive = false;
       document.getElementById('alarm-notification').classList.remove('show', 'pulse');
-      addLog('Alarm dismissed', 'info');
+      addLog('USER', 'Alarm dismissed', 'info');
     }
 
-    function stopAlarm() {
-      state.alarmActive = false;
-      dismissAlarm();
+    function sendSMSAlert(message) {
+      if (!state.currentPhone) return;
+
+      // In production, integrate with SMS service like Twilio
+      console.log(`📱 SMS to ${state.currentPhone}: ${message}`);
+
+      const smsNotif = document.getElementById('sms-notification');
+      document.getElementById('sms-message').textContent = `Message sent to ${state.currentPhone}`;
+      smsNotif.classList.add('show');
+
+      setTimeout(() => {
+        smsNotif.classList.remove('show');
+      }, 4000);
+
+      addLog('SYSTEM', `SMS sent to ${state.currentPhone}`, 'info');
     }
 
-    function addLog(msg, type = 'system') {
-      const now = new Date().toLocaleTimeString('en-US', { hour12: false });
-      const log = document.getElementById('event-log');
+    // ==================== EVENT LOG ====================
+    function addLog(type, message, level) {
+      const eventLog = document.getElementById('event-log');
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      let cls = 'log-system';
-      if (type === 'warning') cls = 'log-warning';
-      if (type === 'info') cls = 'log-info';
-      entry.innerHTML = `<span class="log-time">[${now}]</span> <span class="${cls}">[${type.toUpperCase()}]</span> ${msg}`;
-      log.appendChild(entry);
-      log.scrollTop = log.scrollHeight;
+      entry.innerHTML = `
+        <span class="log-time">[${time}]</span>
+        <span class="log-system">[${type}]</span>
+        <span class="log-${level}">${message}</span>
+      `;
+
+      eventLog.insertBefore(entry, eventLog.firstChild);
+
+      if (eventLog.children.length > 50) {
+        eventLog.removeChild(eventLog.lastChild);
+      }
     }
   </script>
 </body>
