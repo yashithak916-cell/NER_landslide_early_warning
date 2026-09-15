@@ -364,42 +364,6 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    .risk-indicator {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
-
-    .risk-icon {
-      font-size: 2rem;
-    }
-
-    .risk-info h3 {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #999;
-      text-transform: uppercase;
-    }
-
-    .risk-value {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #1a2332;
-    }
-
-    .card.risk-high {
-      border-top: 4px solid #dc3545;
-    }
-
-    .card.risk-low {
-      border-top: 4px solid #28a745;
-    }
-
-    .card.risk-medium {
-      border-top: 4px solid #ffc107;
-    }
-
     .ner-map {
       background: #fff;
       border-radius: 8px;
@@ -576,41 +540,6 @@
     .warning-message {
       font-size: 0.85rem;
       color: #555;
-    }
-
-    .system-architecture {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .architecture-flow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 0.75rem;
-      margin-top: 12px;
-      flex-wrap: wrap;
-      overflow-x: auto;
-      padding: 8px 0;
-    }
-
-    .arch-box {
-      background: #f8f9fa;
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: 1px solid #e9ecef;
-      text-align: center;
-      min-width: 70px;
-      white-space: nowrap;
-    }
-
-    .arch-arrow {
-      color: #667eea;
-      font-weight: 700;
-      margin: 0 4px;
     }
 
     .controls-section {
@@ -797,48 +726,6 @@
       background: rgba(255, 255, 255, 0.5);
     }
 
-    .message-panel {
-      background: #fff;
-      border-radius: 8px;
-      padding: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      margin-bottom: 20px;
-      display: none;
-    }
-
-    .message-panel.show {
-      display: block;
-    }
-
-    .message-item {
-      padding: 12px;
-      background: #f8f9fa;
-      border-radius: 6px;
-      margin-bottom: 8px;
-      border-left: 4px solid #dc3545;
-    }
-
-    .message-item.medium {
-      border-left-color: #ffc107;
-      background: #fffbf0;
-    }
-
-    .message-item.low {
-      border-left-color: #28a745;
-      background: #f0fdf4;
-    }
-
-    .message-region {
-      font-weight: 700;
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-    }
-
-    .message-text {
-      font-size: 0.85rem;
-      color: #555;
-    }
-
     .sms-notification {
       position: fixed;
       bottom: 20px;
@@ -861,6 +748,109 @@
     @keyframes slideInUp {
       from { transform: translateY(100px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Photo Upload Section Styles */
+    .photo-section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      margin-bottom: 20px;
+    }
+
+    .photo-upload-area {
+      border: 2px dashed #667eea;
+      border-radius: 6px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f8f9ff;
+    }
+
+    .photo-upload-area:hover {
+      background: #f0f2ff;
+      border-color: #764ba2;
+    }
+
+    .photo-upload-area.dragover {
+      background: #e8f5e9;
+      border-color: #28a745;
+    }
+
+    .photo-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .photo-upload-text {
+      font-size: 0.9rem;
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .photo-upload-subtext {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    #photo-input {
+      display: none;
+    }
+
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .photo-item {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #f0f0f0;
+      aspect-ratio: 1;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .photo-delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .photo-item:hover .photo-delete-btn {
+      opacity: 1;
+    }
+
+    .photo-meta {
+      font-size: 0.7rem;
+      color: #999;
+      padding: 4px;
+      text-align: center;
+      background: #f8f9fa;
     }
 
     .footer {
@@ -973,9 +963,16 @@
     <div class="content-wrapper">
       <div class="section-heading">📡 NER Regions - Live Monitoring</div>
 
-      <div class="message-panel" id="message-panel">
-        <div class="section-title">📢 Active Alerts</div>
-        <div id="message-container"></div>
+      <!-- Photo Upload Section -->
+      <div class="photo-section">
+        <div class="section-title">📸 Upload Geotagged Photos</div>
+        <div class="photo-upload-area" id="photo-upload-area">
+          <div class="photo-icon">📷</div>
+          <div class="photo-upload-text">Click or drag photos here</div>
+          <div class="photo-upload-subtext">Geotagged photos of landslide areas (JPEG, PNG)</div>
+          <input type="file" id="photo-input" multiple accept="image/*" />
+        </div>
+        <div class="photo-gallery" id="photo-gallery"></div>
       </div>
 
       <div class="main-container">
@@ -998,538 +995,461 @@
           </div>
         </div>
 
-        <div>
-          <div class="card" id="risk-card">
+        <div class="sensor-section">
+          <div class="section-title">📊 Sensor Data</div>
+          <div class="sensor-grid">
+            <div class="sensor-item">
+              <div class="sensor-icon">🌧️</div>
+              <div class="sensor-label">Rainfall</div>
+              <div class="sensor-value" id="rainfall-value">15 mm/h</div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 15%;"></div></div>
+            </div>
+            <div class="sensor-item">
+              <div class="sensor-icon">💧</div>
+              <div class="sensor-label">Soil Moisture</div>
+              <div class="sensor-value" id="moisture-value">25%</div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 25%;"></div></div>
+            </div>
+            <div class="sensor-item">
+              <div class="sensor-icon">🏔️</div>
+              <div class="sensor-label">Slope Movement</div>
+              <div class="sensor-value" id="slope-value">2 mm</div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 10%;"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="warning-section">
+          <div class="section-title">⚠️ Current Status</div>
+          <div id="risk-status">
             <div class="risk-indicator">
-              <div class="risk-icon">✓</div>
+              <div class="risk-icon">✅</div>
               <div class="risk-info">
-                <h3>Current Risk Level</h3>
-                <div class="risk-value" id="risk-level">LOW</div>
+                <h3>Current Landslide Risk</h3>
+                <div class="risk-value" id="current-risk">LOW</div>
               </div>
             </div>
           </div>
-
-          <div class="card" style="margin-top: 16px;">
-            <h3 class="section-title" style="margin-bottom: 12px; margin-top: 0;">⚠️ Warning Status</h3>
-            <div class="warning-box low" id="warning-box">
-              <div class="warning-title">✓ Normal Operations</div>
-              <div class="warning-message" id="warning-message">All regions stable. Monitoring in progress.</div>
-            </div>
-          </div>
-
-          <div class="sensor-section" style="margin-top: 16px;">
-            <div class="section-title" style="margin-bottom: 16px;">📊 Sensor Data</div>
-            <div class="sensor-grid">
-              <div class="sensor-item">
-                <div class="sensor-icon">🌧️</div>
-                <div class="sensor-label">Rainfall</div>
-                <div class="sensor-value" id="sensor-rainfall">15 mm/h</div>
-                <div class="progress-bar"><div class="progress-fill" id="fill-rainfall" style="width: 15%"></div></div>
-              </div>
-              <div class="sensor-item">
-                <div class="sensor-icon">💧</div>
-                <div class="sensor-label">Soil Moisture</div>
-                <div class="sensor-value" id="sensor-moisture">25%</div>
-                <div class="progress-bar"><div class="progress-fill" id="fill-moisture" style="width: 25%"></div></div>
-              </div>
-              <div class="sensor-item">
-                <div class="sensor-icon">📈</div>
-                <div class="sensor-label">Slope Movement</div>
-                <div class="sensor-value" id="sensor-movement">2 mm</div>
-                <div class="progress-bar"><div class="progress-fill" id="fill-movement" style="width: 10%"></div></div>
-              </div>
-            </div>
-          </div>
+          <div id="warning-messages"></div>
         </div>
+      </div>
 
-        <div>
-          <div class="controls-section">
-            <h3 class="section-title" style="margin-bottom: 12px;">🎮 Simulation Controls</h3>
-            <div class="button-grid">
-              <button class="btn-simulate success" onclick="simulateNormal()">✓ Normal</button>
-              <button class="btn-simulate info" onclick="simulateRain()">☁️ Heavy Rain</button>
-              <button class="btn-simulate warning" onclick="simulateSaturation()">💧 Saturation</button>
-              <button class="btn-simulate danger" onclick="simulateLandslide()">⚠️ Landslide</button>
-            </div>
-            <div class="button-grid full">
-              <button class="btn-simulate" onclick="toggleNetwork()">📡 Toggle Network</button>
-            </div>
-          </div>
-
-          <div class="system-architecture" style="margin-top: 16px;">
-            <div class="section-title" style="margin-bottom: 0;">🏗️ System Flow</div>
-            <div class="architecture-flow">
-              <div class="arch-box">🌧️ Rainfall</div>
-              <div class="arch-arrow">→</div>
-              <div class="arch-box">💧 Moisture</div>
-              <div class="arch-arrow">→</div>
-              <div class="arch-box">📈 Movement</div>
-              <div class="arch-arrow">→</div>
-              <div class="arch-box">🧠 AI Engine</div>
-              <div class="arch-arrow">→</div>
-              <div class="arch-box">📊 Risk</div>
-            </div>
-            <div class="network-status available" id="network-status">
-              <div class="network-status-icon">📡</div>
-              <div class="network-status-text">Network Available</div>
-              <div style="font-size: 0.8rem; margin-top: 4px;">SMS & Dashboard Alerts Active</div>
-            </div>
-          </div>
-
-          <div class="warning-section" style="margin-top: 16px;">
-            <h3 class="section-title" style="margin-bottom: 0;">💬 Event Log</h3>
-            <div class="event-log" id="event-log">
-              <div class="log-entry"><span class="log-time">[00:00:00]</span> <span class="log-info">[SYSTEM]</span> System initialized</div>
-            </div>
-          </div>
+      <div class="controls-section">
+        <div class="section-title">🎮 Prototype Simulation Controls</div>
+        <div class="button-grid">
+          <button class="btn-simulate success" onclick="simulateNormalCondition()">✓ Normal Condition</button>
+          <button class="btn-simulate warning" onclick="simulateHeavyRain()">🌧️ Heavy Rain</button>
+          <button class="btn-simulate warning" onclick="simulateSoilSaturation()">💧 Soil Saturation</button>
+          <button class="btn-simulate danger" onclick="simulateLandslideRisk()">🚨 Simulate Landslide Risk</button>
+          <button class="btn-simulate info" onclick="toggleNetwork()">🌐 Toggle Network</button>
         </div>
+      </div>
+
+      <div class="sensor-section">
+        <div class="section-title">📋 System Event Log</div>
+        <div class="event-log" id="event-log"></div>
       </div>
     </div>
 
     <div class="footer">
-      <p>&copy; 2024 NER Landslide Early Warning | AI-Powered Disaster Management</p>
+      A safer tomorrow for the hills of NER | Smart Monitoring • Intelligent Prediction • Local Warning • Even Offline
     </div>
   </div>
 
   <script>
-    // ==================== USER MANAGEMENT ====================
-    const userDatabase = JSON.parse(localStorage.getItem('users')) || {};
-    const currentSession = JSON.parse(localStorage.getItem('currentSession')) || null;
+    let isNetworkOnline = true;
+    let users = {};
+    let currentUser = null;
+    let uploadedPhotos = [];
+    let alarmMuted = false;
+    let sirenAudioContext = null;
+    let sirenOscillators = [];
 
-    // ==================== STATE MANAGEMENT ====================
-    const state = {
-      isLoggedIn: !!currentSession,
-      currentUser: currentSession ? currentSession.username : null,
-      currentPhone: currentSession ? currentSession.phone : null,
-      isOnline: true,
-      currentRisk: 'low',
-      alarmActive: false,
-      regions: [
-        { name: 'Assam', x: 75, y: 25, risk: 'low' },
-        { name: 'Meghalaya', x: 70, y: 40, risk: 'low' },
-        { name: 'Nagaland', x: 82, y: 35, risk: 'low' },
-        { name: 'Manipur', x: 85, y: 45, risk: 'low' },
-        { name: 'Mizoram', x: 75, y: 60, risk: 'low' },
-        { name: 'Tripura', x: 68, y: 50, risk: 'low' }
-      ]
-    };
-
-    // ==================== INITIALIZATION ====================
-    document.addEventListener('DOMContentLoaded', () => {
-      if (state.isLoggedIn) {
-        showDashboard();
-        updateTime();
-        setInterval(updateTime, 1000);
-        renderMap();
-      } else {
-        showAuthContainer();
-      }
+    // Initialize
+    window.addEventListener('DOMContentLoaded', function() {
+      loadUsers();
+      setupPhotoUpload();
+      updateTime();
+      setInterval(updateTime, 1000);
     });
 
-    // ==================== AUTH FORM MANAGEMENT ====================
+    // ===== AUTHENTICATION =====
+    function loadUsers() {
+      const stored = localStorage.getItem('ner_users');
+      if (stored) users = JSON.parse(stored);
+    }
+
+    function saveUsers() {
+      localStorage.setItem('ner_users', JSON.stringify(users));
+    }
+
     function toggleAuthForms() {
-      const loginForm = document.getElementById('login-form-container');
-      const registerForm = document.getElementById('register-form-container');
-      
-      loginForm.classList.toggle('hidden-form');
-      registerForm.classList.toggle('hidden-form');
-      
-      // Clear errors
-      clearErrors();
+      document.getElementById('login-form-container').classList.toggle('hidden-form');
+      document.getElementById('register-form-container').classList.toggle('hidden-form');
+      clearAuthErrors();
     }
 
-    function clearErrors() {
-      document.getElementById('login-error').classList.remove('show');
-      document.getElementById('register-error').classList.remove('show');
-      document.getElementById('register-success').classList.remove('show');
-    }
-
-    // ==================== PASSWORD STRENGTH CHECKER ====================
-    function checkPasswordStrength() {
-      const password = document.getElementById('register-password').value;
-      const strengthDiv = document.getElementById('password-strength');
-      
-      let strength = 0;
-      if (password.length >= 6) strength++;
-      if (password.length >= 8) strength++;
-      if (/[A-Z]/.test(password)) strength++;
-      if (/[0-9]/.test(password)) strength++;
-      if (/[!@#$%^&*]/.test(password)) strength++;
-
-      let level = 'weak';
-      let message = 'Weak password';
-
-      if (strength >= 4) {
-        level = 'strong';
-        message = '✓ Strong password';
-      } else if (strength >= 3) {
-        level = 'good';
-        message = 'Good password';
-      } else if (strength >= 2) {
-        level = 'fair';
-        message = 'Fair password';
-      }
-
-      strengthDiv.className = `password-strength ${level}`;
-      strengthDiv.textContent = message;
-      strengthDiv.style.display = 'block';
-    }
-
-    // ==================== REGISTRATION ====================
     function handleRegister(e) {
       e.preventDefault();
-      
-      const fullname = document.getElementById('register-fullname').value.trim();
-      const username = document.getElementById('register-username').value.trim();
-      const phone = document.getElementById('register-phone').value.trim();
+      const fullname = document.getElementById('register-fullname').value;
+      const username = document.getElementById('register-username').value;
+      const phone = document.getElementById('register-phone').value;
       const password = document.getElementById('register-password').value;
-      const confirmPassword = document.getElementById('register-confirm-password').value;
-
+      const confirm = document.getElementById('register-confirm-password').value;
       const errorDiv = document.getElementById('register-error');
       const successDiv = document.getElementById('register-success');
 
       errorDiv.classList.remove('show');
       successDiv.classList.remove('show');
 
-      // Validation
-      if (!fullname) {
-        showError(errorDiv, 'Please enter your full name');
+      if (password !== confirm) {
+        showError(errorDiv, 'Passwords do not match!');
         return;
       }
 
-      if (username.length < 3) {
-        showError(errorDiv, 'Username must be at least 3 characters');
+      if (users[username]) {
+        showError(errorDiv, 'Username already exists!');
         return;
       }
 
-      if (userDatabase[username]) {
-        showError(errorDiv, 'Username already exists');
-        return;
-      }
-
-      if (phone.length !== 10 || !/^\d+$/.test(phone)) {
-        showError(errorDiv, 'Please enter a valid 10-digit phone number');
-        return;
-      }
-
-      if (password.length < 6) {
-        showError(errorDiv, 'Password must be at least 6 characters');
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        showError(errorDiv, 'Passwords do not match');
-        return;
-      }
-
-      // Save user
-      userDatabase[username] = {
-        fullname,
-        phone,
-        password: btoa(password) // Basic encoding (not secure - use proper hashing in production)
-      };
-      localStorage.setItem('users', JSON.stringify(userDatabase));
-
-      // Show success
-      showSuccess(successDiv, 'Registration successful! Redirecting to login...');
-      
-      // Reset form
+      users[username] = { fullname, username, phone, password };
+      saveUsers();
+      showSuccess(successDiv, 'Registration successful! Please login.');
       document.getElementById('register-form').reset();
-      document.getElementById('password-strength').style.display = 'none';
-
-      // Redirect to login after 2 seconds
-      setTimeout(() => {
-        toggleAuthForms();
-      }, 2000);
+      setTimeout(() => toggleAuthForms(), 2000);
     }
 
-    // ==================== LOGIN ====================
     function handleLogin(e) {
       e.preventDefault();
-      
-      const username = document.getElementById('login-username').value.trim();
+      const username = document.getElementById('login-username').value;
       const password = document.getElementById('login-password').value;
       const errorDiv = document.getElementById('login-error');
 
       errorDiv.classList.remove('show');
 
-      if (!username || !password) {
-        showError(errorDiv, 'Please enter username and password');
+      if (!users[username] || users[username].password !== password) {
+        showError(errorDiv, 'Invalid username or password!');
         return;
       }
 
-      if (!userDatabase[username]) {
-        showError(errorDiv, 'Invalid username or password');
-        return;
-      }
-
-      const user = userDatabase[username];
-      if (btoa(password) !== user.password) {
-        showError(errorDiv, 'Invalid username or password');
-        return;
-      }
-
-      // Successful login
-      state.isLoggedIn = true;
-      state.currentUser = username;
-      state.currentPhone = user.phone;
-
-      const session = {
-        username,
-        phone: user.phone,
-        loginTime: new Date().toISOString()
-      };
-      localStorage.setItem('currentSession', JSON.stringify(session));
-
+      currentUser = users[username];
       showDashboard();
-      addLog('SYSTEM', `User ${username} logged in successfully`, 'info');
-      updateTime();
-      setInterval(updateTime, 1000);
-      renderMap();
+      document.getElementById('login-form').reset();
     }
 
-    // ==================== LOGOUT ====================
     function handleLogout() {
-      if (confirm('Are you sure you want to logout?')) {
-        state.isLoggedIn = false;
-        localStorage.removeItem('currentSession');
-        showAuthContainer();
-        document.getElementById('login-form').reset();
-        document.getElementById('register-form').reset();
-        clearErrors();
-      }
-    }
-
-    // ==================== UI MANAGEMENT ====================
-    function showAuthContainer() {
+      currentUser = null;
       document.getElementById('auth-container').style.display = 'flex';
       document.getElementById('dashboard-container').classList.remove('show');
+      uploadedPhotos = [];
+      document.getElementById('photo-gallery').innerHTML = '';
+      stopSiren();
+    }
+
+    function showError(div, msg) {
+      div.textContent = msg;
+      div.classList.add('show');
+    }
+
+    function showSuccess(div, msg) {
+      div.textContent = msg;
+      div.classList.add('show');
+    }
+
+    function clearAuthErrors() {
+      document.getElementById('login-error').classList.remove('show');
+      document.getElementById('register-error').classList.remove('show');
+    }
+
+    function checkPasswordStrength() {
+      const pwd = document.getElementById('register-password').value;
+      const strengthDiv = document.getElementById('password-strength');
+      strengthDiv.style.display = 'block';
+      
+      let strength = 'weak';
+      if (pwd.length >= 8 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) strength = 'strong';
+      else if (pwd.length >= 6 && /[A-Z]/.test(pwd)) strength = 'good';
+      else if (pwd.length >= 6) strength = 'fair';
+
+      strengthDiv.className = `password-strength ${strength}`;
+      strengthDiv.textContent = `Password Strength: ${strength.toUpperCase()}`;
     }
 
     function showDashboard() {
       document.getElementById('auth-container').style.display = 'none';
       document.getElementById('dashboard-container').classList.add('show');
-      document.getElementById('current-user').textContent = state.currentUser;
+      document.getElementById('current-user').textContent = currentUser.fullname;
+      initializeMapRegions();
+      addLog('[SYSTEM] Dashboard initialized. Monitoring system online.');
     }
 
-    function showError(element, message) {
-      element.textContent = '❌ ' + message;
-      element.classList.add('show');
-    }
+    // ===== PHOTO UPLOAD =====
+    function setupPhotoUpload() {
+      const uploadArea = document.getElementById('photo-upload-area');
+      const photoInput = document.getElementById('photo-input');
 
-    function showSuccess(element, message) {
-      element.textContent = '✓ ' + message;
-      element.classList.add('show');
-    }
+      uploadArea.addEventListener('click', () => photoInput.click());
 
-    // ==================== TIME UPDATE ====================
-    function updateTime() {
-      const now = new Date();
-      document.getElementById('current-time').textContent = now.toLocaleTimeString();
-    }
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
 
-    // ==================== MAP RENDERING ====================
-    function renderMap() {
-      const mapContainer = document.getElementById('map-container');
-      mapContainer.innerHTML = '';
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+      });
 
-      state.regions.forEach((region, index) => {
-        const element = document.createElement('div');
-        element.className = `ner-region ${region.risk}`;
-        element.style.left = region.x + '%';
-        element.style.top = region.y + '%';
-        element.style.transform = 'translate(-50%, -50%)';
-        element.innerHTML = `
-          <span>${index + 1}</span>
-          <div class="ner-region-label">${region.name}</div>
-        `;
-        element.onclick = () => {
-          addLog('USER', `Clicked region: ${region.name} (${region.risk} risk)`, 'info');
-        };
-        mapContainer.appendChild(element);
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        handlePhotoFiles(e.dataTransfer.files);
+      });
+
+      photoInput.addEventListener('change', (e) => {
+        handlePhotoFiles(e.target.files);
       });
     }
 
-    // ==================== SIMULATION CONTROLS ====================
-    function simulateNormal() {
-      state.currentRisk = 'low';
-      state.regions.forEach(r => r.risk = 'low');
-      updateDashboard();
-      sendSMSAlert(`Normal conditions in all regions`);
-      addLog('SYSTEM', 'Simulation: Normal conditions', 'info');
+    function handlePhotoFiles(files) {
+      Array.from(files).forEach(file => {
+        if (file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const photo = {
+              id: Date.now(),
+              src: e.target.result,
+              name: file.name,
+              timestamp: new Date().toLocaleString()
+            };
+            uploadedPhotos.push(photo);
+            displayPhotos();
+            addLog(`[PHOTO] Geotagged photo uploaded: ${file.name}`);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
     }
 
-    function simulateRain() {
-      state.currentRisk = 'medium';
-      state.regions.forEach(r => r.risk = 'medium');
-      document.getElementById('sensor-rainfall').textContent = '50 mm/h';
-      document.getElementById('fill-rainfall').style.width = '50%';
-      updateDashboard();
-      sendSMSAlert('Heavy rain detected in NER region. Monitoring intensified.');
-      addLog('SYSTEM', 'Simulation: Heavy rain initiated', 'warning');
+    function displayPhotos() {
+      const gallery = document.getElementById('photo-gallery');
+      gallery.innerHTML = uploadedPhotos.map(photo => `
+        <div class="photo-item">
+          <img src="${photo.src}" alt="${photo.name}">
+          <button class="photo-delete-btn" onclick="deletePhoto(${photo.id})">✕</button>
+          <div class="photo-meta">${photo.name}</div>
+        </div>
+      `).join('');
     }
 
-    function simulateSaturation() {
-      state.currentRisk = 'high';
-      state.regions.forEach(r => r.risk = 'high');
-      document.getElementById('sensor-moisture').textContent = '92%';
-      document.getElementById('fill-moisture').style.width = '92%';
-      document.getElementById('sensor-movement').textContent = '15 mm';
-      document.getElementById('fill-movement').style.width = '75%';
-      updateDashboard();
-      sendSMSAlert('Soil saturation critical! Risk level: HIGH');
-      addLog('SYSTEM', 'Simulation: Soil saturation critical', 'warning');
+    function deletePhoto(id) {
+      uploadedPhotos = uploadedPhotos.filter(p => p.id !== id);
+      displayPhotos();
+      addLog('[PHOTO] Photo deleted');
     }
 
-    function simulateLandslide() {
-      state.currentRisk = 'high';
-      state.regions.forEach(r => r.risk = 'high');
-      document.getElementById('sensor-rainfall').textContent = '95 mm/h';
-      document.getElementById('fill-rainfall').style.width = '95%';
-      document.getElementById('sensor-moisture').textContent = '99%';
-      document.getElementById('fill-moisture').style.width = '99%';
-      document.getElementById('sensor-movement').textContent = '45 mm';
-      document.getElementById('fill-movement').style.width = '100%';
-      updateDashboard();
-      triggerAlarm();
-      sendSMSAlert('⚠️ LANDSLIDE ALERT: Critical risk detected! Evacuate immediately!');
-      addLog('SYSTEM', 'Simulation: LANDSLIDE RISK DETECTED', 'warning');
-    }
-
+    // ===== NETWORK & SMS =====
     function toggleNetwork() {
-      state.isOnline = !state.isOnline;
-      const badge = document.getElementById('network-badge');
-      const status = document.getElementById('network-status');
+      isNetworkOnline = !isNetworkOnline;
+      updateNetworkStatus();
+      addLog(`[NETWORK] Network status changed to ${isNetworkOnline ? 'ONLINE' : 'OFFLINE'}`);
       
-      if (state.isOnline) {
+      if (!isNetworkOnline && currentUser) {
+        playSiren();
+        showAlarm();
+      } else {
+        stopSiren();
+        dismissAlarm();
+      }
+    }
+
+    function updateNetworkStatus() {
+      const badge = document.getElementById('network-badge');
+      if (isNetworkOnline) {
         badge.classList.remove('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: ONLINE</span>';
-        status.classList.add('available');
-        status.classList.remove('unavailable');
-        status.innerHTML = `
-          <div class="network-status-icon">📡</div>
-          <div class="network-status-text">Network Available</div>
-          <div style="font-size: 0.8rem; margin-top: 4px;">SMS & Dashboard Alerts Active</div>
-        `;
-        addLog('SYSTEM', 'Network connection restored', 'info');
       } else {
         badge.classList.add('offline');
         badge.innerHTML = '<span class="status-dot"></span><span>NETWORK: OFFLINE</span>';
-        status.classList.remove('available');
-        status.classList.add('unavailable');
-        status.innerHTML = `
-          <div class="network-status-icon">📡</div>
-          <div class="network-status-text">Network Unavailable</div>
-          <div style="font-size: 0.8rem; margin-top: 4px;">Local Warning Activated - SMS Queued</div>
-        `;
-        addLog('SYSTEM', 'Network connection lost', 'warning');
-        triggerAlarm();
       }
     }
 
-    // ==================== ALERTS & NOTIFICATIONS ====================
-    function updateDashboard() {
-      const riskCard = document.getElementById('risk-card');
-      const riskLevel = document.getElementById('risk-level');
-      const warningBox = document.getElementById('warning-box');
-      const warningMessage = document.getElementById('warning-message');
-
-      riskCard.className = 'card risk-' + state.currentRisk;
-      riskLevel.textContent = state.currentRisk.toUpperCase();
-
-      const riskScores = { low: 12, medium: 50, high: 100 };
-      riskLevel.textContent = `${state.currentRisk.toUpperCase()}`;
-
-      warningBox.className = 'warning-box ' + state.currentRisk;
-
-      const messages = {
-        low: { title: '✓ Normal Operations', msg: 'All regions stable. Monitoring in progress.' },
-        medium: { title: '⚠️ Moderate Alert', msg: 'Enhanced monitoring active in affected regions.' },
-        high: { title: '🔴 High Risk Alert', msg: 'Immediate action required. Evacuation recommended.' }
-      };
-
-      warningBox.innerHTML = `
-        <div class="warning-title">${messages[state.currentRisk].title}</div>
-        <div class="warning-message">${messages[state.currentRisk].msg}</div>
-      `;
-
-      renderMap();
+    function sendSMS() {
+      if (isNetworkOnline && currentUser) {
+        const phone = currentUser.phone;
+        const smsDiv = document.getElementById('sms-notification');
+        smsDiv.classList.add('show');
+        document.getElementById('sms-message').textContent = `📱 Alert sent to +91${phone}`;
+        addLog(`[SMS] SMS sent to +91${phone}: HIGH RISK ALERT - Landslide warning activated!`);
+        setTimeout(() => smsDiv.classList.remove('show'), 4000);
+      }
     }
 
-    function triggerAlarm() {
-      if (!state.alarmActive) {
-        state.alarmActive = true;
-        const alarm = document.getElementById('alarm-notification');
-        alarm.classList.add('show', 'pulse');
-        
-        // Simple audio notification (beep)
-        try {
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          const oscillator = audioContext.createOscillator();
-          const gainNode = audioContext.createGain();
-          
-          oscillator.connect(gainNode);
-          gainNode.connect(audioContext.destination);
-          
-          oscillator.frequency.value = 800;
-          gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-          
-          oscillator.start(audioContext.currentTime);
-          oscillator.stop(audioContext.currentTime + 0.5);
-        } catch (e) {
-          console.log('Audio context not available');
-        }
+    // ===== SIREN AUDIO =====
+    function playSiren() {
+      if (!sirenAudioContext) {
+        sirenAudioContext = new (window.AudioContext || window.webkitAudioContext)();
       }
+
+      const ctx = sirenAudioContext;
+      if (ctx.state === 'suspended') ctx.resume();
+
+      // Create two oscillators for siren effect
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const lfo = ctx.createOscillator();
+
+      osc1.frequency.value = 800;
+      osc2.frequency.value = 600;
+      lfo.frequency.value = 3;
+
+      lfo.connect(osc1.frequency);
+      lfo.connect(osc2.frequency);
+
+      gain.gain.setValueAtTime(0.2, ctx.currentTime);
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start();
+      osc2.start();
+      lfo.start();
+
+      sirenOscillators = [osc1, osc2, lfo];
+      addLog('[ALARM] 🔊 SIREN ACTIVATED - OFFLINE MODE');
+    }
+
+    function stopSiren() {
+      if (sirenAudioContext && sirenOscillators.length > 0) {
+        sirenOscillators.forEach(osc => {
+          try { osc.stop(); } catch(e) {}
+        });
+        sirenOscillators = [];
+      }
+      alarmMuted = false;
     }
 
     function muteAlarm() {
-      document.getElementById('alarm-notification').classList.remove('pulse');
-      addLog('USER', 'Alarm muted', 'info');
+      alarmMuted = true;
+      stopSiren();
+      addLog('[ALARM] Siren muted by user');
     }
 
     function dismissAlarm() {
-      state.alarmActive = false;
       document.getElementById('alarm-notification').classList.remove('show', 'pulse');
-      addLog('USER', 'Alarm dismissed', 'info');
+      stopSiren();
     }
 
-    function sendSMSAlert(message) {
-      if (!state.currentPhone) return;
-
-      // In production, integrate with SMS service like Twilio
-      console.log(`📱 SMS to ${state.currentPhone}: ${message}`);
-
-      const smsNotif = document.getElementById('sms-notification');
-      document.getElementById('sms-message').textContent = `Message sent to ${state.currentPhone}`;
-      smsNotif.classList.add('show');
-
-      setTimeout(() => {
-        smsNotif.classList.remove('show');
-      }, 4000);
-
-      addLog('SYSTEM', `SMS sent to ${state.currentPhone}`, 'info');
+    function showAlarm() {
+      const alarm = document.getElementById('alarm-notification');
+      alarm.classList.add('show', 'pulse');
     }
 
-    // ==================== EVENT LOG ====================
-    function addLog(type, message, level) {
-      const eventLog = document.getElementById('event-log');
-      const now = new Date();
-      const time = now.toLocaleTimeString();
+    // ===== SIMULATION =====
+    function simulateNormalCondition() {
+      updateSensorValues(15, 25, 2, 'LOW', '✅');
+      addLog('[SIMULATION] Normal condition simulated');
+    }
+
+    function simulateHeavyRain() {
+      updateSensorValues(95, 45, 5, 'MEDIUM', '⚠️');
+      addLog('[SIMULATION] Heavy rain scenario activated');
+      if (isNetworkOnline) sendSMS();
+    }
+
+    function simulateSoilSaturation() {
+      updateSensorValues(50, 92, 8, 'MEDIUM', '⚠️');
+      addLog('[SIMULATION] Soil saturation scenario activated');
+      if (isNetworkOnline) sendSMS();
+    }
+
+    function simulateLandslideRisk() {
+      updateSensorValues(95, 92, 18, 'HIGH', '🔴');
+      addLog('[SIMULATION] HIGH RISK LANDSLIDE DETECTED!');
+      if (isNetworkOnline) {
+        sendSMS();
+        showAlarm();
+      } else {
+        playSiren();
+        showAlarm();
+      }
+    }
+
+    function updateSensorValues(rainfall, moisture, slope, risk, icon) {
+      document.getElementById('rainfall-value').textContent = rainfall + ' mm/h';
+      document.getElementById('moisture-value').textContent = moisture + '%';
+      document.getElementById('slope-value').textContent = slope + ' mm';
+      document.getElementById('current-risk').textContent = risk;
+      document.querySelector('.risk-icon').textContent = icon;
       
+      updateMapRegions(risk);
+    }
+
+    // ===== MAP REGIONS =====
+    function initializeMapRegions() {
+      const mapContainer = document.getElementById('map-container');
+      mapContainer.innerHTML = `
+        <div class="ner-region low" style="top: 20%; left: 15%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Sikkim</div>
+        </div>
+        <div class="ner-region low" style="top: 35%; left: 35%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Arunachal Pradesh</div>
+        </div>
+        <div class="ner-region medium" style="top: 50%; left: 20%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Assam</div>
+        </div>
+        <div class="ner-region low" style="top: 65%; left: 35%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Nagaland</div>
+        </div>
+        <div class="ner-region low" style="top: 70%; left: 20%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Manipur</div>
+        </div>
+        <div class="ner-region low" style="top: 50%; left: 10%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Meghalaya</div>
+        </div>
+        <div class="ner-region low" style="top: 80%; left: 25%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Tripura</div>
+        </div>
+        <div class="ner-region low" style="top: 75%; left: 40%;" onclick="handleRegionClick(this)">
+          <div class="ner-region-label">Mizoram</div>
+        </div>
+      `;
+    }
+
+    function handleRegionClick(region) {
+      addLog(`[REGION] ${region.querySelector('.ner-region-label').textContent} clicked - Risk: ${region.className.split(' ')[1].toUpperCase()}`);
+    }
+
+    function updateMapRegions(risk) {
+      const regions = document.querySelectorAll('.ner-region');
+      regions.forEach(r => {
+        r.classList.remove('low', 'medium', 'high');
+        if (risk === 'HIGH') r.classList.add('high');
+        else if (risk === 'MEDIUM') r.classList.add('medium');
+        else r.classList.add('low');
+      });
+    }
+
+    // ===== EVENT LOG =====
+    function addLog(message) {
+      const log = document.getElementById('event-log');
+      const time = new Date().toLocaleTimeString();
       const entry = document.createElement('div');
       entry.className = 'log-entry';
-      entry.innerHTML = `
-        <span class="log-time">[${time}]</span>
-        <span class="log-system">[${type}]</span>
-        <span class="log-${level}">${message}</span>
-      `;
+      
+      let logClass = 'log-info';
+      if (message.includes('ERROR') || message.includes('OFFLINE')) logClass = 'log-warning';
+      if (message.includes('SIMULATION') || message.includes('SYSTEM')) logClass = 'log-system';
 
-      eventLog.insertBefore(entry, eventLog.firstChild);
+      entry.innerHTML = `<span class="log-time">[${time}]</span> <span class="${logClass}">${message}</span>`;
+      log.insertBefore(entry, log.firstChild);
+      if (log.children.length > 20) log.removeChild(log.lastChild);
+    }
 
-      if (eventLog.children.length > 50) {
-        eventLog.removeChild(eventLog.lastChild);
-      }
+    function updateTime() {
+      document.getElementById('current-time').textContent = new Date().toLocaleString('en-US', {
+        month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+      });
     }
   </script>
 </body>
